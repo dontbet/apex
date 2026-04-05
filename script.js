@@ -1399,9 +1399,25 @@ function setActionButtonState(button, stateClass, lineOne, lineTwo = '', disable
   }
 
   if (stateChanged) {
-    if (stateClass === 'state-win' || stateClass === 'state-saved') {
+    const ma = window.motionAnimate;
+    if (stateClass === 'state-win' && ma) {
+      const lineOne = button.querySelector('.btn-line-one');
+      ma(button, {
+        scale: [1, 1.08, 1.02],
+        boxShadow: ['0px 0px 30px rgba(0,242,126,0.8)', '0px 0px 50px rgba(0,242,126,1)', '0px 0px 30px rgba(0,242,126,0.8)']
+      }, { duration: 0.4, times: [0, 0.3, 1] });
+      if (lineOne) ma(lineOne, { scale: [0.8, 1], opacity: [0, 1] }, { duration: 0.2, delay: 0.05 });
+    } else if (stateClass === 'state-saved' && ma) {
+      const lineOne = button.querySelector('.btn-line-one');
+      ma(button, {
+        scale: [1, 1.06, 1.01],
+        boxShadow: ['0px 0px 30px rgba(0,242,126,0.8)', '0px 0px 50px rgba(0,242,126,1)', '0px 0px 30px rgba(0,242,126,0.8)']
+      }, { duration: 0.4, times: [0, 0.3, 1] });
+      if (lineOne) ma(lineOne, { scale: [0.8, 1], opacity: [0, 1] }, { duration: 0.2, delay: 0.05 });
+    } else if (stateClass === 'state-win' || stateClass === 'state-saved') {
       runButtonAnimation(button, 'amount-pop-enter', 420);
     } else {
+      if (ma) ma(button, { scale: 1, boxShadow: 'none' }, { duration: 0 });
       runButtonAnimation(button, 'state-swap-enter', 320);
     }
   }

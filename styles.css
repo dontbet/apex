@@ -1205,7 +1205,6 @@ body.booting .scene {
   line-height: 1.1;
   user-select: none;
   -webkit-user-select: none;
-  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .bet-btn .btn-line-one,
