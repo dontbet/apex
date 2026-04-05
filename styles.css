@@ -2049,6 +2049,7 @@ body.modal-open {
 .tab:not(.active):focus-visible {
   background: #1f1f1f;
   color: #f3f3f3;
+  border-radius: 10px;
   outline: none;
 }
 
