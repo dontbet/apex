@@ -1036,7 +1036,7 @@ body.booting .scene {
   width: calc(50% - 4px);
   background: #383838;
   border: 1px solid #4a4a4a;
-  border-radius: 20px;
+  border-radius: 12px;
   height: 83px;
   padding: 12px;
   display: flex;
