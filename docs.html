@@ -1,1350 +1,1148 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>F35 Crash — Developer Docs</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-    <style>
-      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>F35 Crash — Design System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Jersey+25&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Doc shell ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --doc-bg: #0c0c0c;
+      --doc-surface: #111111;
+      --doc-border: #222222;
+      --doc-border2: #2a2a2a;
+      --doc-text: #e8e8e8;
+      --doc-muted: #666;
+      --doc-accent: #00f27e;
+      --doc-nav-w: 220px;
+      --mono: 'JetBrains Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--doc-bg); color: var(--doc-text); font-family: 'Inter', sans-serif; font-size: 14px; display: flex; min-height: 100vh; }
 
-      :root {
-        --bg: #0f0f0f;
-        --bg-surface: #161616;
-        --bg-raised: #1e1e1e;
-        --bg-code: #111111;
-        --border: #2a2a2a;
-        --border-hover: #3a3a3a;
-        --accent: #00f27e;
-        --accent-dim: rgba(0, 242, 126, 0.12);
-        --accent-dim2: rgba(0, 242, 126, 0.06);
-        --text-primary: #f0f0f0;
-        --text-secondary: #999;
-        --text-muted: #555;
-        --text-code: #a8d8a8;
-        --tag-blue: rgba(59, 130, 246, 0.15);
-        --tag-blue-text: #93c5fd;
-        --tag-violet: rgba(139, 92, 246, 0.15);
-        --tag-violet-text: #c4b5fd;
-        --tag-amber: rgba(245, 158, 11, 0.15);
-        --tag-amber-text: #fcd34d;
-        --tag-green: rgba(0, 242, 126, 0.12);
-        --tag-green-text: #00f27e;
-        --nav-w: 260px;
-        --content-max: 860px;
-        --radius: 8px;
-        --radius-sm: 5px;
-        --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-      }
+    /* ─── Sidebar ─── */
+    .nav { position: fixed; top: 0; left: 0; width: var(--doc-nav-w); height: 100vh; background: var(--doc-surface); border-right: 1px solid var(--doc-border); overflow-y: auto; display: flex; flex-direction: column; padding: 0 0 40px; z-index: 10; }
+    .nav-logo { padding: 20px 16px 16px; border-bottom: 1px solid var(--doc-border); margin-bottom: 8px; }
+    .nav-logo .game-name { font-family: 'Jersey 25', sans-serif; font-size: 22px; letter-spacing: -1px; color: #fff; line-height: 1; }
+    .nav-logo .game-name span { color: #f8a814; }
+    .nav-logo .sub { font-size: 11px; color: var(--doc-muted); margin-top: 2px; text-transform: uppercase; letter-spacing: .08em; }
+    .nav-group { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: #444; padding: 14px 16px 4px; }
+    .nav a { display: block; padding: 5px 16px; font-size: 13px; color: #888; text-decoration: none; border-left: 2px solid transparent; transition: all .15s; }
+    .nav a:hover { color: var(--doc-text); background: rgba(255,255,255,.03); }
+    .nav a.active { color: var(--doc-accent); border-left-color: var(--doc-accent); background: rgba(0,242,126,.05); }
 
-      html { scroll-behavior: smooth; }
+    /* ─── Content ─── */
+    .main { margin-left: var(--doc-nav-w); flex: 1; min-width: 0; }
+    .content { max-width: 840px; padding: 48px 48px 120px; }
 
-      body {
-        background: var(--bg);
-        color: var(--text-primary);
-        font-family: 'Inter', system-ui, sans-serif;
-        font-size: 14px;
-        line-height: 1.7;
-        display: flex;
-      }
+    /* ─── Sections ─── */
+    section { padding-top: 72px; margin-top: -32px; }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--doc-accent); margin-bottom: 6px; }
+    h2 { font-size: 20px; font-weight: 700; color: #fff; letter-spacing: -.02em; margin-bottom: 4px; }
+    .section-desc { font-size: 13px; color: #666; margin-bottom: 28px; line-height: 1.6; }
+    h3 { font-size: 13px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: .08em; margin: 28px 0 12px; }
 
-      /* ── Sidebar nav ── */
-      .nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: var(--nav-w);
-        height: 100vh;
-        background: var(--bg-surface);
-        border-right: 1px solid var(--border);
-        overflow-y: auto;
-        padding: 28px 0 40px;
-        z-index: 100;
-        display: flex;
-        flex-direction: column;
-      }
+    /* ─── Component block ─── */
+    .comp { border: 1px solid var(--doc-border); border-radius: 10px; overflow: hidden; margin-bottom: 24px; }
+    .comp-title { font-size: 12px; font-weight: 600; color: #666; padding: 10px 16px; border-bottom: 1px solid var(--doc-border); background: var(--doc-surface); display: flex; align-items: center; justify-content: space-between; }
+    .comp-preview { padding: 28px 24px; background: #161616; display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; }
+    .comp-preview.dark-preview { background: #151515; }
+    .comp-preview.centered { justify-content: center; align-items: center; }
+    .comp-code { position: relative; }
+    .code-tabs { display: flex; border-top: 1px solid var(--doc-border); background: var(--doc-surface); }
+    .code-tab { padding: 7px 14px; font-size: 11px; color: #555; cursor: pointer; border-bottom: 2px solid transparent; transition: all .15s; background: none; border-top: none; border-left: none; border-right: none; font-family: inherit; }
+    .code-tab.active { color: var(--doc-text); border-bottom-color: var(--doc-accent); }
+    .code-panel { display: none; position: relative; }
+    .code-panel.active { display: block; }
+    pre { background: #0a0a0a; border-top: 1px solid var(--doc-border); padding: 14px 16px; font-family: var(--mono); font-size: 12px; line-height: 1.65; color: #c9d1d9; overflow-x: auto; margin: 0; }
+    .copy-btn { position: absolute; top: 8px; right: 8px; background: #1e1e1e; border: 1px solid var(--doc-border2); color: #666; font-size: 11px; padding: 4px 10px; border-radius: 5px; cursor: pointer; font-family: inherit; transition: all .15s; }
+    .copy-btn:hover { background: #2a2a2a; color: var(--doc-text); }
+    .copy-btn.copied { color: var(--doc-accent); border-color: var(--doc-accent); }
 
-      .nav-brand {
-        padding: 0 20px 24px;
-        border-bottom: 1px solid var(--border);
-        margin-bottom: 16px;
-      }
-      .nav-brand h1 {
-        font-size: 15px;
-        font-weight: 700;
-        color: var(--text-primary);
-        letter-spacing: -0.02em;
-      }
-      .nav-brand h1 span { color: var(--accent); }
-      .nav-brand p {
-        font-size: 11px;
-        color: var(--text-muted);
-        margin-top: 3px;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-      }
+    /* syntax */
+    .t-tag { color: #7ee787; }
+    .t-attr { color: #79c0ff; }
+    .t-val { color: #a5d6ff; }
+    .t-str { color: #a5d6ff; }
+    .t-prop { color: #79c0ff; }
+    .t-num { color: #f2cc60; }
+    .t-cmt { color: #8b949e; font-style: italic; }
+    .t-sel { color: #7ee787; }
+    .t-kw { color: #ff7b72; }
 
-      .nav-section {
-        padding: 6px 20px 2px;
-        font-size: 10px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: var(--text-muted);
-        margin-top: 14px;
-      }
+    /* ─── Color grid ─── */
+    .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-bottom: 24px; }
+    .swatch { border: 1px solid rgba(255,255,255,.08); border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform .15s; }
+    .swatch:hover { transform: translateY(-2px); }
+    .swatch-block { height: 56px; }
+    .swatch-info { background: var(--doc-surface); padding: 8px 10px; }
+    .swatch-name { font-size: 11px; font-weight: 600; color: var(--doc-text); display: block; }
+    .swatch-hex { font-family: var(--mono); font-size: 11px; color: #666; display: block; margin-top: 2px; }
+    .swatch.copied .swatch-hex { color: var(--doc-accent); }
 
-      .nav a {
-        display: block;
-        padding: 6px 20px;
-        color: var(--text-secondary);
-        text-decoration: none;
-        font-size: 13px;
-        border-left: 2px solid transparent;
-        transition: color 0.15s, border-color 0.15s, background 0.15s;
-      }
-      .nav a:hover { color: var(--text-primary); background: var(--accent-dim2); }
-      .nav a.active { color: var(--accent); border-left-color: var(--accent); background: var(--accent-dim2); }
+    /* ─── Token table ─── */
+    .token-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 24px; }
+    .token-table th { text-align: left; padding: 6px 12px; font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: #555; background: var(--doc-surface); border-bottom: 1px solid var(--doc-border); }
+    .token-table td { padding: 9px 12px; border-bottom: 1px solid var(--doc-border); color: #888; vertical-align: middle; }
+    .token-table tr:last-child td { border-bottom: none; }
+    .token-table td:first-child { font-family: var(--mono); font-size: 11.5px; color: var(--doc-text); }
+    .dot { width: 14px; height: 14px; border-radius: 3px; display: inline-block; vertical-align: middle; margin-right: 8px; border: 1px solid rgba(255,255,255,.1); }
 
-      /* ── Main content ── */
-      .main {
-        margin-left: var(--nav-w);
-        flex: 1;
-        min-width: 0;
-      }
+    /* ─── Hero ─── */
+    .hero { padding-bottom: 40px; border-bottom: 1px solid var(--doc-border); margin-bottom: 8px; }
+    .hero h1 { font-family: 'Jersey 25', sans-serif; font-size: 42px; letter-spacing: -2px; color: #fff; line-height: 1; margin-bottom: 10px; }
+    .hero h1 span { color: #f8a814; }
+    .hero p { font-size: 14px; color: #666; line-height: 1.6; max-width: 480px; }
+    .hero-meta { display: flex; gap: 16px; margin-top: 16px; font-size: 12px; color: #555; }
+    .hero-meta span { display: flex; align-items: center; gap: 5px; }
+    .dot-green { width: 7px; height: 7px; border-radius: 50%; background: var(--doc-accent); display: inline-block; }
 
-      .content {
-        max-width: var(--content-max);
-        padding: 56px 48px 120px;
-      }
+    /* ─── Divider ─── */
+    .divider { height: 1px; background: var(--doc-border); margin: 0 0 8px; }
 
-      /* ── Sections ── */
-      section {
-        padding-top: 80px;
-        margin-top: -40px;
-      }
+    /* ─── Scrollbar ─── */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-thumb { background: #222; border-radius: 3px; }
 
-      /* ── Typography ── */
-      h2 {
-        font-size: 22px;
-        font-weight: 700;
-        letter-spacing: -0.025em;
-        color: var(--text-primary);
-        margin-bottom: 6px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-      h2::after {
-        content: '';
-        flex: 1;
-        height: 1px;
-        background: var(--border);
-      }
+    /* ═══════════════════════════════════════════
+       GAME COMPONENT STYLES — exact copy from game
+    ═══════════════════════════════════════════ */
+    .g-root {
+      --bg-main: #272727;
+      --shell: #272727;
+      --ink: #151616;
+      --ink-soft: #242728;
+      --line: #353535;
+      --text: #f3f3f3;
+      --muted: #9fa7a8;
+      --green: #35cf58;
+      --accent: #00f27e;
+      --radius: 12px;
+      --chip: #303030;
+      font-family: 'Jersey 25', 'Inter', system-ui, sans-serif;
+      font-size: 16px;
+      color: var(--text);
+    }
 
-      h3 {
-        font-size: 15px;
-        font-weight: 600;
-        color: var(--text-primary);
-        margin: 28px 0 10px;
-      }
+    /* History chips */
+    .g-history-chip { border: 1px solid #525252; background: var(--chip, #303030); color: #f3f3f3; border-radius: 8px; height: 27px; padding: 0 10px; font: inherit; font-size: 16px; line-height: 1; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: transform .15s, background .15s, border-color .15s; }
+    .g-history-chip:hover { transform: translateY(-1px); background: #3a3a3a; border-color: #6a6a6a; }
+    .g-history-chip.warm { color: #ffcf6b; }
+    .g-history-chip.green { color: #35cf58; }
+    .g-history-chip.lime { color: #a0e03b; }
 
-      h4 {
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--text-secondary);
-        margin: 20px 0 8px;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-      }
+    /* Utility chip */
+    .g-utility-chip { width: 36px; height: 27px; border: 1px solid #525252; background: #303030; border-radius: 8px; display: grid; place-items: center; cursor: pointer; transition: transform .15s, background .15s; }
+    .g-utility-chip:hover { transform: translateY(-1px); background: #3a3a3a; border-color: #6a6a6a; }
 
-      p { color: var(--text-secondary); margin-bottom: 12px; }
+    /* Glassy */
+    .g-glassy { background: rgba(15,17,18,.8); border: 1px solid #2a2f32; border-radius: 10px; padding: 6px; display: inline-flex; align-items: center; gap: 6px; }
 
-      a { color: var(--accent); text-decoration: none; }
-      a:hover { text-decoration: underline; }
+    /* Tab bar */
+    .g-tabbar { display: grid; grid-template-columns: repeat(3, 1fr); border: 2px solid #151616; background: #151515; border-radius: 12px; overflow: hidden; width: 260px; }
+    .g-tab { border: 0; background: #151515; color: #9fa7a8; font-family: 'Jersey 25', sans-serif; font-size: 16px; padding: 8px 0; cursor: pointer; transition: background .15s, color .15s; }
+    .g-tab:hover { background: #1f1f1f; color: #f3f3f3; }
+    .g-tab.active { background: #343434; color: #fff; border-radius: 10px; }
 
-      strong { color: var(--text-primary); font-weight: 600; }
+    /* Topbets pills */
+    .g-pills { display: grid; grid-template-columns: repeat(4, 1fr); border: 2px solid #151616; background: #151515; border-radius: 12px; overflow: hidden; width: 260px; }
+    .g-pills-2 { grid-template-columns: repeat(2, 1fr); width: 160px; }
+    .g-pill { border: 0; background: #151515; color: #9fa7a8; font-family: 'Jersey 25', sans-serif; font-size: 16px; padding: 8px 0; cursor: pointer; transition: background .15s, color .15s; }
+    .g-pill:hover { background: #1f1f1f; color: #f3f3f3; }
+    .g-pill.active { background: #343434; color: #fff; border-radius: 10px; }
 
-      ul, ol {
-        color: var(--text-secondary);
-        padding-left: 20px;
-        margin-bottom: 12px;
-      }
-      li { margin-bottom: 4px; }
+    /* Card panel */
+    .g-card { background: #272727; border: 1px solid #3f3f3f; border-radius: 12px; }
 
-      /* ── Hero ── */
-      .hero {
-        padding: 0 0 48px;
-        border-bottom: 1px solid var(--border);
-        margin-bottom: 8px;
-      }
-      .hero-label {
-        display: inline-block;
-        background: var(--accent-dim);
-        color: var(--accent);
-        font-size: 11px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        padding: 3px 10px;
-        border-radius: 99px;
-        margin-bottom: 16px;
-      }
-      .hero h1 {
-        font-size: 36px;
-        font-weight: 700;
-        letter-spacing: -0.03em;
-        color: var(--text-primary);
-        line-height: 1.2;
-        margin-bottom: 14px;
-      }
-      .hero h1 span { color: var(--accent); }
-      .hero p {
-        font-size: 15px;
-        color: var(--text-secondary);
-        max-width: 560px;
-        line-height: 1.65;
-      }
+    /* Player row */
+    .g-player-row { height: 30px; border-bottom: 1px solid #3f3f3f; background: #272727; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 12px; column-gap: 8px; font-size: 16px; font-family: 'Jersey 25', sans-serif; transition: background .12s; cursor: default; }
+    .g-player-row:hover { background: #313131; }
+    .g-player-row:last-child { border-bottom: none; }
+    .g-user { color: #f3f3f3; }
+    .g-multi { text-align: center; }
+    .g-multi.hot { color: #ea6528; }
+    .g-multi.gold { color: #ffdd00; }
+    .g-multi.teal { color: #25bfc5; }
+    .g-multi.peach { color: #ff956b; }
+    .g-multi.blue { color: #53a1fc; }
+    .g-multi.muted { color: #9fa7a8; }
+    .g-amount { text-align: right; color: #f3f3f3; }
+    .g-amount.money { color: #35cf58; }
 
-      .hero-chips {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-top: 20px;
-      }
-      .chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        padding: 4px 10px;
-        border-radius: 99px;
-        font-size: 12px;
-        font-weight: 500;
-        border: 1px solid var(--border);
-        color: var(--text-secondary);
-        background: var(--bg-raised);
-      }
-      .chip-dot {
-        width: 6px; height: 6px;
-        border-radius: 50%;
-        background: var(--accent);
-      }
+    /* Chat */
+    .g-chat-lines { display: grid; gap: 8px; font-size: 16px; font-family: 'Jersey 25', sans-serif; }
+    .g-chat-lines p { margin: 0; color: #f3f3f3; line-height: 1; }
+    .g-name { margin-right: 6px; }
+    .g-name.orange { color: #ff956b; }
+    .g-name.cyan { color: #25bfc5; }
+    .g-name.violet { color: #d17dff; }
+    .g-name.blue { color: #53a1fc; }
+    .g-name.lime { color: #35cf58; }
 
-      /* ── Code ── */
-      pre, code {
-        font-family: var(--font-mono);
-        font-size: 12.5px;
-      }
+    /* Reaction buttons */
+    .g-reaction { border: 1px solid #242728; background: #3b3b3b; color: #fff; border-radius: 999px; min-height: 40px; padding: 10px 16px; font-family: 'Jersey 25', sans-serif; font-size: 16px; line-height: 1; cursor: pointer; transition: background .15s, border-color .15s; }
+    .g-reaction:hover { background: #474747; border-color: #5a5a5a; }
 
-      code {
-        background: var(--bg-raised);
-        color: var(--text-code);
-        padding: 2px 6px;
-        border-radius: 4px;
-        border: 1px solid var(--border);
-      }
+    /* Bet button */
+    .g-bet-btn { width: 200px; height: 80px; border: 0; border-radius: 12px; background: #00f27e; color: #151616; font-family: 'Jersey 25', sans-serif; font-size: 16px; padding: 14px 18px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 3px; text-align: center; line-height: 1.1; cursor: pointer; transition: background .15s; }
+    .g-bet-btn:hover { background: #14ff89; }
+    .g-bet-btn .sub { opacity: .72; }
+    .g-bet-btn.state-accepted { background: #c1c1c1; color: #151616; }
+    .g-bet-btn.state-cashout { background: #ffbd30; color: #151616; }
+    .g-bet-btn.state-cashout:hover { background: #ffc940; }
+    .g-bet-btn.state-drop { background: #e86a1c; color: #fff; }
+    .g-bet-btn.state-cancel { background: #383838; color: #ff5c5c; }
+    .g-bet-btn.state-ended { background: #4b4b4b; color: #d1d1d1; cursor: default; }
+    .g-bet-btn.state-win { background: #00f27e; color: #fff; }
+    .g-bet-btn.state-win .main { font-size: 32px; font-weight: 900; letter-spacing: -1px; }
+    .g-bet-btn.state-saved { background: #303030; color: #00f27e; }
 
-      pre {
-        background: var(--bg-code);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        padding: 18px 20px;
-        overflow-x: auto;
-        margin: 14px 0;
-        line-height: 1.6;
-        position: relative;
-      }
-      pre code {
-        background: none;
-        border: none;
-        padding: 0;
-        color: var(--text-primary);
-        font-size: 12.5px;
-      }
+    /* Adjustment row */
+    .g-adjustment { display: grid; grid-template-columns: 1fr 56px 56px; height: 37px; width: 200px; }
+    .g-amount-box { border: 1px solid #525252; background: #383838; color: #d9d9d9; font-family: 'Jersey 25', sans-serif; font-size: 16px; display: grid; place-items: center; border-radius: 8px 0 0 8px; }
+    .g-adjust-btn { border: 1px solid #525252; border-left: none; background: #383838; color: #c3c3c3; font-family: 'Jersey 25', sans-serif; font-size: 16px; display: grid; place-items: center; cursor: pointer; transition: background .15s, color .15s; }
+    .g-adjust-btn:last-child { border-radius: 0 8px 8px 0; }
+    .g-adjust-btn:hover { background: #454545; color: #f3f3f3; }
 
-      .pre-label {
-        font-size: 10px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        color: var(--text-muted);
-        margin-bottom: -4px;
-        margin-top: 18px;
-      }
+    /* Cancel button */
+    .g-cancel-btn { width: 200px; height: 37px; border: 1px solid #4b4b4b; border-radius: 12px; background: #383838; color: #ff5c5c; font-family: 'Jersey 25', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: -.32px; cursor: pointer; transition: background .15s; }
+    .g-cancel-btn:hover { background: #454545; }
 
-      /* Syntax tokens */
-      .kw { color: #c792ea; }
-      .fn { color: #82aaff; }
-      .str { color: #c3e88d; }
-      .num { color: #f78c6c; }
-      .cmt { color: #546e7a; font-style: italic; }
-      .prop { color: #80cbc4; }
-      .type { color: #ffcb6b; }
+    /* Power card */
+    .g-power-card { width: 150px; height: 83px; background: #383838; border: 1px solid #4a4a4a; border-radius: 20px; padding: 12px; display: flex; flex-direction: column; justify-content: flex-end; gap: 2px; cursor: pointer; position: relative; font-family: 'Jersey 25', sans-serif; transition: background .15s, border-color .15s, transform .15s; }
+    .g-power-card:hover { background: #343434; border-color: #525252; transform: translateY(-1px); }
+    .g-power-card.active { background: linear-gradient(135deg, #1e1e24, #28282e); border-color: #64666a; }
+    .g-power-card .p-label { color: rgba(219,219,219,.7); font-size: 14px; line-height: 1; }
+    .g-power-card .p-buy { color: #dbdbdb; font-size: 16px; line-height: 1; }
+    .g-power-card .p-icon { position: absolute; top: 11px; right: 11px; font-size: 18px; }
 
-      /* ── Cards / callouts ── */
-      .callout {
-        border-radius: var(--radius);
-        padding: 14px 18px;
-        margin: 16px 0;
-        border-left: 3px solid;
-        font-size: 13px;
-      }
-      .callout.info {
-        background: rgba(59, 130, 246, 0.06);
-        border-color: rgba(59, 130, 246, 0.5);
-        color: var(--tag-blue-text);
-      }
-      .callout.tip {
-        background: var(--accent-dim2);
-        border-color: var(--accent);
-        color: var(--accent);
-      }
-      .callout.warn {
-        background: var(--tag-amber);
-        border-color: rgba(245, 158, 11, 0.5);
-        color: var(--tag-amber-text);
-      }
-      .callout strong { color: inherit; }
+    /* Stage banner */
+    .g-banner { display: inline-flex; align-items: center; justify-content: center; height: 28px; padding: 0 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,.2); background: rgba(15,17,18,.5); color: #fff; font-family: 'Jersey 25', sans-serif; font-size: 18px; line-height: 1; }
+    .g-banner.ended { color: #ffcf6b; border-color: rgba(255,207,107,.45); }
 
-      /* ── Tables ── */
-      .table-wrap { overflow-x: auto; margin: 14px 0; }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 13px;
-      }
-      th {
-        text-align: left;
-        padding: 8px 14px;
-        background: var(--bg-raised);
-        color: var(--text-secondary);
-        font-weight: 600;
-        font-size: 11px;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-        border-bottom: 1px solid var(--border);
-      }
-      td {
-        padding: 9px 14px;
-        color: var(--text-secondary);
-        border-bottom: 1px solid var(--border);
-        vertical-align: top;
-      }
-      td:first-child { color: var(--text-primary); }
-      tr:last-child td { border-bottom: none; }
-      tr:hover td { background: var(--accent-dim2); }
-      td code { font-size: 11.5px; }
+    /* Menu dropdown */
+    .g-menu { background: #272727; border: 1px solid #3f3f3f; border-radius: 10px; padding: 6px; width: 190px; }
+    .g-menu-item { width: 100%; border: 0; background: transparent; color: #f3f3f3; text-align: left; font-family: 'Jersey 25', sans-serif; font-size: 15px; padding: 8px 10px; border-radius: 8px; cursor: pointer; display: block; transition: background .12s; }
+    .g-menu-item:hover { background: #313131; color: #fff; }
+    .g-menu-divider { height: 1px; background: #3f3f3f; margin: 6px 4px; }
 
-      /* ── Tags ── */
-      .tag {
-        display: inline-block;
-        padding: 2px 8px;
-        border-radius: 99px;
-        font-size: 11px;
-        font-weight: 600;
-        line-height: 1.5;
-      }
-      .tag-blue { background: var(--tag-blue); color: var(--tag-blue-text); }
-      .tag-violet { background: var(--tag-violet); color: var(--tag-violet-text); }
-      .tag-amber { background: var(--tag-amber); color: var(--tag-amber-text); }
-      .tag-green { background: var(--tag-green); color: var(--tag-green-text); }
+    /* Toggle / switch */
+    .g-switch-row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 10px; width: 100%; color: #f3f3f3; font-family: 'Jersey 25', sans-serif; font-size: 15px; padding: 8px 10px; border-radius: 8px; cursor: pointer; transition: background .12s; }
+    .g-switch-row:hover { background: #313131; }
+    .g-switch { position: relative; width: 34px; height: 20px; border-radius: 999px; border: 1px solid #525252; background: #232323; flex-shrink: 0; }
+    .g-switch::after { content: ''; position: absolute; top: 1px; left: 1px; width: 16px; height: 16px; border-radius: 50%; background: #919191; transition: transform .2s, background .2s; }
+    .g-switch.on { background: #224734; border-color: #35cf58; }
+    .g-switch.on::after { transform: translateX(14px); background: #35cf58; }
 
-      /* ── Function signatures ── */
-      .fn-block {
-        background: var(--bg-surface);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        margin: 16px 0;
-        overflow: hidden;
-      }
-      .fn-header {
-        padding: 12px 16px;
-        background: var(--bg-raised);
-        border-bottom: 1px solid var(--border);
-        display: flex;
-        align-items: baseline;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-      .fn-name {
-        font-family: var(--font-mono);
-        font-size: 13px;
-        color: #82aaff;
-        font-weight: 500;
-      }
-      .fn-sig {
-        font-family: var(--font-mono);
-        font-size: 12px;
-        color: var(--text-muted);
-      }
-      .fn-body {
-        padding: 12px 16px;
-        font-size: 13px;
-        color: var(--text-secondary);
-      }
-      .fn-body p { margin-bottom: 8px; }
-      .fn-body p:last-child { margin-bottom: 0; }
+    /* Modal */
+    .g-modal { background: #151616; border: 1px solid #242728; border-radius: 12px; overflow: hidden; width: 340px; }
+    .g-modal-head { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-bottom: 1px solid #242728; }
+    .g-modal-head h2 { margin: 0; font-family: 'Jersey 25', sans-serif; font-size: 20px; font-weight: 400; color: #f3f3f3; }
+    .g-modal-close { width: 28px; height: 28px; border: 1px solid #525252; border-radius: 6px; background: #313131; color: #c3c3c3; font-family: 'Jersey 25', sans-serif; font-size: 16px; cursor: pointer; display: grid; place-items: center; transition: background .15s; }
+    .g-modal-close:hover { background: #3b3b3b; border-color: #6a6a6a; }
+    .g-modal-body { padding: 16px; font-family: 'Inter', sans-serif; font-size: 13px; color: #c3c3c3; line-height: 1.5; }
 
-      /* ── File tree ── */
-      .file-tree {
-        font-family: var(--font-mono);
-        font-size: 12.5px;
-        background: var(--bg-code);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        padding: 18px 20px;
-        line-height: 1.9;
-        color: var(--text-secondary);
-      }
-      .file-tree .dir { color: var(--text-primary); font-weight: 500; }
-      .file-tree .note { color: var(--text-muted); font-style: italic; }
+    /* Copy field */
+    .g-copy-field { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; border: 1px solid #242728; background: #3f464a; border-radius: 16px; padding: 6px 8px 6px 12px; }
+    .g-copy-field input { width: 100%; border: 0; background: transparent; color: #d4d8d9; font-family: 'Jersey 25', sans-serif; font-size: 14px; outline: none; padding: 0; }
+    .g-copy-field-btn { width: 32px; height: 32px; border: 1px solid #596265; border-radius: 10px; background: #3b4145; color: #aab3b4; font-size: 16px; cursor: pointer; display: grid; place-items: center; transition: background .15s; font-family: inherit; }
+    .g-copy-field-btn:hover { background: #4a5257; border-color: #7d878b; color: #e4e8e9; }
 
-      /* ── Phase diagram ── */
-      .phase-flow {
-        display: flex;
-        align-items: center;
-        gap: 0;
-        margin: 18px 0;
-        flex-wrap: wrap;
-        gap: 4px;
-      }
-      .phase-box {
-        background: var(--bg-raised);
-        border: 1px solid var(--border);
-        border-radius: var(--radius-sm);
-        padding: 8px 16px;
-        font-size: 12px;
-        font-weight: 600;
-        color: var(--text-secondary);
-        text-align: center;
-        flex: 1;
-        min-width: 80px;
-      }
-      .phase-box.accent { border-color: var(--accent); color: var(--accent); background: var(--accent-dim2); }
-      .phase-box.warn { border-color: rgba(245, 158, 11, 0.5); color: var(--tag-amber-text); background: var(--tag-amber); }
-      .phase-arrow {
-        color: var(--text-muted);
-        font-size: 16px;
-        padding: 0 4px;
-        flex-shrink: 0;
-      }
-      .phase-label {
-        font-size: 10px;
-        color: var(--text-muted);
-        margin-top: 3px;
-      }
+    /* History row */
+    .g-history-row { display: grid; grid-template-columns: 1fr 80px 1fr 40px; padding: 8px 12px; border-bottom: 1px solid #1f2224; font-family: 'Jersey 25', sans-serif; font-size: 14px; color: #9fa7a8; gap: 8px; cursor: pointer; transition: background .12s; }
+    .g-history-row:hover { background: rgba(255,255,255,.03); }
+    .g-history-row:last-child { border-bottom: none; }
+    .g-history-row .crash { color: #35cf58; }
+    .g-history-row .crash.warm { color: #ffcf6b; }
 
-      /* ── Responsive ── */
-      @media (max-width: 900px) {
-        .nav { display: none; }
-        .main { margin-left: 0; }
-        .content { padding: 32px 20px 80px; }
-        .hero h1 { font-size: 26px; }
-      }
+    /* Previous result */
+    .g-prev-result { display: grid; justify-items: center; gap: 4px; padding: 14px; }
+    .g-prev-label { color: #9fa7a8; font-family: 'Jersey 25', sans-serif; font-size: 16px; }
+    .g-prev-value { font-family: 'Jersey 25', sans-serif; font-size: 56px; line-height: .9; }
+    .g-prev-value.blue { color: #53a1fc; }
+    .g-prev-value.green { color: #35cf58; }
+    .g-prev-value.lime { color: #97f049; }
 
-      /* Scrollbar */
-      ::-webkit-scrollbar { width: 6px; height: 6px; }
-      ::-webkit-scrollbar-track { background: transparent; }
-      ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-      ::-webkit-scrollbar-thumb:hover { background: var(--border-hover); }
-    </style>
-  </head>
-  <body>
+    /* Multiplier display */
+    .g-multiplier { font-family: 'Jersey 25', sans-serif; font-size: 96px; letter-spacing: -2px; color: #ffffff; text-shadow: 0 4px 10px rgba(27,44,65,.22); line-height: 1; }
+    .g-multiplier.crashed { color: #ff5c5c; }
 
-    <!-- ── Sidebar ── -->
-    <nav class="nav">
-      <div class="nav-brand">
-        <h1>ape<span>X</span> · F35 Crash</h1>
-        <p>Developer Reference</p>
+    /* Balance */
+    .g-balance { color: #9fa7a8; font-family: 'Jersey 25', sans-serif; font-size: 16px; }
+    .g-balance strong { color: #00f27e; }
+  </style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="game-name">ape<span>X</span></div>
+    <div class="sub">Design System</div>
+  </div>
+
+  <div class="nav-group">Foundation</div>
+  <a href="#colors">Colors</a>
+  <a href="#typography">Typography</a>
+  <a href="#tokens">Design Tokens</a>
+
+  <div class="nav-group">Components</div>
+  <a href="#chips">Chips</a>
+  <a href="#tabs">Tabs &amp; Pills</a>
+  <a href="#player-rows">Player Rows</a>
+  <a href="#chat">Chat</a>
+  <a href="#buttons">Bet Button</a>
+  <a href="#controls">Controls</a>
+  <a href="#power-cards">Power Cards</a>
+  <a href="#menu">Menu</a>
+  <a href="#modal">Modal</a>
+  <a href="#copy-field">Copy Field</a>
+  <a href="#history">History</a>
+  <a href="#banners">Banners</a>
+</nav>
+
+<!-- ── Content ── -->
+<div class="main">
+<div class="content">
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>ape<span>X</span> Design System</h1>
+    <p>Component library for the F35 Crash game. Copy HTML snippets and CSS class names directly into your implementation.</p>
+    <div class="hero-meta">
+      <span><span class="dot-green"></span>Jersey 25 — game font</span>
+      <span><span class="dot-green"></span>Inter — UI/body font</span>
+      <span><span class="dot-green"></span>Dark theme only</span>
+    </div>
+  </div>
+
+  <!-- ═══ COLORS ═══ -->
+  <section id="colors">
+    <div class="section-label">Foundation</div>
+    <h2>Colors</h2>
+    <p class="section-desc">Click any swatch to copy the hex value.</p>
+
+    <h3>Core Palette</h3>
+    <div class="color-grid" id="colorGrid">
+      <div class="swatch" data-hex="#00f27e"><div class="swatch-block" style="background:#00f27e"></div><div class="swatch-info"><span class="swatch-name">Accent</span><span class="swatch-hex">#00f27e</span></div></div>
+      <div class="swatch" data-hex="#f8a814"><div class="swatch-block" style="background:#f8a814"></div><div class="swatch-info"><span class="swatch-name">Brand X</span><span class="swatch-hex">#f8a814</span></div></div>
+      <div class="swatch" data-hex="#35cf58"><div class="swatch-block" style="background:#35cf58"></div><div class="swatch-info"><span class="swatch-name">Green</span><span class="swatch-hex">#35cf58</span></div></div>
+      <div class="swatch" data-hex="#151515"><div class="swatch-block" style="background:#151515;border-bottom:1px solid #2a2a2a"></div><div class="swatch-info"><span class="swatch-name">BG Base</span><span class="swatch-hex">#151515</span></div></div>
+      <div class="swatch" data-hex="#272727"><div class="swatch-block" style="background:#272727"></div><div class="swatch-info"><span class="swatch-name">Surface</span><span class="swatch-hex">#272727</span></div></div>
+      <div class="swatch" data-hex="#151616"><div class="swatch-block" style="background:#151616"></div><div class="swatch-info"><span class="swatch-name">Ink</span><span class="swatch-hex">#151616</span></div></div>
+      <div class="swatch" data-hex="#353535"><div class="swatch-block" style="background:#353535"></div><div class="swatch-info"><span class="swatch-name">Line</span><span class="swatch-hex">#353535</span></div></div>
+      <div class="swatch" data-hex="#303030"><div class="swatch-block" style="background:#303030"></div><div class="swatch-info"><span class="swatch-name">Chip BG</span><span class="swatch-hex">#303030</span></div></div>
+      <div class="swatch" data-hex="#f3f3f3"><div class="swatch-block" style="background:#f3f3f3"></div><div class="swatch-info"><span class="swatch-name">Text</span><span class="swatch-hex">#f3f3f3</span></div></div>
+      <div class="swatch" data-hex="#9fa7a8"><div class="swatch-block" style="background:#9fa7a8"></div><div class="swatch-info"><span class="swatch-name">Muted</span><span class="swatch-hex">#9fa7a8</span></div></div>
+    </div>
+
+    <h3>Multiplier Colors</h3>
+    <div class="color-grid">
+      <div class="swatch" data-hex="#ea6528"><div class="swatch-block" style="background:#ea6528"></div><div class="swatch-info"><span class="swatch-name">Hot</span><span class="swatch-hex">#ea6528</span></div></div>
+      <div class="swatch" data-hex="#ffdd00"><div class="swatch-block" style="background:#ffdd00"></div><div class="swatch-info"><span class="swatch-name">Gold</span><span class="swatch-hex">#ffdd00</span></div></div>
+      <div class="swatch" data-hex="#25bfc5"><div class="swatch-block" style="background:#25bfc5"></div><div class="swatch-info"><span class="swatch-name">Teal</span><span class="swatch-hex">#25bfc5</span></div></div>
+      <div class="swatch" data-hex="#ff956b"><div class="swatch-block" style="background:#ff956b"></div><div class="swatch-info"><span class="swatch-name">Peach</span><span class="swatch-hex">#ff956b</span></div></div>
+      <div class="swatch" data-hex="#53a1fc"><div class="swatch-block" style="background:#53a1fc"></div><div class="swatch-info"><span class="swatch-name">Blue</span><span class="swatch-hex">#53a1fc</span></div></div>
+      <div class="swatch" data-hex="#ffcf6b"><div class="swatch-block" style="background:#ffcf6b"></div><div class="swatch-info"><span class="swatch-name">Warm</span><span class="swatch-hex">#ffcf6b</span></div></div>
+      <div class="swatch" data-hex="#a0e03b"><div class="swatch-block" style="background:#a0e03b"></div><div class="swatch-info"><span class="swatch-name">Lime</span><span class="swatch-hex">#a0e03b</span></div></div>
+    </div>
+
+    <h3>Chat Name Colors</h3>
+    <div class="color-grid">
+      <div class="swatch" data-hex="#ff956b"><div class="swatch-block" style="background:#ff956b"></div><div class="swatch-info"><span class="swatch-name">Orange</span><span class="swatch-hex">#ff956b</span></div></div>
+      <div class="swatch" data-hex="#25bfc5"><div class="swatch-block" style="background:#25bfc5"></div><div class="swatch-info"><span class="swatch-name">Cyan</span><span class="swatch-hex">#25bfc5</span></div></div>
+      <div class="swatch" data-hex="#d17dff"><div class="swatch-block" style="background:#d17dff"></div><div class="swatch-info"><span class="swatch-name">Violet</span><span class="swatch-hex">#d17dff</span></div></div>
+      <div class="swatch" data-hex="#53a1fc"><div class="swatch-block" style="background:#53a1fc"></div><div class="swatch-info"><span class="swatch-name">Blue</span><span class="swatch-hex">#53a1fc</span></div></div>
+    </div>
+  </section>
+
+  <!-- ═══ TYPOGRAPHY ═══ -->
+  <section id="typography">
+    <div class="section-label">Foundation</div>
+    <h2>Typography</h2>
+    <p class="section-desc">Two fonts. Jersey 25 for all game UI. Inter for informational/modal text.</p>
+
+    <div class="comp">
+      <div class="comp-title">Type Scale</div>
+      <div class="comp-preview" style="flex-direction:column; gap:16px;">
+        <div class="g-root" style="font-size:42px;letter-spacing:-2.5px;line-height:1;color:#fff;">ape<span style="color:#f8a814">X</span> <span style="color:#666;font-size:14px;letter-spacing:0;vertical-align:middle;font-family:Inter">Brand — Jersey 25, 42px</span></div>
+        <div class="g-root" style="font-size:96px;line-height:1;color:#fff;letter-spacing:-2px;">1.00x <span style="color:#666;font-size:14px;letter-spacing:0;vertical-align:middle;font-family:Inter">Multiplier — 96px</span></div>
+        <div class="g-root" style="font-size:20px;color:#f3f3f3;">Modal Heading <span style="color:#666;font-size:14px;vertical-align:middle;font-family:Inter">Jersey 25, 20px</span></div>
+        <div class="g-root" style="font-size:16px;color:#f3f3f3;">Player name / UI text <span style="color:#666;font-size:14px;vertical-align:middle;font-family:Inter">Jersey 25, 16px</span></div>
+        <div class="g-root" style="font-size:14px;color:#9fa7a8;">Muted label <span style="color:#666;font-size:14px;vertical-align:middle;font-family:Inter">Jersey 25, 14px, muted</span></div>
+        <div style="font-family:Inter;font-size:13px;color:#c3c3c3;line-height:1.5;">Modal body text uses Inter, 13px, #c3c3c3</div>
       </div>
+    </div>
+  </section>
 
-      <span class="nav-section">Getting Started</span>
-      <a href="#overview">Overview</a>
-      <a href="#quickstart">Quick Start</a>
-      <a href="#structure">Project Structure</a>
+  <!-- ═══ TOKENS ═══ -->
+  <section id="tokens">
+    <div class="section-label">Foundation</div>
+    <h2>Design Tokens</h2>
+    <p class="section-desc">CSS custom properties defined on <code style="background:#1a1a1a;padding:2px 6px;border-radius:4px;font-family:var(--mono);font-size:12px;">:root</code>. Import <code style="background:#1a1a1a;padding:2px 6px;border-radius:4px;font-family:var(--mono);font-size:12px;">styles.css</code> to get them all.</p>
+    <table class="token-table">
+      <thead><tr><th>Token</th><th>Value</th><th>Usage</th></tr></thead>
+      <tbody>
+        <tr><td>--bg-main</td><td><span class="dot" style="background:#272727"></span>#272727</td><td>Panel / card background</td></tr>
+        <tr><td>--shell</td><td><span class="dot" style="background:#272727"></span>#272727</td><td>Sidebar + control panel shell</td></tr>
+        <tr><td>--ink</td><td><span class="dot" style="background:#151616"></span>#151616</td><td>Deepest background, tab bar fill</td></tr>
+        <tr><td>--ink-soft</td><td><span class="dot" style="background:#242728"></span>#242728</td><td>Modal borders, subtle separators</td></tr>
+        <tr><td>--line</td><td><span class="dot" style="background:#353535"></span>#353535</td><td>Dividers, row borders</td></tr>
+        <tr><td>--text</td><td><span class="dot" style="background:#f3f3f3;border:1px solid #444"></span>#f3f3f3</td><td>Primary text</td></tr>
+        <tr><td>--muted</td><td><span class="dot" style="background:#9fa7a8"></span>#9fa7a8</td><td>Secondary / placeholder text</td></tr>
+        <tr><td>--accent</td><td><span class="dot" style="background:#00f27e"></span>#00f27e</td><td>CTAs, balance, active states</td></tr>
+        <tr><td>--green</td><td><span class="dot" style="background:#35cf58"></span>#35cf58</td><td>Winning amounts</td></tr>
+        <tr><td>--chip</td><td><span class="dot" style="background:#303030"></span>#303030</td><td>History chips, small buttons</td></tr>
+        <tr><td>--radius</td><td>12px</td><td>Default border-radius</td></tr>
+      </tbody>
+    </table>
+  </section>
 
-      <span class="nav-section">Architecture</span>
-      <a href="#game-phases">Game Phases</a>
-      <a href="#state">State Objects</a>
-      <a href="#game-loop">Game Loop</a>
+  <!-- ═══ CHIPS ═══ -->
+  <section id="chips">
+    <div class="section-label">Components</div>
+    <h2>Chips</h2>
+    <p class="section-desc">Small interactive elements in the top bar. History chips show round results. Utility chips are icon buttons.</p>
 
-      <span class="nav-section">Core APIs</span>
-      <a href="#betting">Betting System</a>
-      <a href="#powerups">Power-ups</a>
-      <a href="#provably-fair">Provably Fair</a>
+    <div class="comp">
+      <div class="comp-title">History Chips</div>
+      <div class="comp-preview g-root">
+        <button class="g-history-chip">1.04x</button>
+        <button class="g-history-chip warm">1.16x</button>
+        <button class="g-history-chip green">4.57x</button>
+        <button class="g-history-chip lime">13.85x</button>
+      </div>
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="switchTab(this,'ht-html')">HTML</button>
+        <button class="code-tab" onclick="switchTab(this,'ht-css')">CSS</button>
+      </div>
+      <div class="code-panel active" id="ht-html">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"history-chip"</span><span class="t-tag">&gt;</span>1.04x<span class="t-tag">&lt;/button&gt;</span>
+<span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"history-chip warm"</span><span class="t-tag">&gt;</span>1.16x<span class="t-tag">&lt;/button&gt;</span>
+<span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"history-chip green"</span><span class="t-tag">&gt;</span>4.57x<span class="t-tag">&lt;/button&gt;</span>
+<span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"history-chip lime"</span><span class="t-tag">&gt;</span>13.85x<span class="t-tag">&lt;/button&gt;</span></pre>
+      </div>
+      <div class="code-panel" id="ht-css">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-sel">.history-chip</span> {
+  border: <span class="t-num">1px</span> solid <span class="t-str">#525252</span>;
+  background: <span class="t-kw">var</span>(--chip); <span class="t-cmt">/* #303030 */</span>
+  color: <span class="t-str">#f3f3f3</span>;
+  border-radius: <span class="t-num">8px</span>;
+  height: <span class="t-num">27px</span>;
+  padding: <span class="t-num">0 10px</span>;
+  font: inherit;
+  font-size: <span class="t-num">16px</span>;
+}
+<span class="t-sel">.history-chip.warm</span>  { color: <span class="t-str">#ffcf6b</span>; }
+<span class="t-sel">.history-chip.green</span> { color: <span class="t-str">#35cf58</span>; }
+<span class="t-sel">.history-chip.lime</span>  { color: <span class="t-str">#a0e03b</span>; }</pre>
+      </div>
+    </div>
 
-      <span class="nav-section">Subsystems</span>
-      <a href="#audio">Audio Engine</a>
-      <a href="#visuals">Visual Renderer</a>
-      <a href="#ui">UI & Modals</a>
+    <div class="comp">
+      <div class="comp-title">Glassy Container</div>
+      <div class="comp-preview g-root dark-preview">
+        <div class="g-glassy">
+          <button class="g-history-chip green">4.57x</button>
+          <button class="g-history-chip warm">1.16x</button>
+        </div>
+      </div>
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="switchTab(this,'gl-html')">HTML</button>
+        <button class="code-tab" onclick="switchTab(this,'gl-css')">CSS</button>
+      </div>
+      <div class="code-panel active" id="gl-html">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"glassy"</span><span class="t-tag">&gt;</span>
+  <span class="t-cmt">&lt;!-- chips go here --&gt;</span>
+<span class="t-tag">&lt;/div&gt;</span></pre>
+      </div>
+      <div class="code-panel" id="gl-css">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-sel">.glassy</span> {
+  background: <span class="t-str">rgba(15, 17, 18, 0.8)</span>;
+  border: <span class="t-num">1px</span> solid <span class="t-str">#2a2f32</span>;
+  border-radius: <span class="t-num">10px</span>;
+  padding: <span class="t-num">6px</span>;
+}</pre>
+      </div>
+    </div>
+  </section>
 
-      <span class="nav-section">Reference</span>
-      <a href="#constants">Configuration Constants</a>
-      <a href="#data-structures">Data Structures</a>
-      <a href="#dom-reference">DOM Reference</a>
-    </nav>
+  <!-- ═══ TABS ═══ -->
+  <section id="tabs">
+    <div class="section-label">Components</div>
+    <h2>Tabs &amp; Pills</h2>
+    <p class="section-desc">Segmented controls used for sidebar tabs and filter rows.</p>
 
-    <!-- ── Content ── -->
-    <div class="main">
-      <div class="content">
+    <div class="comp">
+      <div class="comp-title">Tab Bar — .tabbar</div>
+      <div class="comp-preview g-root">
+        <div class="g-tabbar">
+          <button class="g-tab active">Live</button>
+          <button class="g-tab">Previous</button>
+          <button class="g-tab">Top</button>
+        </div>
+      </div>
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="switchTab(this,'tb-html')">HTML</button>
+        <button class="code-tab" onclick="switchTab(this,'tb-css')">CSS</button>
+      </div>
+      <div class="code-panel active" id="tb-html">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"tabbar"</span> <span class="t-attr">role</span>=<span class="t-val">"tablist"</span><span class="t-tag">&gt;</span>
+  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"tab active"</span> <span class="t-attr">role</span>=<span class="t-val">"tab"</span><span class="t-tag">&gt;</span>Live<span class="t-tag">&lt;/button&gt;</span>
+  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"tab"</span>        <span class="t-attr">role</span>=<span class="t-val">"tab"</span><span class="t-tag">&gt;</span>Previous<span class="t-tag">&lt;/button&gt;</span>
+  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"tab"</span>        <span class="t-attr">role</span>=<span class="t-val">"tab"</span><span class="t-tag">&gt;</span>Top<span class="t-tag">&lt;/button&gt;</span>
+<span class="t-tag">&lt;/div&gt;</span></pre>
+      </div>
+      <div class="code-panel" id="tb-css">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-sel">.tabbar</span> {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: <span class="t-num">2px</span> solid <span class="t-str">#151616</span>;
+  background: <span class="t-str">#151515</span>;
+  border-radius: <span class="t-num">12px</span>;
+  overflow: hidden;
+}
+<span class="t-sel">.tab</span>        { background: <span class="t-str">#151515</span>; color: <span class="t-str">#9fa7a8</span>; padding: <span class="t-num">8px 0</span>; font: inherit; border: 0; }
+<span class="t-sel">.tab.active</span> { background: <span class="t-str">#343434</span>; color: <span class="t-str">#ffffff</span>; border-radius: <span class="t-num">10px</span>; }</pre>
+      </div>
+    </div>
 
-        <!-- Hero -->
-        <div class="hero">
-          <div class="hero-label">Developer Docs</div>
-          <h1>F35 Crash <span>Reference</span></h1>
-          <p>
-            A real-time crash game built with vanilla JavaScript, Web Audio API, and Canvas.
-            This reference covers the full architecture, game loop, betting system, audio
-            synthesis engine, and visual renderer.
-          </p>
-          <div class="hero-chips">
-            <span class="chip"><span class="chip-dot"></span>Vanilla JS</span>
-            <span class="chip">No build step</span>
-            <span class="chip">Web Audio API</span>
-            <span class="chip">Canvas 2D</span>
-            <span class="chip">Provably Fair</span>
+    <div class="comp">
+      <div class="comp-title">Filter Pills — .topbets-pill</div>
+      <div class="comp-preview g-root" style="flex-direction:column;gap:8px;">
+        <div class="g-pills-2 g-pills">
+          <button class="g-pill active">X</button>
+          <button class="g-pill">Win</button>
+        </div>
+        <div class="g-pills">
+          <button class="g-pill">Day</button>
+          <button class="g-pill">Week</button>
+          <button class="g-pill active">Month</button>
+          <button class="g-pill">Year</button>
+        </div>
+      </div>
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="switchTab(this,'pi-html')">HTML</button>
+        <button class="code-tab" onclick="switchTab(this,'pi-css')">CSS</button>
+      </div>
+      <div class="code-panel active" id="pi-html">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"topbets-row topbets-row-range"</span><span class="t-tag">&gt;</span>
+  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"topbets-pill"</span><span class="t-tag">&gt;</span>Day<span class="t-tag">&lt;/button&gt;</span>
+  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"topbets-pill active"</span><span class="t-tag">&gt;</span>Month<span class="t-tag">&lt;/button&gt;</span>
+<span class="t-tag">&lt;/div&gt;</span></pre>
+      </div>
+      <div class="code-panel" id="pi-css">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-sel">.topbets-row</span>            { display: grid; border: <span class="t-num">2px</span> solid <span class="t-str">#151616</span>; background: <span class="t-str">#151515</span>; border-radius: <span class="t-num">12px</span>; overflow: hidden; }
+<span class="t-sel">.topbets-row-metric</span>     { grid-template-columns: repeat(2, 1fr); }
+<span class="t-sel">.topbets-row-range</span>      { grid-template-columns: repeat(4, 1fr); }
+<span class="t-sel">.topbets-pill</span>           { border: 0; background: <span class="t-str">#151515</span>; color: <span class="t-str">#9fa7a8</span>; font: inherit; padding: <span class="t-num">8px 0</span>; }
+<span class="t-sel">.topbets-pill.active</span>    { background: <span class="t-str">#343434</span>; color: <span class="t-str">#fff</span>; border-radius: <span class="t-num">10px</span>; }</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PLAYER ROWS ═══ -->
+  <section id="player-rows">
+    <div class="section-label">Components</div>
+    <h2>Player Rows</h2>
+    <p class="section-desc">Three-column grid rows inside the Live, Previous, and Top panels.</p>
+
+    <div class="comp">
+      <div class="comp-title">Player Row — .player-row</div>
+      <div class="comp-preview g-root" style="padding:0;flex-direction:column;gap:0;">
+        <div class="g-card" style="width:100%;">
+          <div class="g-player-row"><span class="g-user">JetStream</span><span class="g-multi teal">3.22x</span><span class="g-amount money">$611.80</span></div>
+          <div class="g-player-row"><span class="g-user">NovaPilot</span><span class="g-multi gold">7.50x</span><span class="g-amount money">$187.50</span></div>
+          <div class="g-player-row"><span class="g-user">RushGrid</span><span class="g-multi hot">24.10x</span><span class="g-amount money">$2,410.00</span></div>
+          <div class="g-player-row"><span class="g-user">LuckyLime</span><span class="g-multi muted">—</span><span class="g-amount">$10.00</span></div>
+        </div>
+      </div>
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="switchTab(this,'pr-html')">HTML</button>
+        <button class="code-tab" onclick="switchTab(this,'pr-css')">CSS</button>
+      </div>
+      <div class="code-panel active" id="pr-html">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"player-row"</span><span class="t-tag">&gt;</span>
+  <span class="t-tag">&lt;span</span> <span class="t-attr">class</span>=<span class="t-val">"user"</span><span class="t-tag">&gt;</span>JetStream<span class="t-tag">&lt;/span&gt;</span>
+  <span class="t-tag">&lt;span</span> <span class="t-attr">class</span>=<span class="t-val">"multi teal"</span><span class="t-tag">&gt;</span>3.22x<span class="t-tag">&lt;/span&gt;</span>
+  <span class="t-tag">&lt;span</span> <span class="t-attr">class</span>=<span class="t-val">"amount money"</span><span class="t-tag">&gt;</span>$611.80<span class="t-tag">&lt;/span&gt;</span>
+<span class="t-tag">&lt;/div&gt;</span></pre>
+      </div>
+      <div class="code-panel" id="pr-css">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-sel">.player-row</span> {
+  height: <span class="t-num">30px</span>;
+  display: grid;
+  grid-template-columns: <span class="t-num">1fr auto 1fr</span>;
+  align-items: center;
+  padding: <span class="t-num">0 12px</span>;
+  border-bottom: <span class="t-num">1px</span> solid <span class="t-str">#3f3f3f</span>;
+  background: <span class="t-str">#272727</span>;
+  font-size: <span class="t-num">16px</span>;
+}
+<span class="t-sel">.multi.hot</span>   { color: <span class="t-str">#ea6528</span>; }
+<span class="t-sel">.multi.gold</span>  { color: <span class="t-str">#ffdd00</span>; }
+<span class="t-sel">.multi.teal</span>  { color: <span class="t-str">#25bfc5</span>; }
+<span class="t-sel">.multi.peach</span> { color: <span class="t-str">#ff956b</span>; }
+<span class="t-sel">.multi.blue</span>  { color: <span class="t-str">#53a1fc</span>; }
+<span class="t-sel">.multi.muted</span> { color: <span class="t-str">#9fa7a8</span>; }
+<span class="t-sel">.amount.money</span> { color: <span class="t-str">#35cf58</span>; text-align: right; }</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CHAT ═══ -->
+  <section id="chat">
+    <div class="section-label">Components</div>
+    <h2>Chat</h2>
+    <p class="section-desc">Chat lines with colored player names, and quick reaction pill buttons.</p>
+
+    <div class="comp">
+      <div class="comp-title">Chat Lines + Reactions</div>
+      <div class="comp-preview g-root" style="flex-direction:column;gap:14px;">
+        <div class="g-chat-lines">
+          <p><span class="g-name orange">Rushtu</span>Nice hit!</p>
+          <p><span class="g-name cyan">OpqR</span>Cashed out just in time.</p>
+          <p><span class="g-name violet">StuV</span>Boosters are paying today.</p>
+          <p><span class="g-name blue">LmnO</span>Let's go for 10x!</p>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="g-reaction">Nice hit!</button>
+          <button class="g-reaction">GG!</button>
+          <button class="g-reaction">Let's go!</button>
+        </div>
+      </div>
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="switchTab(this,'ch-html')">HTML</button>
+        <button class="code-tab" onclick="switchTab(this,'ch-css')">CSS</button>
+      </div>
+      <div class="code-panel active" id="ch-html">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-cmt">&lt;!-- Chat lines --&gt;</span>
+<span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"chat-lines"</span><span class="t-tag">&gt;</span>
+  <span class="t-tag">&lt;p&gt;&lt;span</span> <span class="t-attr">class</span>=<span class="t-val">"name orange"</span><span class="t-tag">&gt;</span>Rushtu<span class="t-tag">&lt;/span&gt;</span> Nice hit!<span class="t-tag">&lt;/p&gt;</span>
+  <span class="t-tag">&lt;p&gt;&lt;span</span> <span class="t-attr">class</span>=<span class="t-val">"name cyan"</span><span class="t-tag">&gt;</span>OpqR<span class="t-tag">&lt;/span&gt;</span> Cashed out.<span class="t-tag">&lt;/p&gt;</span>
+<span class="t-tag">&lt;/div&gt;</span>
+<span class="t-cmt">&lt;!-- Reaction buttons --&gt;</span>
+<span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"reaction-btn"</span><span class="t-tag">&gt;</span>Nice hit!<span class="t-tag">&lt;/button&gt;</span></pre>
+      </div>
+      <div class="code-panel" id="ch-css">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-sel">.name.orange</span> { color: <span class="t-str">#ff956b</span>; }
+<span class="t-sel">.name.cyan</span>   { color: <span class="t-str">#25bfc5</span>; }
+<span class="t-sel">.name.violet</span> { color: <span class="t-str">#d17dff</span>; }
+<span class="t-sel">.name.blue</span>   { color: <span class="t-str">#53a1fc</span>; }
+<span class="t-sel">.name.lime</span>   { color: <span class="t-str">#35cf58</span>; }
+
+<span class="t-sel">.reaction-btn</span> {
+  border: <span class="t-num">1px</span> solid <span class="t-str">#242728</span>;
+  background: <span class="t-str">#3b3b3b</span>;
+  color: <span class="t-str">#fff</span>;
+  border-radius: <span class="t-num">999px</span>;
+  min-height: <span class="t-num">40px</span>;
+  padding: <span class="t-num">10px 16px</span>;
+  font: inherit;
+  font-size: <span class="t-num">16px</span>;
+}</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ BUTTONS ═══ -->
+  <section id="buttons">
+    <div class="section-label">Components</div>
+    <h2>Bet Button</h2>
+    <p class="section-desc">The primary action button. Changes state throughout the game round.</p>
+
+    <div class="comp">
+      <div class="comp-title">All States — .bet-btn</div>
+      <div class="comp-preview g-root" style="flex-wrap:wrap;gap:10px;">
+        <div style="display:flex;flex-direction:column;gap:4px;align-items:center;">
+          <button class="g-bet-btn"><span>BET</span><span class="sub">$10.00</span></button>
+          <span style="font-size:11px;color:#555;font-family:Inter">state-bet</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;align-items:center;">
+          <button class="g-bet-btn state-cashout"><span>CASH OUT</span><span class="sub">$24.30</span></button>
+          <span style="font-size:11px;color:#555;font-family:Inter">state-cashout</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;align-items:center;">
+          <button class="g-bet-btn state-accepted"><span>Waiting...</span><span class="sub">$10.00</span></button>
+          <span style="font-size:11px;color:#555;font-family:Inter">state-accepted</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;align-items:center;">
+          <button class="g-bet-btn state-drop"><span>DROP POD</span><span class="sub">$10.00</span></button>
+          <span style="font-size:11px;color:#555;font-family:Inter">state-drop</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;align-items:center;">
+          <button class="g-bet-btn state-cancel"><span>CANCEL</span><span class="sub">$10.00</span></button>
+          <span style="font-size:11px;color:#555;font-family:Inter">state-cancel</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;align-items:center;">
+          <button class="g-bet-btn state-ended"><span>CRASHED</span><span class="sub">—</span></button>
+          <span style="font-size:11px;color:#555;font-family:Inter">state-ended</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;align-items:center;">
+          <button class="g-bet-btn state-win"><span class="main">$42.50</span></button>
+          <span style="font-size:11px;color:#555;font-family:Inter">state-win</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;align-items:center;">
+          <button class="g-bet-btn state-saved"><span class="main">SAVED $5.00</span></button>
+          <span style="font-size:11px;color:#555;font-family:Inter">state-saved</span>
+        </div>
+      </div>
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="switchTab(this,'bb-html')">HTML</button>
+        <button class="code-tab" onclick="switchTab(this,'bb-css')">CSS</button>
+      </div>
+      <div class="code-panel active" id="bb-html">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"bet-btn state-bet"</span><span class="t-tag">&gt;</span>
+  <span class="t-tag">&lt;span</span> <span class="t-attr">class</span>=<span class="t-val">"btn-line-one"</span><span class="t-tag">&gt;</span>BET<span class="t-tag">&lt;/span&gt;</span>
+  <span class="t-tag">&lt;span</span> <span class="t-attr">class</span>=<span class="t-val">"btn-line-two"</span><span class="t-tag">&gt;</span>$10.00<span class="t-tag">&lt;/span&gt;</span>
+<span class="t-tag">&lt;/button&gt;</span></pre>
+      </div>
+      <div class="code-panel" id="bb-css">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-sel">.bet-btn</span>              { background: <span class="t-str">#00f27e</span>; color: <span class="t-str">#151616</span>; border-radius: <span class="t-num">12px</span>; height: <span class="t-num">96px</span>; }
+<span class="t-sel">.bet-btn.state-cashout</span> { background: <span class="t-str">#ffbd30</span>; color: <span class="t-str">#151616</span>; }
+<span class="t-sel">.bet-btn.state-accepted</span>{ background: <span class="t-str">#c1c1c1</span>; color: <span class="t-str">#151616</span>; }
+<span class="t-sel">.bet-btn.state-drop</span>    { background: <span class="t-str">#e86a1c</span>; color: <span class="t-str">#ffffff</span>; }
+<span class="t-sel">.bet-btn.state-cancel</span>  { background: <span class="t-str">#383838</span>; color: <span class="t-str">#ff5c5c</span>; }
+<span class="t-sel">.bet-btn.state-ended</span>   { background: <span class="t-str">#4b4b4b</span>; color: <span class="t-str">#d1d1d1</span>; }
+<span class="t-sel">.bet-btn.state-win</span>     { background: <span class="t-str">#00f27e</span>; color: <span class="t-str">#ffffff</span>; }
+<span class="t-sel">.bet-btn.state-saved</span>   { background: <span class="t-str">#303030</span>; color: <span class="t-str">#00f27e</span>; }</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CONTROLS ═══ -->
+  <section id="controls">
+    <div class="section-label">Components</div>
+    <h2>Controls</h2>
+    <p class="section-desc">Bet amount input row and cancel button.</p>
+
+    <div class="comp">
+      <div class="comp-title">Adjustment Row — .adjustment</div>
+      <div class="comp-preview g-root">
+        <div class="g-adjustment">
+          <div class="g-amount-box">$10.00</div>
+          <button class="g-adjust-btn">÷</button>
+          <button class="g-adjust-btn">×</button>
+        </div>
+      </div>
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="switchTab(this,'adj-html')">HTML</button>
+        <button class="code-tab" onclick="switchTab(this,'adj-css')">CSS</button>
+      </div>
+      <div class="code-panel active" id="adj-html">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"adjustment"</span><span class="t-tag">&gt;</span>
+  <span class="t-tag">&lt;div</span>    <span class="t-attr">class</span>=<span class="t-val">"amount-box"</span><span class="t-tag">&gt;</span>$10.00<span class="t-tag">&lt;/div&gt;</span>
+  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"adjust-btn"</span><span class="t-tag">&gt;</span>÷<span class="t-tag">&lt;/button&gt;</span>
+  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"adjust-btn"</span><span class="t-tag">&gt;</span>×<span class="t-tag">&lt;/button&gt;</span>
+<span class="t-tag">&lt;/div&gt;</span></pre>
+      </div>
+      <div class="code-panel" id="adj-css">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-sel">.adjustment</span> { display: grid; grid-template-columns: <span class="t-num">1fr 62px 62px</span>; height: <span class="t-num">37px</span>; }
+<span class="t-sel">.amount-box,
+.adjust-btn</span> { border: <span class="t-num">1px</span> solid <span class="t-str">#525252</span>; background: <span class="t-str">#383838</span>; color: <span class="t-str">#d9d9d9</span>; font: inherit; font-size: <span class="t-num">16px</span>; }
+<span class="t-sel">.amount-box</span>  { border-radius: <span class="t-num">8px 0 0 8px</span>; }
+<span class="t-sel">.adjust-btn:last-child</span> { border-radius: <span class="t-num">0 8px 8px 0</span>; }</pre>
+      </div>
+    </div>
+
+    <div class="comp">
+      <div class="comp-title">Cancel Button — .cancel-bet-btn</div>
+      <div class="comp-preview g-root">
+        <button class="g-cancel-btn">Cancel Bet</button>
+      </div>
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="switchTab(this,'cb-html')">HTML</button>
+        <button class="code-tab" onclick="switchTab(this,'cb-css')">CSS</button>
+      </div>
+      <div class="code-panel active" id="cb-html">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"cancel-bet-btn"</span><span class="t-tag">&gt;</span>Cancel Bet<span class="t-tag">&lt;/button&gt;</span></pre>
+      </div>
+      <div class="code-panel" id="cb-css">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-sel">.cancel-bet-btn</span> {
+  width: <span class="t-num">100%</span>;
+  height: <span class="t-num">37px</span>;
+  border: <span class="t-num">1px</span> solid <span class="t-str">#4b4b4b</span>;
+  border-radius: <span class="t-num">12px</span>;
+  background: <span class="t-str">#383838</span>;
+  color: <span class="t-str">#ff5c5c</span>;
+  font: inherit;
+  font-size: <span class="t-num">13px</span>;
+  font-weight: <span class="t-num">600</span>;
+}</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ POWER CARDS ═══ -->
+  <section id="power-cards">
+    <div class="section-label">Components</div>
+    <h2>Power Cards</h2>
+    <p class="section-desc">Clickable cards for Pod and Hypersonic boosters.</p>
+
+    <div class="comp">
+      <div class="comp-title">Power Card — .power-card</div>
+      <div class="comp-preview g-root" style="gap:8px;">
+        <div class="g-power-card">
+          <span class="p-icon">🚀</span>
+          <span class="p-label">Pod</span>
+          <span class="p-buy">Buy $10</span>
+        </div>
+        <div class="g-power-card active">
+          <span class="p-icon">⚡</span>
+          <span class="p-label">Hypersonic</span>
+          <span class="p-buy">Buy $40</span>
+        </div>
+      </div>
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="switchTab(this,'pc-html')">HTML</button>
+        <button class="code-tab" onclick="switchTab(this,'pc-css')">CSS</button>
+      </div>
+      <div class="code-panel active" id="pc-html">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-tag">&lt;article</span> <span class="t-attr">class</span>=<span class="t-val">"power-card"</span> <span class="t-attr">role</span>=<span class="t-val">"button"</span><span class="t-tag">&gt;</span>
+  <span class="t-tag">&lt;img</span>  <span class="t-attr">class</span>=<span class="t-val">"icon-pod"</span> <span class="t-attr">src</span>=<span class="t-val">"..."</span> <span class="t-attr">alt</span>=<span class="t-val">"Pod"</span> <span class="t-tag">/&gt;</span>
+  <span class="t-tag">&lt;span</span> <span class="t-attr">class</span>=<span class="t-val">"label"</span><span class="t-tag">&gt;</span>Pod<span class="t-tag">&lt;/span&gt;</span>
+  <span class="t-tag">&lt;span</span> <span class="t-attr">class</span>=<span class="t-val">"buy"</span><span class="t-tag">&gt;</span>Buy $10<span class="t-tag">&lt;/span&gt;</span>
+<span class="t-tag">&lt;/article&gt;</span></pre>
+      </div>
+      <div class="code-panel" id="pc-css">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-sel">.power-card</span> {
+  background: <span class="t-str">#383838</span>;
+  border: <span class="t-num">1px</span> solid <span class="t-str">#4a4a4a</span>;
+  border-radius: <span class="t-num">20px</span>;
+  height: <span class="t-num">83px</span>;
+  padding: <span class="t-num">12px</span>;
+  position: relative;
+}
+<span class="t-sel">.power-card.active-addon</span> {
+  background: linear-gradient(<span class="t-num">135deg</span>, <span class="t-str">#1e1e24</span>, <span class="t-str">#28282e</span>);
+  border-color: <span class="t-str">#64666a</span>;
+}
+<span class="t-sel">.power-card.disabled</span> { opacity: <span class="t-num">0.5</span>; cursor: default; }
+<span class="t-sel">.label</span> { color: <span class="t-str">rgba(219,219,219,.7)</span>; font-size: <span class="t-num">14px</span>; }
+<span class="t-sel">.buy</span>   { color: <span class="t-str">#dbdbdb</span>; font-size: <span class="t-num">16px</span>; }</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ MENU ═══ -->
+  <section id="menu">
+    <div class="section-label">Components</div>
+    <h2>Menu &amp; Toggle</h2>
+    <p class="section-desc">Dropdown menu with items, divider, and toggle switches.</p>
+
+    <div class="comp">
+      <div class="comp-title">Dropdown Menu</div>
+      <div class="comp-preview g-root">
+        <div class="g-menu">
+          <button class="g-menu-item">How to Play</button>
+          <button class="g-menu-item">Provably Fair Settings</button>
+          <button class="g-menu-item">Game Limits</button>
+          <div class="g-menu-divider"></div>
+          <label class="g-switch-row">
+            <span>Background Music</span>
+            <div class="g-switch on"></div>
+          </label>
+          <label class="g-switch-row">
+            <span>Sound Effects</span>
+            <div class="g-switch"></div>
+          </label>
+        </div>
+      </div>
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="switchTab(this,'mn-html')">HTML</button>
+        <button class="code-tab" onclick="switchTab(this,'mn-css')">CSS</button>
+      </div>
+      <div class="code-panel active" id="mn-html">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"menu-dropdown"</span><span class="t-tag">&gt;</span>
+  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"menu-item"</span><span class="t-tag">&gt;</span>How to Play<span class="t-tag">&lt;/button&gt;</span>
+  <span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"menu-divider"</span><span class="t-tag">&gt;&lt;/div&gt;</span>
+  <span class="t-tag">&lt;label</span> <span class="t-attr">class</span>=<span class="t-val">"menu-switch-row"</span><span class="t-tag">&gt;</span>
+    <span class="t-tag">&lt;span&gt;</span>Background Music<span class="t-tag">&lt;/span&gt;</span>
+    <span class="t-tag">&lt;input</span> <span class="t-attr">class</span>=<span class="t-val">"menu-switch-input"</span> <span class="t-attr">type</span>=<span class="t-val">"checkbox"</span> <span class="t-attr">checked</span> <span class="t-tag">/&gt;</span>
+    <span class="t-tag">&lt;span</span> <span class="t-attr">class</span>=<span class="t-val">"menu-switch-slider"</span><span class="t-tag">&gt;&lt;/span&gt;</span>
+  <span class="t-tag">&lt;/label&gt;</span>
+<span class="t-tag">&lt;/div&gt;</span></pre>
+      </div>
+      <div class="code-panel" id="mn-css">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-sel">.menu-dropdown</span>    { background: <span class="t-str">#272727</span>; border: <span class="t-num">1px</span> solid <span class="t-str">#3f3f3f</span>; border-radius: <span class="t-num">10px</span>; padding: <span class="t-num">6px</span>; width: <span class="t-num">190px</span>; }
+<span class="t-sel">.menu-item</span>        { background: transparent; color: <span class="t-str">#f3f3f3</span>; font-size: <span class="t-num">15px</span>; padding: <span class="t-num">8px 10px</span>; border-radius: <span class="t-num">8px</span>; }
+<span class="t-sel">.menu-item:hover</span>  { background: <span class="t-str">#313131</span>; }
+<span class="t-sel">.menu-divider</span>     { height: <span class="t-num">1px</span>; background: <span class="t-str">#3f3f3f</span>; margin: <span class="t-num">6px 4px</span>; }
+<span class="t-cmt">/* Switch */</span>
+<span class="t-sel">.menu-switch-slider</span>              { width: <span class="t-num">34px</span>; height: <span class="t-num">20px</span>; border-radius: <span class="t-num">999px</span>; border: <span class="t-num">1px</span> solid <span class="t-str">#525252</span>; background: <span class="t-str">#232323</span>; }
+<span class="t-sel">.menu-switch-input:checked + .menu-switch-slider</span> { background: <span class="t-str">#224734</span>; border-color: <span class="t-str">#35cf58</span>; }
+<span class="t-sel">.menu-switch-slider::after</span>        { content: ''; position: absolute; top: <span class="t-num">1px</span>; left: <span class="t-num">1px</span>; width: <span class="t-num">16px</span>; height: <span class="t-num">16px</span>; border-radius: <span class="t-num">50%</span>; background: <span class="t-str">#919191</span>; }</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ MODAL ═══ -->
+  <section id="modal">
+    <div class="section-label">Components</div>
+    <h2>Modal</h2>
+    <p class="section-desc">Centered dialog with frosted-glass backdrop.</p>
+
+    <div class="comp">
+      <div class="comp-title">Modal — .modal</div>
+      <div class="comp-preview g-root" style="justify-content:center;">
+        <div class="g-modal">
+          <div class="g-modal-head">
+            <h2>How to play</h2>
+            <button class="g-modal-close">x</button>
+          </div>
+          <div class="g-modal-body">
+            Each round starts at 1.00x and grows until it crashes at a random point. Place your bet during countdown, then cash out before the crash.
           </div>
         </div>
+      </div>
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="switchTab(this,'mo-html')">HTML</button>
+        <button class="code-tab" onclick="switchTab(this,'mo-css')">CSS</button>
+      </div>
+      <div class="code-panel active" id="mo-html">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"modal-backdrop"</span> <span class="t-attr">id</span>=<span class="t-val">"myModal"</span><span class="t-tag">&gt;</span>
+  <span class="t-tag">&lt;section</span> <span class="t-attr">class</span>=<span class="t-val">"modal"</span> <span class="t-attr">role</span>=<span class="t-val">"dialog"</span> <span class="t-attr">aria-modal</span>=<span class="t-val">"true"</span><span class="t-tag">&gt;</span>
+    <span class="t-tag">&lt;header</span> <span class="t-attr">class</span>=<span class="t-val">"modal-head"</span><span class="t-tag">&gt;</span>
+      <span class="t-tag">&lt;h2&gt;</span>Title<span class="t-tag">&lt;/h2&gt;</span>
+      <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"modal-close"</span><span class="t-tag">&gt;</span>x<span class="t-tag">&lt;/button&gt;</span>
+    <span class="t-tag">&lt;/header&gt;</span>
+    <span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"modal-body"</span><span class="t-tag">&gt;</span>Content<span class="t-tag">&lt;/div&gt;</span>
+  <span class="t-tag">&lt;/section&gt;</span>
+<span class="t-tag">&lt;/div&gt;</span></pre>
+      </div>
+      <div class="code-panel" id="mo-css">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-sel">.modal-backdrop</span> { position: fixed; inset: 0; background: <span class="t-str">rgba(0,0,0,.72)</span>; backdrop-filter: blur(<span class="t-num">4px</span>); display: flex; align-items: center; justify-content: center; }
+<span class="t-sel">.modal</span>          { background: <span class="t-str">#151616</span>; border: <span class="t-num">1px</span> solid <span class="t-str">#242728</span>; border-radius: <span class="t-num">12px</span>; width: min(<span class="t-num">520px</span>, calc(<span class="t-num">100vw</span> - <span class="t-num">32px</span>)); }
+<span class="t-sel">.modal-head</span>     { display: flex; justify-content: space-between; padding: <span class="t-num">14px 16px</span>; border-bottom: <span class="t-num">1px</span> solid <span class="t-str">#242728</span>; }
+<span class="t-sel">.modal-head h2</span>  { font-size: <span class="t-num">20px</span>; font-weight: <span class="t-num">400</span>; color: <span class="t-str">#f3f3f3</span>; margin: 0; }
+<span class="t-sel">.modal-close</span>    { width: <span class="t-num">28px</span>; height: <span class="t-num">28px</span>; border: <span class="t-num">1px</span> solid <span class="t-str">#525252</span>; border-radius: <span class="t-num">6px</span>; background: <span class="t-str">#313131</span>; color: <span class="t-str">#c3c3c3</span>; }</pre>
+      </div>
+    </div>
+  </section>
 
-        <!-- ── Overview ── -->
-        <section id="overview">
-          <h2>Overview</h2>
-          <p>
-            <strong>F35 Crash</strong> is a multiplayer-style crash gambling game where players
-            place bets before each round. A multiplier climbs from <strong>1.00×</strong> and
-            crashes at a provably-fair random point. Players must cash out before the crash to
-            collect winnings.
-          </p>
-          <p>
-            The entire client runs as a single-page application across four files with zero
-            external runtime dependencies. All audio is synthesized at runtime via the Web Audio API
-            — no audio files are bundled.
-          </p>
+  <!-- ═══ COPY FIELD ═══ -->
+  <section id="copy-field">
+    <div class="section-label">Components</div>
+    <h2>Copy Field</h2>
+    <p class="section-desc">Read-only input with inline copy button. Used in round info and provably-fair modals.</p>
 
-          <h3>Key Concepts</h3>
-          <ul>
-            <li><strong>Round</strong> — one complete taxi → flight → crash cycle</li>
-            <li><strong>Multiplier</strong> — grows exponentially during the flight phase</li>
-            <li><strong>Crash point</strong> — the multiplier at which a round ends</li>
-            <li><strong>Cash out</strong> — locking in winnings at the current multiplier</li>
-            <li><strong>Pod</strong> — a booster that auto-cashes out a portion of your stake</li>
-            <li><strong>Hypersonic</strong> — a booster that guarantees a high crash point</li>
-          </ul>
-        </section>
+    <div class="comp">
+      <div class="comp-title">Copy Field — .round-copy-field</div>
+      <div class="comp-preview g-root">
+        <div class="g-copy-field" style="width:300px;">
+          <input value="f35b7e9c1a42c8df01467dc0a93b79ff" readonly />
+          <button class="g-copy-field-btn">⧉</button>
+        </div>
+      </div>
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="switchTab(this,'cf-html')">HTML</button>
+        <button class="code-tab" onclick="switchTab(this,'cf-css')">CSS</button>
+      </div>
+      <div class="code-panel active" id="cf-html">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"round-copy-field"</span><span class="t-tag">&gt;</span>
+  <span class="t-tag">&lt;input</span> <span class="t-attr">id</span>=<span class="t-val">"seedInput"</span> <span class="t-attr">type</span>=<span class="t-val">"text"</span> <span class="t-attr">readonly</span> <span class="t-attr">value</span>=<span class="t-val">"..."</span> <span class="t-tag">/&gt;</span>
+  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"round-copy-btn"</span> <span class="t-attr">data-copy-target</span>=<span class="t-val">"seedInput"</span><span class="t-tag">&gt;</span>⧉<span class="t-tag">&lt;/button&gt;</span>
+<span class="t-tag">&lt;/div&gt;</span></pre>
+      </div>
+      <div class="code-panel" id="cf-css">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-sel">.round-copy-field</span>  { display: grid; grid-template-columns: <span class="t-num">1fr auto</span>; border: <span class="t-num">1px</span> solid <span class="t-str">#242728</span>; background: <span class="t-str">#3f464a</span>; border-radius: <span class="t-num">16px</span>; padding: <span class="t-num">6px 8px 6px 12px</span>; }
+<span class="t-sel">.round-copy-field input</span> { border: 0; background: transparent; color: <span class="t-str">#d4d8d9</span>; font-size: <span class="t-num">14px</span>; outline: none; }
+<span class="t-sel">.round-copy-btn</span>    { width: <span class="t-num">32px</span>; height: <span class="t-num">32px</span>; border: <span class="t-num">1px</span> solid <span class="t-str">#596265</span>; border-radius: <span class="t-num">10px</span>; background: <span class="t-str">#3b4145</span>; color: <span class="t-str">#aab3b4</span>; }
+<span class="t-sel">.round-copy-btn.copied</span> { border-color: <span class="t-str">#4f9f67</span>; color: <span class="t-str">#9af7b8</span>; }</pre>
+      </div>
+    </div>
+  </section>
 
-        <!-- ── Quick Start ── -->
-        <section id="quickstart">
-          <h2>Quick Start</h2>
-          <p>F35 Crash requires no build tools. Serve the project root over HTTP:</p>
+  <!-- ═══ HISTORY ═══ -->
+  <section id="history">
+    <div class="section-label">Components</div>
+    <h2>History</h2>
+    <p class="section-desc">Round history table rows and the previous round result display.</p>
 
-          <p class="pre-label">Using Python</p>
-          <pre><code>python3 -m http.server 3000</code></pre>
+    <div class="comp">
+      <div class="comp-title">History Rows — .history-row</div>
+      <div class="comp-preview g-root" style="padding:0;flex-direction:column;gap:0;">
+        <div class="g-card" style="width:100%;">
+          <div class="g-history-row"><span>#812531</span><span class="crash warm">1.16x</span><span>f35b...79ff</span><span>128</span></div>
+          <div class="g-history-row"><span>#812530</span><span class="crash">4.57x</span><span>f35b...79ff</span><span>127</span></div>
+          <div class="g-history-row"><span>#812529</span><span class="crash">13.85x</span><span>f35b...79ff</span><span>126</span></div>
+        </div>
+      </div>
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="switchTab(this,'hr-html')">HTML</button>
+        <button class="code-tab" onclick="switchTab(this,'hr-css')">CSS</button>
+      </div>
+      <div class="code-panel active" id="hr-html">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"history-row"</span><span class="t-tag">&gt;</span>
+  <span class="t-tag">&lt;span&gt;</span>#812531<span class="t-tag">&lt;/span&gt;</span>
+  <span class="t-tag">&lt;span&gt;</span>1.16x<span class="t-tag">&lt;/span&gt;</span>
+  <span class="t-tag">&lt;span&gt;</span>f35b...79ff<span class="t-tag">&lt;/span&gt;</span>
+  <span class="t-tag">&lt;span&gt;</span>128<span class="t-tag">&lt;/span&gt;</span>
+<span class="t-tag">&lt;/button&gt;</span></pre>
+      </div>
+      <div class="code-panel" id="hr-css">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-sel">.history-row</span> { display: grid; grid-template-columns: <span class="t-num">1fr 80px 1fr 40px</span>; padding: <span class="t-num">8px 12px</span>; border-bottom: <span class="t-num">1px</span> solid <span class="t-str">#1f2224</span>; font-size: <span class="t-num">14px</span>; color: <span class="t-str">#9fa7a8</span>; background: none; border-left: 0; border-right: 0; border-top: 0; width: 100%; }</pre>
+      </div>
+    </div>
 
-          <p class="pre-label">Using Node.js (npx)</p>
-          <pre><code>npx serve .</code></pre>
+    <div class="comp">
+      <div class="comp-title">Previous Round Result</div>
+      <div class="comp-preview g-root centered">
+        <div class="g-prev-result">
+          <span class="g-prev-label">Round Result</span>
+          <span class="g-prev-value blue">3.74x</span>
+        </div>
+      </div>
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="switchTab(this,'pv-html')">HTML</button>
+        <button class="code-tab" onclick="switchTab(this,'pv-css')">CSS</button>
+      </div>
+      <div class="code-panel active" id="pv-html">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-tag">&lt;p</span> <span class="t-attr">class</span>=<span class="t-val">"previous-result-label"</span><span class="t-tag">&gt;</span>Round Result<span class="t-tag">&lt;/p&gt;</span>
+<span class="t-cmt">&lt;!-- color classes: .blue  .green  .lime --&gt;</span>
+<span class="t-tag">&lt;p</span> <span class="t-attr">class</span>=<span class="t-val">"previous-result-value blue"</span><span class="t-tag">&gt;</span>3.74x<span class="t-tag">&lt;/p&gt;</span></pre>
+      </div>
+      <div class="code-panel" id="pv-css">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-sel">.previous-result-value</span>       { font-size: clamp(<span class="t-num">46px</span>, <span class="t-num">5.6vw</span>, <span class="t-num">64px</span>); line-height: <span class="t-num">0.9</span>; }
+<span class="t-sel">.previous-result-value.blue</span>  { color: <span class="t-str">#53a1fc</span>; }
+<span class="t-sel">.previous-result-value.green</span> { color: <span class="t-str">#35cf58</span>; }
+<span class="t-sel">.previous-result-value.lime</span>  { color: <span class="t-str">#97f049</span>; }</pre>
+      </div>
+    </div>
+  </section>
 
-          <p class="pre-label">Using VS Code</p>
-          <pre><code><span class="cmt"># Install the "Live Server" extension, then right-click index.html → Open with Live Server</span></code></pre>
+  <!-- ═══ BANNERS ═══ -->
+  <section id="banners">
+    <div class="section-label">Components</div>
+    <h2>Banners &amp; Multiplier</h2>
+    <p class="section-desc">Stage banner overlay and the main live multiplier display.</p>
 
-          <div class="callout tip">
-            <strong>Audio note:</strong> Web Audio requires a user gesture to start. Music and SFX
-            begin on the first click/tap due to browser autoplay policies.
-          </div>
+    <div class="comp">
+      <div class="comp-title">Stage Banner — .stage-banner</div>
+      <div class="comp-preview g-root" style="background:#73a0cb;gap:10px;justify-content:center;">
+        <div class="g-banner">Betting Open</div>
+        <div class="g-banner ended">1.16x — CRASHED</div>
+      </div>
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="switchTab(this,'sb-html')">HTML</button>
+        <button class="code-tab" onclick="switchTab(this,'sb-css')">CSS</button>
+      </div>
+      <div class="code-panel active" id="sb-html">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"stage-banner"</span><span class="t-tag">&gt;</span>Betting Open<span class="t-tag">&lt;/div&gt;</span>
+<span class="t-cmt">&lt;!-- crashed state --&gt;</span>
+<span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"stage-banner phase-ended"</span><span class="t-tag">&gt;</span>1.16x<span class="t-tag">&lt;/div&gt;</span></pre>
+      </div>
+      <div class="code-panel" id="sb-css">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-sel">.stage-banner</span>             { height: <span class="t-num">28px</span>; padding: <span class="t-num">0 14px</span>; border-radius: <span class="t-num">999px</span>; border: <span class="t-num">1px</span> solid <span class="t-str">rgba(255,255,255,.2)</span>; background: <span class="t-str">rgba(15,17,18,.5)</span>; color: <span class="t-str">#fff</span>; font-size: <span class="t-num">18px</span>; }
+<span class="t-sel">.stage-banner.phase-ended</span>  { color: <span class="t-str">#ffcf6b</span>; border-color: <span class="t-str">rgba(255,207,107,.45)</span>; }</pre>
+      </div>
+    </div>
 
-          <div class="callout warn">
-            <strong>CORS:</strong> The game loads assets from <code>./assets/</code> and fonts from
-            Google Fonts. Opening <code>index.html</code> directly via <code>file://</code> may
-            block asset loading in some browsers. Always use a local HTTP server.
-          </div>
-        </section>
+    <div class="comp">
+      <div class="comp-title">Live Multiplier — .multiplier</div>
+      <div class="comp-preview g-root" style="background:#73a0cb;justify-content:center;padding:32px 24px;">
+        <div class="g-multiplier">3.42x</div>
+      </div>
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="switchTab(this,'mx-html')">HTML</button>
+        <button class="code-tab" onclick="switchTab(this,'mx-css')">CSS</button>
+      </div>
+      <div class="code-panel active" id="mx-html">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"multiplier"</span> <span class="t-attr">id</span>=<span class="t-val">"multiplier"</span><span class="t-tag">&gt;</span>3.42x<span class="t-tag">&lt;/div&gt;</span></pre>
+      </div>
+      <div class="code-panel" id="mx-css">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-sel">.multiplier</span> {
+  font-size: clamp(<span class="t-num">132px</span>, <span class="t-num">12vw</span>, <span class="t-num">182px</span>);
+  letter-spacing: <span class="t-num">-2px</span>;
+  color: <span class="t-str">#ffffff</span>;
+  text-shadow: <span class="t-str">0 4px 10px rgba(27,44,65,.22)</span>;
+  animation: breathe <span class="t-num">1.5s</span> ease-in-out infinite;
+}</pre>
+      </div>
+    </div>
+  </section>
 
-        <!-- ── Project Structure ── -->
-        <section id="structure">
-          <h2>Project Structure</h2>
+</div><!-- /content -->
+</div><!-- /main -->
 
-          <div class="file-tree">
-<span class="dir">f35-crash/</span>
-├── <span class="dir">index.html</span>       <span class="note">— HTML shell, layout, all modals &amp; controls</span>
-├── <span class="dir">script.js</span>        <span class="note">— Game logic, state, rendering, UI (3 600 lines)</span>
-├── <span class="dir">audio.js</span>         <span class="note">— Web Audio API synthesis engine (983 lines)</span>
-├── <span class="dir">styles.css</span>       <span class="note">— All styling, animations, responsive layout</span>
-└── <span class="dir">assets/</span>
-    ├── plane.png         <span class="note">— Jet sprite</span>
-    ├── plane_pixel.png   <span class="note">— Pixel-art jet variant</span>
-    ├── parachute.png     <span class="note">— Parachute (crash animation)</span>
-    ├── pod.png           <span class="note">— Pod booster sprite</span>
-    ├── road.png          <span class="note">— Runway texture</span>
-    ├── back-wheels.png   <span class="note">— Landing gear (rear)</span>
-    ├── front-wheels.png  <span class="note">— Landing gear (front)</span>
-    └── shadow.png        <span class="note">— Jet ground shadow</span>
-          </div>
-
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>File</th><th>Responsibility</th><th>Size</th></tr>
-              </thead>
-              <tbody>
-                <tr><td><code>index.html</code></td><td>Semantic HTML structure, all DOM elements, accessibility attributes, modal scaffolding</td><td>24 KB</td></tr>
-                <tr><td><code>script.js</code></td><td>Game state machine, betting logic, opponent simulation, canvas rendering, UI updates, provably-fair math</td><td>115 KB</td></tr>
-                <tr><td><code>audio.js</code></td><td>Real-time audio synthesis — SFX and adaptive background music via Web Audio API</td><td>27 KB</td></tr>
-                <tr><td><code>styles.css</code></td><td>Dark theme design system, CSS custom properties, animations, responsive layout</td><td>55 KB</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        <!-- ── Game Phases ── -->
-        <section id="game-phases">
-          <h2>Game Phases</h2>
-          <p>
-            Every round progresses through three phases stored in <code>gameState.phase</code>.
-          </p>
-
-          <div class="phase-flow">
-            <div class="phase-box accent">
-              taxi
-              <div class="phase-label">5 s · bets open</div>
-            </div>
-            <div class="phase-arrow">→</div>
-            <div class="phase-box">
-              flying
-              <div class="phase-label">7–15 s · multiplier climbs</div>
-            </div>
-            <div class="phase-arrow">→</div>
-            <div class="phase-box warn">
-              ended
-              <div class="phase-label">1.5 s · crash shown</div>
-            </div>
-            <div class="phase-arrow">→</div>
-            <div class="phase-box accent">
-              taxi
-              <div class="phase-label">next round</div>
-            </div>
-          </div>
-
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Phase</th><th>Duration</th><th>What Happens</th></tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><code>"taxi"</code></td>
-                  <td><code>TAXI_DURATION_SEC</code> (5 s)</td>
-                  <td>Jet taxis on runway. Bets are accepted. Countdown ring animates. Opponents place bets.</td>
-                </tr>
-                <tr>
-                  <td><code>"flying"</code></td>
-                  <td>7–15 s (random)</td>
-                  <td>Multiplier climbs at 8%/s. Players can cash out. Jet ascends. Pod and Hypersonic boosters are active.</td>
-                </tr>
-                <tr>
-                  <td><code>"ended"</code></td>
-                  <td><code>ENDED_DURATION_SEC</code> (1.5 s)</td>
-                  <td>Crash multiplier is revealed. Uncashed bets are lost. Jet shows crash/fly-away animation.</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h3>Phase Transitions</h3>
-          <pre><code><span class="cmt">// Transitions are driven by phaseElapsed inside gameLoop()</span>
-<span class="kw">if</span> (gameState.phase === <span class="str">'taxi'</span> &amp;&amp; gameState.phaseElapsed &gt;= TAXI_DURATION_SEC) {
-  startRound();        <span class="cmt">// → 'flying'</span>
-}
-<span class="kw">if</span> (gameState.phase === <span class="str">'flying'</span> &amp;&amp; gameState.phaseElapsed &gt;= gameState.crashAtSec) {
-  onCrash();           <span class="cmt">// → 'ended'</span>
-}
-<span class="kw">if</span> (gameState.phase === <span class="str">'ended'</span> &amp;&amp; gameState.phaseElapsed &gt;= ENDED_DURATION_SEC) {
-  startTaxi();         <span class="cmt">// → 'taxi' (new round)</span>
-}</code></pre>
-        </section>
-
-        <!-- ── State Objects ── -->
-        <section id="state">
-          <h2>State Objects</h2>
-          <p>All mutable game state is held in module-level objects — no framework, no store.</p>
-
-          <h3>gameState</h3>
-          <p>The primary state object controlling round logic.</p>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Property</th><th>Type</th><th>Description</th></tr>
-              </thead>
-              <tbody>
-                <tr><td><code>balance</code></td><td>number</td><td>Player's current balance in USD</td></tr>
-                <tr><td><code>betAmount</code></td><td>number</td><td>Amount staged for the next bet</td></tr>
-                <tr><td><code>phase</code></td><td><code>"taxi" | "flying" | "ended"</code></td><td>Current game phase</td></tr>
-                <tr><td><code>phaseElapsed</code></td><td>number</td><td>Seconds elapsed in the current phase</td></tr>
-                <tr><td><code>crashAtSec</code></td><td>number</td><td>Seconds into flight when the crash occurs</td></tr>
-                <tr><td><code>multiplier</code></td><td>number</td><td>Current live multiplier value</td></tr>
-                <tr><td><code>betPlaced</code></td><td>boolean</td><td>Whether the player has a pending bet</td></tr>
-                <tr><td><code>betActive</code></td><td>boolean</td><td>Whether the player's bet is in flight</td></tr>
-                <tr><td><code>podBought</code></td><td>boolean</td><td>Pod booster purchased this round</td></tr>
-                <tr><td><code>podActive</code></td><td>boolean</td><td>Pod is deployed and tracking</td></tr>
-                <tr><td><code>podCashedOut</code></td><td>boolean</td><td>Pod has already auto-cashed out</td></tr>
-                <tr><td><code>hypersonicBought</code></td><td>boolean</td><td>Hypersonic booster purchased</td></tr>
-                <tr><td><code>hypersonicMultiplier</code></td><td>number</td><td>Guaranteed crash point when hypersonic is active</td></tr>
-                <tr><td><code>jetCashAmount</code></td><td>number</td><td>Amount won by the player's main bet</td></tr>
-                <tr><td><code>podCashAmount</code></td><td>number</td><td>Amount won by the pod</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h3>visualState</h3>
-          <p>Canvas rendering state — not related to game logic.</p>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Property</th><th>Description</th></tr>
-              </thead>
-              <tbody>
-                <tr><td><code>clouds[]</code></td><td>Array of cloud particle objects with position, speed, opacity</td></tr>
-                <tr><td><code>stars[]</code></td><td>Star particle array — visible at high multipliers</td></tr>
-                <tr><td><code>contrailPuffs[]</code></td><td>Engine exhaust trail particles</td></tr>
-                <tr><td><code>jet.x / jet.y / jet.rot</code></td><td>Current rendered jet position and rotation</td></tr>
-                <tr><td><code>podDrop</code></td><td>Pod drop animation state (active, x, y, rot, elapsed)</td></tr>
-                <tr><td><code>runwayOffset</code></td><td>Horizontal scroll offset for the runway texture</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h3>betsState[]</h3>
-          <p>Array of all active bet objects — includes both the player and simulated opponents.</p>
-          <pre><code><span class="cmt">// Bet object shape</span>
-{
-  <span class="prop">id</span>:                 <span class="str">'bet-1'</span>,          <span class="cmt">// unique identifier</span>
-  <span class="prop">user</span>:               <span class="str">'JetStream'</span>,      <span class="cmt">// display name</span>
-  <span class="prop">stake</span>:              <span class="num">190.0</span>,            <span class="cmt">// bet amount (USD)</span>
-  <span class="prop">cashedOut</span>:         <span class="kw">false</span>,            <span class="cmt">// whether cashed out</span>
-  <span class="prop">cashOutMultiplier</span>: <span class="num">0</span>,               <span class="cmt">// multiplier at cashout</span>
-  <span class="prop">payout</span>:            <span class="num">0</span>,               <span class="cmt">// final payout amount</span>
-  <span class="prop">cashOutAt</span>:         <span class="num">0</span>,               <span class="cmt">// timestamp of cashout</span>
-  <span class="prop">boostType</span>:         <span class="str">''</span>               <span class="cmt">// 'pod' | 'hypersonic' | ''</span>
-}</code></pre>
-        </section>
-
-        <!-- ── Game Loop ── -->
-        <section id="game-loop">
-          <h2>Game Loop</h2>
-          <p>
-            The game runs on a <code>requestAnimationFrame</code> loop. Each tick advances game
-            time, updates the multiplier, triggers phase transitions, drives opponent cashouts,
-            and re-renders the canvas.
-          </p>
-
-          <pre><code><span class="kw">function</span> <span class="fn">gameLoop</span>(timestamp) {
-  <span class="kw">const</span> deltaSec = (timestamp - lastTime) / <span class="num">1000</span>;
-
-  <span class="cmt">// 1. Advance phase timer</span>
-  gameState.phaseElapsed += deltaSec;
-
-  <span class="cmt">// 2. Update multiplier (flying phase only)</span>
-  <span class="kw">if</span> (gameState.phase === <span class="str">'flying'</span>) {
-    gameState.multiplier = calcMultiplier(gameState.phaseElapsed);
-    runOpponentCashoutTick();
+<script>
+  // Tab switcher
+  function switchTab(btn, panelId) {
+    const comp = btn.closest('.comp');
+    comp.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
+    comp.querySelectorAll('.code-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(panelId).classList.add('active');
   }
 
-  <span class="cmt">// 3. Check for phase transitions</span>
-  checkPhaseTransition();
+  // Copy code
+  function copyCode(btn) {
+    const pre = btn.closest('.code-panel').querySelector('pre');
+    navigator.clipboard.writeText(pre.innerText).then(() => {
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1800);
+    });
+  }
 
-  <span class="cmt">// 4. Update DOM and canvas</span>
-  <span class="fn">updateGameUi</span>(timestamp);
-  <span class="fn">renderGameplayVisual</span>(deltaSec);
+  // Copy color swatch
+  document.querySelectorAll('.swatch[data-hex]').forEach(sw => {
+    sw.addEventListener('click', () => {
+      navigator.clipboard.writeText(sw.dataset.hex).then(() => {
+        const hexEl = sw.querySelector('.swatch-hex');
+        hexEl.textContent = 'Copied!';
+        sw.classList.add('copied');
+        setTimeout(() => { hexEl.textContent = sw.dataset.hex; sw.classList.remove('copied'); }, 1600);
+      });
+    });
+  });
 
-  gameRaf = requestAnimationFrame(gameLoop);
-}</code></pre>
-
-          <h3>Multiplier Formula</h3>
-          <p>
-            The multiplier grows exponentially based on elapsed seconds in the flying phase:
-          </p>
-          <pre><code><span class="cmt">// MULTIPLIER_GROWTH_RATE = 0.08 (8% per second)</span>
-multiplier = Math.pow(<span class="num">1</span> + MULTIPLIER_GROWTH_RATE, phaseElapsed * <span class="num">10</span>)</code></pre>
-        </section>
-
-        <!-- ── Betting System ── -->
-        <section id="betting">
-          <h2>Betting System</h2>
-
-          <div class="fn-block">
-            <div class="fn-header">
-              <span class="fn-name">placeBet</span>
-              <span class="fn-sig">() → void</span>
-              <span class="tag tag-blue">taxi phase only</span>
-            </div>
-            <div class="fn-body">
-              <p>Places the player's bet using <code>gameState.betAmount</code>. Deducts from balance, sets <code>betPlaced = true</code>, and adds the player row to the Live Bets panel. Rejected if phase is not <code>"taxi"</code> or balance is insufficient.</p>
-            </div>
-          </div>
-
-          <div class="fn-block">
-            <div class="fn-header">
-              <span class="fn-name">cashOutBet</span>
-              <span class="fn-sig">(betId: string, source: string) → void</span>
-              <span class="tag tag-green">flying phase only</span>
-            </div>
-            <div class="fn-body">
-              <p>Cashes out a bet at the current multiplier. Calculates payout as <code>stake × multiplier</code>, updates balance, marks the bet row as cashed out, and triggers the cashout SFX. <code>source</code> is used for logging (<code>'player'</code> | <code>'pod'</code> | <code>'auto'</code>).</p>
-            </div>
-          </div>
-
-          <div class="fn-block">
-            <div class="fn-header">
-              <span class="fn-name">handleBetButtonAction</span>
-              <span class="fn-sig">() → void</span>
-            </div>
-            <div class="fn-body">
-              <p>Unified handler for the main bet button. Behavior changes based on phase and state:</p>
-              <ul>
-                <li><strong>taxi, no bet</strong> → calls <code>placeBet()</code></li>
-                <li><strong>taxi, bet placed</strong> → cancels the bet and refunds balance</li>
-                <li><strong>flying, active bet</strong> → calls <code>cashOutBet()</code></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="fn-block">
-            <div class="fn-header">
-              <span class="fn-name">updateBetAmount</span>
-              <span class="fn-sig">(next: number) → void</span>
-            </div>
-            <div class="fn-body">
-              <p>Sets <code>gameState.betAmount</code> to <code>next</code> and refreshes the bet input display. The ½ and 2× buttons call this with <code>betAmount / 2</code> and <code>betAmount * 2</code> respectively.</p>
-            </div>
-          </div>
-
-          <div class="fn-block">
-            <div class="fn-header">
-              <span class="fn-name">getCurrentPotentialWin</span>
-              <span class="fn-sig">() → number</span>
-            </div>
-            <div class="fn-body">
-              <p>Returns the hypothetical payout if the player were to cash out right now: <code>stake × gameState.multiplier</code>. Used to populate the "potential win" display in the control panel.</p>
-            </div>
-          </div>
-
-          <h3>Opponent Simulation</h3>
-          <p>
-            Opponents are seeded from <code>BET_SEED</code> and their cashouts are simulated
-            during the flying phase using a probabilistic delay model.
-          </p>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Constant</th><th>Default</th><th>Effect</th></tr>
-              </thead>
-              <tbody>
-                <tr><td><code>AUTO_CASHOUT_START_CHANCE</code></td><td>0.95</td><td>Probability an opponent cashes out per tick</td></tr>
-                <tr><td><code>AUTO_CASHOUT_START_DELAY_MS</code></td><td>10 ms</td><td>Minimum delay before first opponent cashout</td></tr>
-                <tr><td><code>AUTO_CASHOUT_MAX_DELAY_MS</code></td><td>1 400 ms</td><td>Maximum spacing between opponent cashouts</td></tr>
-                <tr><td><code>AUTO_CASHOUT_SLOWDOWN_FACTOR</code></td><td>0.09</td><td>Rate at which cashout spacing increases over time</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        <!-- ── Power-ups ── -->
-        <section id="powerups">
-          <h2>Power-ups</h2>
-
-          <h3>Pod</h3>
-          <p>
-            Costs <strong>$10</strong>. When active, a pod detaches from the jet mid-flight and
-            automatically cashes out <strong>50% of the stake</strong> at a random safe multiplier
-            (roughly 1.3–2.5×). The remaining 50% continues riding the main multiplier.
-          </p>
-
-          <div class="fn-block">
-            <div class="fn-header">
-              <span class="fn-name">buyPod</span>
-              <span class="fn-sig">() → void</span>
-              <span class="tag tag-amber">$10 cost</span>
-            </div>
-            <div class="fn-body">
-              <p>Deducts $10, sets <code>gameState.podBought = true</code>, activates the pod UI, and schedules pod cashout. Only available when a bet is placed and the player has sufficient balance.</p>
-            </div>
-          </div>
-
-          <h3>Hypersonic</h3>
-          <p>
-            Costs <strong>$40</strong>. Guarantees the round's crash point will be one of the
-            preset high multipliers: <code>[5, 10, 20, 25, 50, 100]</code>. The jet enters a
-            special "hypersonic" exit animation when active.
-          </p>
-
-          <div class="fn-block">
-            <div class="fn-header">
-              <span class="fn-name">buyHypersonic</span>
-              <span class="fn-sig">() → void</span>
-              <span class="tag tag-violet">$40 cost</span>
-            </div>
-            <div class="fn-body">
-              <p>Deducts $40, picks a random value from <code>HYPERSONIC_MULTIPLIERS</code>, overrides <code>gameState.crashAtSec</code>, and sets <code>hypersonicActive = true</code>. Only available during the taxi phase with an active bet.</p>
-            </div>
-          </div>
-
-          <div class="callout info">
-            Power-ups are one-time-per-round purchases. They reset at the start of each new taxi phase.
-          </div>
-        </section>
-
-        <!-- ── Provably Fair ── -->
-        <section id="provably-fair">
-          <h2>Provably Fair</h2>
-          <p>
-            Each round's crash point is derived from a server hash, client seed, and nonce using
-            standard cryptographic primitives — allowing anyone to verify the result independently.
-          </p>
-
-          <h3>Algorithm</h3>
-          <pre><code><span class="kw">function</span> <span class="fn">calculateCrashPoint</span>(serverHash, clientSeed, nonce) {
-  <span class="cmt">// 1. Combine inputs into a deterministic seed</span>
-  <span class="kw">const</span> combined = serverHash + clientSeed + nonce;
-
-  <span class="cmt">// 2. Hash the combined seed</span>
-  <span class="kw">const</span> hash = <span class="fn">hashString</span>(combined);
-
-  <span class="cmt">// 3. Normalize to [0, 1]</span>
-  <span class="kw">const</span> normalized = hash / MAX_HASH_VALUE;
-
-  <span class="cmt">// 4. Map to crash multiplier (minimum 1.00×)</span>
-  <span class="kw">return</span> Math.max(<span class="num">1.0</span>, <span class="num">1</span> / (<span class="num">1</span> - normalized));
-}</code></pre>
-
-          <div class="fn-block">
-            <div class="fn-header">
-              <span class="fn-name">calculateCrashPoint</span>
-              <span class="fn-sig">(serverHash: string, clientSeed: string, nonce: number) → number</span>
-            </div>
-            <div class="fn-body">
-              <p>Returns the provably-fair crash multiplier for a given set of seeds. The player can supply their own <code>clientSeed</code> via the Provably Fair Settings modal to influence future rounds.</p>
-            </div>
-          </div>
-
-          <div class="fn-block">
-            <div class="fn-header">
-              <span class="fn-name">fnvHash</span>
-              <span class="fn-sig">(input: string) → number</span>
-            </div>
-            <div class="fn-body">
-              <p>32-bit FNV-1a hash. Used for deterministic crash history generation and client-side seed hashing.</p>
-            </div>
-          </div>
-
-          <h3>Round History Verification</h3>
-          <p>
-            Each history row exposes the <strong>server seed hash</strong> and <strong>nonce</strong>.
-            Players can verify any past round by entering these values in the Provably Fair modal,
-            which re-runs <code>calculateCrashPoint()</code> and compares to the recorded result.
-          </p>
-        </section>
-
-        <!-- ── Audio Engine ── -->
-        <section id="audio">
-          <h2>Audio Engine</h2>
-          <p>
-            All audio is synthesized in real time using the Web Audio API. There are no audio
-            files — every sound is generated from oscillators, noise buffers, and filters.
-          </p>
-
-          <h3>Audio Context</h3>
-          <pre><code><span class="cmt">// audio.js manages its own AudioContext</span>
-<span class="kw">let</span> sfxAudioCtx = <span class="kw">null</span>;   <span class="cmt">// lazy-initialized on first SFX call</span>
-<span class="kw">let</span> musicAudioCtx = <span class="kw">null</span>; <span class="cmt">// separate context for background music</span></code></pre>
-
-          <h3>Control Functions</h3>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Function</th><th>Description</th></tr>
-              </thead>
-              <tbody>
-                <tr><td><code>setAudioEnabled(enabled)</code></td><td>Master on/off toggle. Suspends both audio contexts when disabled.</td></tr>
-                <tr><td><code>setSfxEnabled(enabled)</code></td><td>Toggle sound effects independently of music.</td></tr>
-                <tr><td><code>setMusicEnabled(enabled)</code></td><td>Toggle background music independently of SFX.</td></tr>
-                <tr><td><code>startMusic()</code></td><td>Begin adaptive background music playback.</td></tr>
-                <tr><td><code>stopMusic()</code></td><td>Fade out and stop all music nodes.</td></tr>
-                <tr><td><code>syncAudioState()</code></td><td>Called by script.js to sync UI toggles with audio state.</td></tr>
-                <tr><td><code>playSfx(name, ...args)</code></td><td>Play a named SFX. Names: <code>'bet'</code>, <code>'cashout'</code>, <code>'drone'</code>, <code>'slot'</code>, <code>'flyaway'</code>.</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h3>SFX Primitives</h3>
-          <p>Low-level building blocks used to compose each sound effect:</p>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Function</th><th>Description</th></tr>
-              </thead>
-              <tbody>
-                <tr><td><code>subBody(ctx, t, startHz, endHz, vol, dur, dest)</code></td><td>Sine wave with frequency sweep. Used for low-end thud impacts.</td></tr>
-                <tr><td><code>transient(ctx, t, centerHz, vol, dur, dest)</code></td><td>Band-passed noise burst. Used for attack transients and clicks.</td></tr>
-                <tr><td><code>warmTone(ctx, t, freq, vol, dur, dest)</code></td><td>Waveshaped oscillator for melodic tones.</td></tr>
-                <tr><td><code>resonantBody(ctx, t, freq, vol, dur, dest)</code></td><td>Resonant filtered noise for woody/resonant impacts.</td></tr>
-                <tr><td><code>cabinBell(ctx, t, freq, vol, dur, dest)</code></td><td>Metallic bell tone via detuned oscillator pair.</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h3>Music System</h3>
-          <p>Background music is scheduled ahead of time using the Web Audio clock:</p>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Function</th><th>Description</th></tr>
-              </thead>
-              <tbody>
-                <tr><td><code>playPad(ctx, t)</code></td><td>Ambient pad layer — slow attack filtered chords.</td></tr>
-                <tr><td><code>playChime(ctx, t)</code></td><td>High-frequency melodic chime hits.</td></tr>
-                <tr><td><code>playDrone(ctx, t)</code></td><td>Continuous bass drone via detuned oscillators.</td></tr>
-                <tr><td><code>playBass(ctx, t)</code></td><td>Rhythmic bass pulses.</td></tr>
-                <tr><td><code>playPulse(ctx, t)</code></td><td>Rhythmic mid-range pulse layer.</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="callout tip">
-            <strong>Tip:</strong> The music system uses a beat-scheduling loop that looks ahead
-            ~100 ms to schedule audio nodes precisely, avoiding audible gaps or jitter.
-          </div>
-        </section>
-
-        <!-- ── Visual Renderer ── -->
-        <section id="visuals">
-          <h2>Visual Renderer</h2>
-          <p>
-            The game scene uses three layered <code>&lt;canvas&gt;</code> elements plus CSS-animated
-            DOM elements for the aircraft model. All rendering is driven by
-            <code>renderGameplayVisual(deltaSec)</code> each frame.
-          </p>
-
-          <h3>Canvas Layers</h3>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Canvas ID</th><th>Content</th></tr>
-              </thead>
-              <tbody>
-                <tr><td><code>#starCanvas</code></td><td>Stars — fade in above 5× multiplier</td></tr>
-                <tr><td><code>#cloudCanvas</code></td><td>18 scrolling cloud particles (<code>CLOUD_COUNT</code>)</td></tr>
-                <tr><td><code>#contrailCanvas</code></td><td>Engine exhaust contrail puffs</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h3>Rendering Functions</h3>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Function</th><th>Description</th></tr>
-              </thead>
-              <tbody>
-                <tr><td><code>renderGameplayVisual(deltaSec)</code></td><td>Master visual update — dispatches to all sub-renderers</td></tr>
-                <tr><td><code>updateAircraftVisual(metrics, deltaSec)</code></td><td>Moves and rotates the jet DOM element via CSS transforms</td></tr>
-                <tr><td><code>updateClouds(metrics, deltaSec, ctx, w, h)</code></td><td>Scrolls and redraws cloud particles</td></tr>
-                <tr><td><code>updateStars(metrics, deltaSec, ctx, w, h)</code></td><td>Updates star fade-in and position</td></tr>
-                <tr><td><code>updateContrail(metrics, deltaSec, ctx, w, h)</code></td><td>Emits and decays contrail puff particles</td></tr>
-                <tr><td><code>updatePodVisual(metrics, deltaSec)</code></td><td>Animates pod drop arc and rotation</td></tr>
-                <tr><td><code>drawMiniGraph(ctx, width, height)</code></td><td>Draws the mini multiplier history graph in the history modal</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h3>Scene Scaling</h3>
-          <p>
-            All positions are defined relative to a <strong>758 px tall reference scene</strong>
-            (<code>REFERENCE_SCENE_HEIGHT</code>) and scaled to the actual viewport at runtime:
-          </p>
-          <pre><code><span class="kw">const</span> scale = actualSceneHeight / REFERENCE_SCENE_HEIGHT;
-<span class="kw">const</span> jetX = REFERENCE_JET_REST_X * scale;  <span class="cmt">// 100 * scale</span>
-<span class="kw">const</span> jetY = REFERENCE_JET_REST_Y * scale;  <span class="cmt">// 597 * scale</span></code></pre>
-        </section>
-
-        <!-- ── UI & Modals ── -->
-        <section id="ui">
-          <h2>UI &amp; Modals</h2>
-
-          <h3>Tab System</h3>
-          <div class="fn-block">
-            <div class="fn-header">
-              <span class="fn-name">setTab</span>
-              <span class="fn-sig">(tabName: "bets" | "previous" | "top") → void</span>
-            </div>
-            <div class="fn-body">
-              <p>Switches the sidebar panel and updates ARIA attributes. Calls <code>renderPlayers(tabName)</code> to repopulate the player list for the selected view.</p>
-            </div>
-          </div>
-
-          <h3>Modal System</h3>
-          <p>
-            Modals use a shared backdrop pattern. Each modal has a wrapping
-            <code>.modal-backdrop</code> element that is shown/hidden via the functions below.
-          </p>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Function</th><th>Description</th></tr>
-              </thead>
-              <tbody>
-                <tr><td><code>openModal(backdropEl)</code></td><td>Shows the backdrop, adds <code>open</code> class with a 280 ms CSS animation</td></tr>
-                <tr><td><code>closeModal(backdropEl)</code></td><td>Plays the close animation, then hides after <code>MODAL_ANIM_DURATION_MS</code></td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h4>Available Modals</h4>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Modal</th><th>Trigger</th><th>Backdrop ID</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>How to Play</td><td>Menu → "How to Play"</td><td><code>#rulesBackdrop</code></td></tr>
-                <tr><td>Round History</td><td>History icon chip</td><td><code>#historyBackdrop</code></td></tr>
-                <tr><td>Round Info</td><td>History row click</td><td><code>#roundInfoBackdrop</code></td></tr>
-                <tr><td>Provably Fair</td><td>Menu → "Provably Fair Settings"</td><td><code>#provablyBackdrop</code></td></tr>
-                <tr><td>Game Limits</td><td>Menu → "Game Limits"</td><td><code>#gameLimitsBackdrop</code></td></tr>
-                <tr><td>Audio Settings</td><td>Sound button</td><td><code>#audioSettingsBackdrop</code></td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h3>History Display</h3>
-          <div class="fn-block">
-            <div class="fn-header">
-              <span class="fn-name">renderHistory</span>
-              <span class="fn-sig">() → void</span>
-            </div>
-            <div class="fn-body">
-              <p>Populates the history modal table from <code>historyItems[]</code>. Each row shows round ID, crash value, seed hash, and nonce.</p>
-            </div>
-          </div>
-
-          <div class="fn-block">
-            <div class="fn-header">
-              <span class="fn-name">renderHeaderHistory</span>
-              <span class="fn-sig">() → void</span>
-            </div>
-            <div class="fn-body">
-              <p>Updates the five history chip buttons in the top bar to reflect the five most recent rounds. Applies color classes (<code>warm</code>, <code>green</code>, <code>lime</code>) based on crash value.</p>
-            </div>
-          </div>
-        </section>
-
-        <!-- ── Configuration Constants ── -->
-        <section id="constants">
-          <h2>Configuration Constants</h2>
-          <p>All tunable values are declared at the top of <code>script.js</code> as <code>const</code>.</p>
-
-          <h3>Timing</h3>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Constant</th><th>Default</th><th>Description</th></tr>
-              </thead>
-              <tbody>
-                <tr><td><code>TAXI_DURATION_SEC</code></td><td>5</td><td>Length of taxi (betting) phase in seconds</td></tr>
-                <tr><td><code>ENDED_DURATION_SEC</code></td><td>1.5</td><td>Length of post-crash display phase</td></tr>
-                <tr><td><code>FLIGHT_MIN_SEC</code></td><td>7</td><td>Minimum flight duration</td></tr>
-                <tr><td><code>FLIGHT_MAX_SEC</code></td><td>15</td><td>Maximum flight duration</td></tr>
-                <tr><td><code>MODAL_ANIM_DURATION_MS</code></td><td>280</td><td>Modal open/close CSS animation duration</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h3>Multiplier</h3>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Constant</th><th>Default</th><th>Description</th></tr>
-              </thead>
-              <tbody>
-                <tr><td><code>MULTIPLIER_GROWTH_RATE</code></td><td>0.08</td><td>Exponential growth rate per second (8%)</td></tr>
-                <tr><td><code>HYPERSONIC_MULTIPLIERS</code></td><td>[5,10,20,25,50,100]</td><td>Possible guaranteed crash points for Hypersonic rounds</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h3>Visuals</h3>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Constant</th><th>Default</th><th>Description</th></tr>
-              </thead>
-              <tbody>
-                <tr><td><code>CLOUD_COUNT</code></td><td>18</td><td>Number of cloud particles in the scene</td></tr>
-                <tr><td><code>DRIFT_SPEED</code></td><td>150</td><td>Cloud scroll speed in px/s at reference scale</td></tr>
-                <tr><td><code>REFERENCE_SCENE_HEIGHT</code></td><td>758</td><td>Design reference height in px — all coordinates scale from this</td></tr>
-                <tr><td><code>REFERENCE_JET_REST_X/Y</code></td><td>100, 597</td><td>Jet rest position in reference coordinates</td></tr>
-                <tr><td><code>REFERENCE_JET_DISPLAY_W</code></td><td>170</td><td>Rendered jet width in reference px</td></tr>
-                <tr><td><code>POD_DROP_DURATION_SEC</code></td><td>5</td><td>Duration of pod drop animation</td></tr>
-                <tr><td><code>GEAR_RETRACT_DURATION_SEC</code></td><td>0.8</td><td>Landing gear retraction animation duration</td></tr>
-                <tr><td><code>VISUAL_LIFTOFF_SEC</code></td><td>5</td><td>Seconds into flight when jet lifts off visually</td></tr>
-                <tr><td><code>VISUAL_CRUISE_SEC</code></td><td>15</td><td>Seconds at which jet reaches cruise altitude</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h3>Opponent Simulation</h3>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Constant</th><th>Default</th><th>Description</th></tr>
-              </thead>
-              <tbody>
-                <tr><td><code>REACTION_SIM_MIN_DELAY_MS</code></td><td>850</td><td>Minimum delay between simulated chat messages</td></tr>
-                <tr><td><code>REACTION_SIM_MAX_DELAY_MS</code></td><td>2 600</td><td>Maximum delay between simulated chat messages</td></tr>
-                <tr><td><code>REACTION_SIM_MAX_MESSAGES</code></td><td>80</td><td>Max chat messages before simulation stops</td></tr>
-                <tr><td><code>AUTO_CASHOUT_START_CHANCE</code></td><td>0.95</td><td>Per-tick probability an opponent cashes out</td></tr>
-                <tr><td><code>AUTO_CASHOUT_MAX_DELAY_MS</code></td><td>1 400</td><td>Max spacing between opponent cashout events</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        <!-- ── Data Structures ── -->
-        <section id="data-structures">
-          <h2>Data Structures</h2>
-
-          <h3>historyItems[]</h3>
-          <p>Stores the last N completed rounds for display and verification.</p>
-          <pre><code>{
-  <span class="prop">round</span>:      <span class="str">'#812531'</span>,    <span class="cmt">// round number string</span>
-  <span class="prop">crash</span>:      <span class="str">'1.16x'</span>,      <span class="cmt">// formatted crash multiplier</span>
-  <span class="prop">crashValue</span>: <span class="num">1.16</span>,          <span class="cmt">// numeric crash multiplier</span>
-  <span class="prop">seed</span>:       <span class="str">'f35b...79ff'</span>, <span class="cmt">// truncated server seed hash</span>
-  <span class="prop">nonce</span>:      <span class="num">128</span>            <span class="cmt">// round nonce for verification</span>
-}</code></pre>
-
-          <h3>BET_SEED[]</h3>
-          <p>
-            Initial opponent roster. Each entry defines a username and stake amount used to
-            populate <code>betsState</code> at the start of each round.
-          </p>
-          <pre><code>{ <span class="prop">user</span>: <span class="str">'JetStream'</span>, <span class="prop">stake</span>: <span class="num">190.0</span> }</code></pre>
-
-          <h3>SIMULATED_REACTIONS[]</h3>
-          <p>Pool of chat messages used by the reaction simulation engine.</p>
-          <pre><code>{
-  <span class="prop">author</span>:  <span class="str">'Rushtu'</span>,
-  <span class="prop">tone</span>:    <span class="str">'orange'</span>,   <span class="cmt">// CSS color class for username</span>
-  <span class="prop">message</span>: <span class="str">'Nice hit!'</span>
-}</code></pre>
-
-          <h3>TOP_RANGE_USER_SETS / TOP_RANGE_VALUE_PROFILE</h3>
-          <p>
-            Leaderboard data segmented by time range (<code>'day' | 'week' | 'month' | 'year'</code>).
-            <code>TOP_RANGE_VALUE_PROFILE</code> defines the multiplier and winnings ranges used
-            to generate synthetic leaderboard entries.
-          </p>
-          <pre><code>TOP_RANGE_VALUE_PROFILE.month = {
-  <span class="prop">xMin</span>: <span class="num">22</span>, <span class="prop">xMax</span>: <span class="num">210</span>,
-  <span class="prop">winMin</span>: <span class="num">48000</span>, <span class="prop">winMax</span>: <span class="num">460000</span>
-}</code></pre>
-        </section>
-
-        <!-- ── DOM Reference ── -->
-        <section id="dom-reference">
-          <h2>DOM Reference</h2>
-          <p>Key element IDs and classes used by <code>script.js</code> to update the UI.</p>
-
-          <h4>Game Display</h4>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Selector</th><th>Description</th></tr>
-              </thead>
-              <tbody>
-                <tr><td><code>#multiplier</code></td><td>Live multiplier text display</td></tr>
-                <tr><td><code>#stageBanner</code></td><td>"Betting Open" / crash value banner</td></tr>
-                <tr><td><code>#countdownOverlay</code></td><td>Circular countdown ring during taxi phase</td></tr>
-                <tr><td><code>.sky-stage</code></td><td>Upper game area containing jet and canvases</td></tr>
-                <tr><td><code>.ground-stage</code></td><td>Lower runway area</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h4>Aircraft Elements</h4>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Selector</th><th>Description</th></tr>
-              </thead>
-              <tbody>
-                <tr><td><code>#jetModel</code></td><td>Main jet plane DOM element (CSS-transformed each frame)</td></tr>
-                <tr><td><code>#podModel</code></td><td>Pod booster element</td></tr>
-                <tr><td><code>#parachuteModel</code></td><td>Parachute element shown after crash</td></tr>
-                <tr><td><code>#cloudCanvas</code></td><td>Cloud particle canvas</td></tr>
-                <tr><td><code>#starCanvas</code></td><td>Star particle canvas</td></tr>
-                <tr><td><code>#contrailCanvas</code></td><td>Contrail particle canvas</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h4>Controls</h4>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Selector</th><th>Description</th></tr>
-              </thead>
-              <tbody>
-                <tr><td><code>#betBtn</code></td><td>Main bet / cash out button</td></tr>
-                <tr><td><code>#cancelBetBtn</code></td><td>Cancel pending bet during taxi</td></tr>
-                <tr><td><code>#podActionBtn</code></td><td>Buy Pod / Pod status button</td></tr>
-                <tr><td><code>#hypersonicActionBtn</code></td><td>Buy Hypersonic button</td></tr>
-                <tr><td><code>#betInput</code></td><td>Bet amount display input</td></tr>
-                <tr><td><code>#balanceDisplay</code></td><td>Player balance text</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h4>Sidebar</h4>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Selector</th><th>Description</th></tr>
-              </thead>
-              <tbody>
-                <tr><td><code>#playerRows</code></td><td>Container for all player bet rows</td></tr>
-                <tr><td><code>#playersPanel</code></td><td>Live bets panel wrapper</td></tr>
-                <tr><td><code>#chatPanel</code></td><td>Chat / reactions panel</td></tr>
-                <tr><td><code>.tab[data-tab]</code></td><td>Tab buttons (Live, Previous, Top)</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="callout info">
-            All DOM nodes are cached in module-level variables during initialization. Avoid
-            querying the DOM repeatedly inside the game loop — use the cached references.
-          </div>
-        </section>
-
-      </div><!-- /content -->
-    </div><!-- /main -->
-
-    <script>
-      // Active nav link on scroll
-      const sections = document.querySelectorAll('section[id]');
-      const navLinks = document.querySelectorAll('.nav a[href^="#"]');
-
-      function updateActiveLink() {
-        let current = '';
-        sections.forEach((s) => {
-          if (window.scrollY >= s.offsetTop - 100) current = s.id;
-        });
-        navLinks.forEach((a) => {
-          a.classList.toggle('active', a.getAttribute('href') === '#' + current);
-        });
-      }
-
-      window.addEventListener('scroll', updateActiveLink, { passive: true });
-      updateActiveLink();
-    </script>
-  </body>
+  // Active nav on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav a[href^="#"]');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
+    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+  }, { passive: true });
+</script>
+</body>
 </html>
