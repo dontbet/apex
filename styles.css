@@ -1840,6 +1840,8 @@ body.booting .scene {
 
   .sidebar.show-players .chat {
     display: block;
+    max-height: 340px;
+    overflow-y: auto;
   }
 
   .sidebar.show-players #playersPanel {
