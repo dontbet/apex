@@ -736,9 +736,24 @@ body.booting .scene {
   pointer-events: none;
 }
 
+.countdown-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .countdown-overlay.align-top {
   justify-content: flex-start;
   padding-top: 24px;
+}
+
+.countdown-overlay.align-top .countdown-header {
+  flex-direction: row;
+  gap: 10px;
+}
+
+.countdown-overlay.align-top .countdown-title {
+  margin: 0;
 }
 
 .countdown-overlay.align-top .countdown-ring {
