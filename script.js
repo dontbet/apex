@@ -1424,6 +1424,8 @@ function setActionButtonState(button, stateClass, lineOne, lineTwo = '', disable
       runButtonAnimation(button, 'amount-pop-enter', 420);
     } else if (stateClass === 'state-drop') {
       // Immediate — no enter animation so player can cash out right away
+    } else if (stateClass === 'state-cashout' && actionStackEl && actionStackEl.classList.contains('pod-mode')) {
+      // Pod mode — both buttons appear instantly
     } else {
       runButtonAnimation(button, 'state-swap-enter', 320);
     }
@@ -1535,7 +1537,7 @@ function updateBetButtonUI(now = performance.now()) {
       return;
     }
 
-    if (podWinActive) {
+    if (podWinActive && !jetWinActive) {
       setPodActionButtonState('state-win', `+${formatCurrency(gameState.podCashAmount)}`, '', true);
     } else if (gameState.podCashedOut || gameState.podCashAmount > 0) {
       setPodActionButtonState('state-saved', `+${formatCurrency(gameState.podCashAmount)}`, '', true);
@@ -2062,7 +2064,7 @@ function updateCountdownOverlay() {
   countdownArcEl.setAttribute('stroke', isHypersonic ? '#ffcc00' : '#ffffff');
 
   const progress = clampValue(gameState.phaseElapsed / TAXI_DURATION_SEC, 0, 1);
-  countdownArcEl.setAttribute('stroke-dashoffset', String(COUNTDOWN_CIRCUMFERENCE * (1 - progress)));
+  countdownArcEl.style.strokeDashoffset = String(COUNTDOWN_CIRCUMFERENCE * (1 - progress));
 
   const remaining = Math.max(1, Math.ceil(TAXI_DURATION_SEC - gameState.phaseElapsed));
   countdownNumberEl.textContent = String(remaining);
