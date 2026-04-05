@@ -737,8 +737,28 @@ body.booting .scene {
 }
 
 .countdown-overlay.align-top {
-  justify-content: flex-start;
+  flex-direction: row;
+  justify-content: center;
   padding-top: 24px;
+  gap: 10px;
+}
+
+.countdown-overlay.align-top .countdown-title {
+  margin: 0;
+}
+
+.countdown-overlay.align-top .countdown-ring {
+  width: 28px;
+  height: 28px;
+}
+
+.countdown-overlay.align-top .countdown-ring svg {
+  width: 28px;
+  height: 28px;
+}
+
+.countdown-overlay.align-top #countdownNumber {
+  display: none;
 }
 
 .countdown-title {
