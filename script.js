@@ -227,6 +227,7 @@ let betsState = createInitialBets();
 
 const playerRowsEl = document.getElementById('playerRows');
 const playersPanelEl = document.getElementById('playersPanel');
+const sceneEl = document.querySelector('.scene');
 const sidebarEl = document.querySelector('.sidebar');
 const chatPanelEl = document.getElementById('chatPanel');
 const tabButtons = Array.from(document.querySelectorAll('.tab'));
@@ -243,7 +244,7 @@ const stageBannerEl = document.getElementById('stageBanner');
 const historyChips = Array.from(document.querySelectorAll('.history-chip[data-history-point]'));
 const mobileTabButtons = Array.from(document.querySelectorAll('.mobile-tab-btn[data-mobile-tab]'));
 const mobileSubTabsEl = document.getElementById('mobileSubTabs');
-const mobileSubTabButtons = Array.from(document.querySelectorAll('.mobile-sub-tab[data-subtab]'));
+const mobileSubTabButtons = Array.from(document.querySelectorAll('[data-subtab]'));
 let mobileSubTab = 'bets';
 
 const menuBtn = document.getElementById('menuBtn');
@@ -859,6 +860,10 @@ function updateTopFiltersUi() {
   }
 
   const mobileNoSelection = isMobileViewport() && !mobileOpenTab;
+
+  if (sceneEl) {
+    sceneEl.classList.toggle('mobile-sidebar-open', isMobileViewport() && !!mobileOpenTab);
+  }
 
   if (sidebarEl) {
     sidebarEl.classList.toggle('hidden', mobileNoSelection);
