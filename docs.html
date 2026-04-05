@@ -1,0 +1,1350 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>F35 Crash — Developer Docs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --bg: #0f0f0f;
+        --bg-surface: #161616;
+        --bg-raised: #1e1e1e;
+        --bg-code: #111111;
+        --border: #2a2a2a;
+        --border-hover: #3a3a3a;
+        --accent: #00f27e;
+        --accent-dim: rgba(0, 242, 126, 0.12);
+        --accent-dim2: rgba(0, 242, 126, 0.06);
+        --text-primary: #f0f0f0;
+        --text-secondary: #999;
+        --text-muted: #555;
+        --text-code: #a8d8a8;
+        --tag-blue: rgba(59, 130, 246, 0.15);
+        --tag-blue-text: #93c5fd;
+        --tag-violet: rgba(139, 92, 246, 0.15);
+        --tag-violet-text: #c4b5fd;
+        --tag-amber: rgba(245, 158, 11, 0.15);
+        --tag-amber-text: #fcd34d;
+        --tag-green: rgba(0, 242, 126, 0.12);
+        --tag-green-text: #00f27e;
+        --nav-w: 260px;
+        --content-max: 860px;
+        --radius: 8px;
+        --radius-sm: 5px;
+        --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+      }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        background: var(--bg);
+        color: var(--text-primary);
+        font-family: 'Inter', system-ui, sans-serif;
+        font-size: 14px;
+        line-height: 1.7;
+        display: flex;
+      }
+
+      /* ── Sidebar nav ── */
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: var(--nav-w);
+        height: 100vh;
+        background: var(--bg-surface);
+        border-right: 1px solid var(--border);
+        overflow-y: auto;
+        padding: 28px 0 40px;
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .nav-brand {
+        padding: 0 20px 24px;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 16px;
+      }
+      .nav-brand h1 {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text-primary);
+        letter-spacing: -0.02em;
+      }
+      .nav-brand h1 span { color: var(--accent); }
+      .nav-brand p {
+        font-size: 11px;
+        color: var(--text-muted);
+        margin-top: 3px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      .nav-section {
+        padding: 6px 20px 2px;
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--text-muted);
+        margin-top: 14px;
+      }
+
+      .nav a {
+        display: block;
+        padding: 6px 20px;
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 13px;
+        border-left: 2px solid transparent;
+        transition: color 0.15s, border-color 0.15s, background 0.15s;
+      }
+      .nav a:hover { color: var(--text-primary); background: var(--accent-dim2); }
+      .nav a.active { color: var(--accent); border-left-color: var(--accent); background: var(--accent-dim2); }
+
+      /* ── Main content ── */
+      .main {
+        margin-left: var(--nav-w);
+        flex: 1;
+        min-width: 0;
+      }
+
+      .content {
+        max-width: var(--content-max);
+        padding: 56px 48px 120px;
+      }
+
+      /* ── Sections ── */
+      section {
+        padding-top: 80px;
+        margin-top: -40px;
+      }
+
+      /* ── Typography ── */
+      h2 {
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        color: var(--text-primary);
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      h2::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+      }
+
+      h3 {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin: 28px 0 10px;
+      }
+
+      h4 {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        margin: 20px 0 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      p { color: var(--text-secondary); margin-bottom: 12px; }
+
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+
+      strong { color: var(--text-primary); font-weight: 600; }
+
+      ul, ol {
+        color: var(--text-secondary);
+        padding-left: 20px;
+        margin-bottom: 12px;
+      }
+      li { margin-bottom: 4px; }
+
+      /* ── Hero ── */
+      .hero {
+        padding: 0 0 48px;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 8px;
+      }
+      .hero-label {
+        display: inline-block;
+        background: var(--accent-dim);
+        color: var(--accent);
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding: 3px 10px;
+        border-radius: 99px;
+        margin-bottom: 16px;
+      }
+      .hero h1 {
+        font-size: 36px;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        color: var(--text-primary);
+        line-height: 1.2;
+        margin-bottom: 14px;
+      }
+      .hero h1 span { color: var(--accent); }
+      .hero p {
+        font-size: 15px;
+        color: var(--text-secondary);
+        max-width: 560px;
+        line-height: 1.65;
+      }
+
+      .hero-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 20px;
+      }
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 10px;
+        border-radius: 99px;
+        font-size: 12px;
+        font-weight: 500;
+        border: 1px solid var(--border);
+        color: var(--text-secondary);
+        background: var(--bg-raised);
+      }
+      .chip-dot {
+        width: 6px; height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+
+      /* ── Code ── */
+      pre, code {
+        font-family: var(--font-mono);
+        font-size: 12.5px;
+      }
+
+      code {
+        background: var(--bg-raised);
+        color: var(--text-code);
+        padding: 2px 6px;
+        border-radius: 4px;
+        border: 1px solid var(--border);
+      }
+
+      pre {
+        background: var(--bg-code);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 18px 20px;
+        overflow-x: auto;
+        margin: 14px 0;
+        line-height: 1.6;
+        position: relative;
+      }
+      pre code {
+        background: none;
+        border: none;
+        padding: 0;
+        color: var(--text-primary);
+        font-size: 12.5px;
+      }
+
+      .pre-label {
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-muted);
+        margin-bottom: -4px;
+        margin-top: 18px;
+      }
+
+      /* Syntax tokens */
+      .kw { color: #c792ea; }
+      .fn { color: #82aaff; }
+      .str { color: #c3e88d; }
+      .num { color: #f78c6c; }
+      .cmt { color: #546e7a; font-style: italic; }
+      .prop { color: #80cbc4; }
+      .type { color: #ffcb6b; }
+
+      /* ── Cards / callouts ── */
+      .callout {
+        border-radius: var(--radius);
+        padding: 14px 18px;
+        margin: 16px 0;
+        border-left: 3px solid;
+        font-size: 13px;
+      }
+      .callout.info {
+        background: rgba(59, 130, 246, 0.06);
+        border-color: rgba(59, 130, 246, 0.5);
+        color: var(--tag-blue-text);
+      }
+      .callout.tip {
+        background: var(--accent-dim2);
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .callout.warn {
+        background: var(--tag-amber);
+        border-color: rgba(245, 158, 11, 0.5);
+        color: var(--tag-amber-text);
+      }
+      .callout strong { color: inherit; }
+
+      /* ── Tables ── */
+      .table-wrap { overflow-x: auto; margin: 14px 0; }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      th {
+        text-align: left;
+        padding: 8px 14px;
+        background: var(--bg-raised);
+        color: var(--text-secondary);
+        font-weight: 600;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        border-bottom: 1px solid var(--border);
+      }
+      td {
+        padding: 9px 14px;
+        color: var(--text-secondary);
+        border-bottom: 1px solid var(--border);
+        vertical-align: top;
+      }
+      td:first-child { color: var(--text-primary); }
+      tr:last-child td { border-bottom: none; }
+      tr:hover td { background: var(--accent-dim2); }
+      td code { font-size: 11.5px; }
+
+      /* ── Tags ── */
+      .tag {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 99px;
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 1.5;
+      }
+      .tag-blue { background: var(--tag-blue); color: var(--tag-blue-text); }
+      .tag-violet { background: var(--tag-violet); color: var(--tag-violet-text); }
+      .tag-amber { background: var(--tag-amber); color: var(--tag-amber-text); }
+      .tag-green { background: var(--tag-green); color: var(--tag-green-text); }
+
+      /* ── Function signatures ── */
+      .fn-block {
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        margin: 16px 0;
+        overflow: hidden;
+      }
+      .fn-header {
+        padding: 12px 16px;
+        background: var(--bg-raised);
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .fn-name {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: #82aaff;
+        font-weight: 500;
+      }
+      .fn-sig {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+      .fn-body {
+        padding: 12px 16px;
+        font-size: 13px;
+        color: var(--text-secondary);
+      }
+      .fn-body p { margin-bottom: 8px; }
+      .fn-body p:last-child { margin-bottom: 0; }
+
+      /* ── File tree ── */
+      .file-tree {
+        font-family: var(--font-mono);
+        font-size: 12.5px;
+        background: var(--bg-code);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 18px 20px;
+        line-height: 1.9;
+        color: var(--text-secondary);
+      }
+      .file-tree .dir { color: var(--text-primary); font-weight: 500; }
+      .file-tree .note { color: var(--text-muted); font-style: italic; }
+
+      /* ── Phase diagram ── */
+      .phase-flow {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        margin: 18px 0;
+        flex-wrap: wrap;
+        gap: 4px;
+      }
+      .phase-box {
+        background: var(--bg-raised);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 8px 16px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        text-align: center;
+        flex: 1;
+        min-width: 80px;
+      }
+      .phase-box.accent { border-color: var(--accent); color: var(--accent); background: var(--accent-dim2); }
+      .phase-box.warn { border-color: rgba(245, 158, 11, 0.5); color: var(--tag-amber-text); background: var(--tag-amber); }
+      .phase-arrow {
+        color: var(--text-muted);
+        font-size: 16px;
+        padding: 0 4px;
+        flex-shrink: 0;
+      }
+      .phase-label {
+        font-size: 10px;
+        color: var(--text-muted);
+        margin-top: 3px;
+      }
+
+      /* ── Responsive ── */
+      @media (max-width: 900px) {
+        .nav { display: none; }
+        .main { margin-left: 0; }
+        .content { padding: 32px 20px 80px; }
+        .hero h1 { font-size: 26px; }
+      }
+
+      /* Scrollbar */
+      ::-webkit-scrollbar { width: 6px; height: 6px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+      ::-webkit-scrollbar-thumb:hover { background: var(--border-hover); }
+    </style>
+  </head>
+  <body>
+
+    <!-- ── Sidebar ── -->
+    <nav class="nav">
+      <div class="nav-brand">
+        <h1>ape<span>X</span> · F35 Crash</h1>
+        <p>Developer Reference</p>
+      </div>
+
+      <span class="nav-section">Getting Started</span>
+      <a href="#overview">Overview</a>
+      <a href="#quickstart">Quick Start</a>
+      <a href="#structure">Project Structure</a>
+
+      <span class="nav-section">Architecture</span>
+      <a href="#game-phases">Game Phases</a>
+      <a href="#state">State Objects</a>
+      <a href="#game-loop">Game Loop</a>
+
+      <span class="nav-section">Core APIs</span>
+      <a href="#betting">Betting System</a>
+      <a href="#powerups">Power-ups</a>
+      <a href="#provably-fair">Provably Fair</a>
+
+      <span class="nav-section">Subsystems</span>
+      <a href="#audio">Audio Engine</a>
+      <a href="#visuals">Visual Renderer</a>
+      <a href="#ui">UI & Modals</a>
+
+      <span class="nav-section">Reference</span>
+      <a href="#constants">Configuration Constants</a>
+      <a href="#data-structures">Data Structures</a>
+      <a href="#dom-reference">DOM Reference</a>
+    </nav>
+
+    <!-- ── Content ── -->
+    <div class="main">
+      <div class="content">
+
+        <!-- Hero -->
+        <div class="hero">
+          <div class="hero-label">Developer Docs</div>
+          <h1>F35 Crash <span>Reference</span></h1>
+          <p>
+            A real-time crash game built with vanilla JavaScript, Web Audio API, and Canvas.
+            This reference covers the full architecture, game loop, betting system, audio
+            synthesis engine, and visual renderer.
+          </p>
+          <div class="hero-chips">
+            <span class="chip"><span class="chip-dot"></span>Vanilla JS</span>
+            <span class="chip">No build step</span>
+            <span class="chip">Web Audio API</span>
+            <span class="chip">Canvas 2D</span>
+            <span class="chip">Provably Fair</span>
+          </div>
+        </div>
+
+        <!-- ── Overview ── -->
+        <section id="overview">
+          <h2>Overview</h2>
+          <p>
+            <strong>F35 Crash</strong> is a multiplayer-style crash gambling game where players
+            place bets before each round. A multiplier climbs from <strong>1.00×</strong> and
+            crashes at a provably-fair random point. Players must cash out before the crash to
+            collect winnings.
+          </p>
+          <p>
+            The entire client runs as a single-page application across four files with zero
+            external runtime dependencies. All audio is synthesized at runtime via the Web Audio API
+            — no audio files are bundled.
+          </p>
+
+          <h3>Key Concepts</h3>
+          <ul>
+            <li><strong>Round</strong> — one complete taxi → flight → crash cycle</li>
+            <li><strong>Multiplier</strong> — grows exponentially during the flight phase</li>
+            <li><strong>Crash point</strong> — the multiplier at which a round ends</li>
+            <li><strong>Cash out</strong> — locking in winnings at the current multiplier</li>
+            <li><strong>Pod</strong> — a booster that auto-cashes out a portion of your stake</li>
+            <li><strong>Hypersonic</strong> — a booster that guarantees a high crash point</li>
+          </ul>
+        </section>
+
+        <!-- ── Quick Start ── -->
+        <section id="quickstart">
+          <h2>Quick Start</h2>
+          <p>F35 Crash requires no build tools. Serve the project root over HTTP:</p>
+
+          <p class="pre-label">Using Python</p>
+          <pre><code>python3 -m http.server 3000</code></pre>
+
+          <p class="pre-label">Using Node.js (npx)</p>
+          <pre><code>npx serve .</code></pre>
+
+          <p class="pre-label">Using VS Code</p>
+          <pre><code><span class="cmt"># Install the "Live Server" extension, then right-click index.html → Open with Live Server</span></code></pre>
+
+          <div class="callout tip">
+            <strong>Audio note:</strong> Web Audio requires a user gesture to start. Music and SFX
+            begin on the first click/tap due to browser autoplay policies.
+          </div>
+
+          <div class="callout warn">
+            <strong>CORS:</strong> The game loads assets from <code>./assets/</code> and fonts from
+            Google Fonts. Opening <code>index.html</code> directly via <code>file://</code> may
+            block asset loading in some browsers. Always use a local HTTP server.
+          </div>
+        </section>
+
+        <!-- ── Project Structure ── -->
+        <section id="structure">
+          <h2>Project Structure</h2>
+
+          <div class="file-tree">
+<span class="dir">f35-crash/</span>
+├── <span class="dir">index.html</span>       <span class="note">— HTML shell, layout, all modals &amp; controls</span>
+├── <span class="dir">script.js</span>        <span class="note">— Game logic, state, rendering, UI (3 600 lines)</span>
+├── <span class="dir">audio.js</span>         <span class="note">— Web Audio API synthesis engine (983 lines)</span>
+├── <span class="dir">styles.css</span>       <span class="note">— All styling, animations, responsive layout</span>
+└── <span class="dir">assets/</span>
+    ├── plane.png         <span class="note">— Jet sprite</span>
+    ├── plane_pixel.png   <span class="note">— Pixel-art jet variant</span>
+    ├── parachute.png     <span class="note">— Parachute (crash animation)</span>
+    ├── pod.png           <span class="note">— Pod booster sprite</span>
+    ├── road.png          <span class="note">— Runway texture</span>
+    ├── back-wheels.png   <span class="note">— Landing gear (rear)</span>
+    ├── front-wheels.png  <span class="note">— Landing gear (front)</span>
+    └── shadow.png        <span class="note">— Jet ground shadow</span>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>File</th><th>Responsibility</th><th>Size</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>index.html</code></td><td>Semantic HTML structure, all DOM elements, accessibility attributes, modal scaffolding</td><td>24 KB</td></tr>
+                <tr><td><code>script.js</code></td><td>Game state machine, betting logic, opponent simulation, canvas rendering, UI updates, provably-fair math</td><td>115 KB</td></tr>
+                <tr><td><code>audio.js</code></td><td>Real-time audio synthesis — SFX and adaptive background music via Web Audio API</td><td>27 KB</td></tr>
+                <tr><td><code>styles.css</code></td><td>Dark theme design system, CSS custom properties, animations, responsive layout</td><td>55 KB</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ── Game Phases ── -->
+        <section id="game-phases">
+          <h2>Game Phases</h2>
+          <p>
+            Every round progresses through three phases stored in <code>gameState.phase</code>.
+          </p>
+
+          <div class="phase-flow">
+            <div class="phase-box accent">
+              taxi
+              <div class="phase-label">5 s · bets open</div>
+            </div>
+            <div class="phase-arrow">→</div>
+            <div class="phase-box">
+              flying
+              <div class="phase-label">7–15 s · multiplier climbs</div>
+            </div>
+            <div class="phase-arrow">→</div>
+            <div class="phase-box warn">
+              ended
+              <div class="phase-label">1.5 s · crash shown</div>
+            </div>
+            <div class="phase-arrow">→</div>
+            <div class="phase-box accent">
+              taxi
+              <div class="phase-label">next round</div>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Phase</th><th>Duration</th><th>What Happens</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>"taxi"</code></td>
+                  <td><code>TAXI_DURATION_SEC</code> (5 s)</td>
+                  <td>Jet taxis on runway. Bets are accepted. Countdown ring animates. Opponents place bets.</td>
+                </tr>
+                <tr>
+                  <td><code>"flying"</code></td>
+                  <td>7–15 s (random)</td>
+                  <td>Multiplier climbs at 8%/s. Players can cash out. Jet ascends. Pod and Hypersonic boosters are active.</td>
+                </tr>
+                <tr>
+                  <td><code>"ended"</code></td>
+                  <td><code>ENDED_DURATION_SEC</code> (1.5 s)</td>
+                  <td>Crash multiplier is revealed. Uncashed bets are lost. Jet shows crash/fly-away animation.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Phase Transitions</h3>
+          <pre><code><span class="cmt">// Transitions are driven by phaseElapsed inside gameLoop()</span>
+<span class="kw">if</span> (gameState.phase === <span class="str">'taxi'</span> &amp;&amp; gameState.phaseElapsed &gt;= TAXI_DURATION_SEC) {
+  startRound();        <span class="cmt">// → 'flying'</span>
+}
+<span class="kw">if</span> (gameState.phase === <span class="str">'flying'</span> &amp;&amp; gameState.phaseElapsed &gt;= gameState.crashAtSec) {
+  onCrash();           <span class="cmt">// → 'ended'</span>
+}
+<span class="kw">if</span> (gameState.phase === <span class="str">'ended'</span> &amp;&amp; gameState.phaseElapsed &gt;= ENDED_DURATION_SEC) {
+  startTaxi();         <span class="cmt">// → 'taxi' (new round)</span>
+}</code></pre>
+        </section>
+
+        <!-- ── State Objects ── -->
+        <section id="state">
+          <h2>State Objects</h2>
+          <p>All mutable game state is held in module-level objects — no framework, no store.</p>
+
+          <h3>gameState</h3>
+          <p>The primary state object controlling round logic.</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Property</th><th>Type</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>balance</code></td><td>number</td><td>Player's current balance in USD</td></tr>
+                <tr><td><code>betAmount</code></td><td>number</td><td>Amount staged for the next bet</td></tr>
+                <tr><td><code>phase</code></td><td><code>"taxi" | "flying" | "ended"</code></td><td>Current game phase</td></tr>
+                <tr><td><code>phaseElapsed</code></td><td>number</td><td>Seconds elapsed in the current phase</td></tr>
+                <tr><td><code>crashAtSec</code></td><td>number</td><td>Seconds into flight when the crash occurs</td></tr>
+                <tr><td><code>multiplier</code></td><td>number</td><td>Current live multiplier value</td></tr>
+                <tr><td><code>betPlaced</code></td><td>boolean</td><td>Whether the player has a pending bet</td></tr>
+                <tr><td><code>betActive</code></td><td>boolean</td><td>Whether the player's bet is in flight</td></tr>
+                <tr><td><code>podBought</code></td><td>boolean</td><td>Pod booster purchased this round</td></tr>
+                <tr><td><code>podActive</code></td><td>boolean</td><td>Pod is deployed and tracking</td></tr>
+                <tr><td><code>podCashedOut</code></td><td>boolean</td><td>Pod has already auto-cashed out</td></tr>
+                <tr><td><code>hypersonicBought</code></td><td>boolean</td><td>Hypersonic booster purchased</td></tr>
+                <tr><td><code>hypersonicMultiplier</code></td><td>number</td><td>Guaranteed crash point when hypersonic is active</td></tr>
+                <tr><td><code>jetCashAmount</code></td><td>number</td><td>Amount won by the player's main bet</td></tr>
+                <tr><td><code>podCashAmount</code></td><td>number</td><td>Amount won by the pod</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>visualState</h3>
+          <p>Canvas rendering state — not related to game logic.</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Property</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>clouds[]</code></td><td>Array of cloud particle objects with position, speed, opacity</td></tr>
+                <tr><td><code>stars[]</code></td><td>Star particle array — visible at high multipliers</td></tr>
+                <tr><td><code>contrailPuffs[]</code></td><td>Engine exhaust trail particles</td></tr>
+                <tr><td><code>jet.x / jet.y / jet.rot</code></td><td>Current rendered jet position and rotation</td></tr>
+                <tr><td><code>podDrop</code></td><td>Pod drop animation state (active, x, y, rot, elapsed)</td></tr>
+                <tr><td><code>runwayOffset</code></td><td>Horizontal scroll offset for the runway texture</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>betsState[]</h3>
+          <p>Array of all active bet objects — includes both the player and simulated opponents.</p>
+          <pre><code><span class="cmt">// Bet object shape</span>
+{
+  <span class="prop">id</span>:                 <span class="str">'bet-1'</span>,          <span class="cmt">// unique identifier</span>
+  <span class="prop">user</span>:               <span class="str">'JetStream'</span>,      <span class="cmt">// display name</span>
+  <span class="prop">stake</span>:              <span class="num">190.0</span>,            <span class="cmt">// bet amount (USD)</span>
+  <span class="prop">cashedOut</span>:         <span class="kw">false</span>,            <span class="cmt">// whether cashed out</span>
+  <span class="prop">cashOutMultiplier</span>: <span class="num">0</span>,               <span class="cmt">// multiplier at cashout</span>
+  <span class="prop">payout</span>:            <span class="num">0</span>,               <span class="cmt">// final payout amount</span>
+  <span class="prop">cashOutAt</span>:         <span class="num">0</span>,               <span class="cmt">// timestamp of cashout</span>
+  <span class="prop">boostType</span>:         <span class="str">''</span>               <span class="cmt">// 'pod' | 'hypersonic' | ''</span>
+}</code></pre>
+        </section>
+
+        <!-- ── Game Loop ── -->
+        <section id="game-loop">
+          <h2>Game Loop</h2>
+          <p>
+            The game runs on a <code>requestAnimationFrame</code> loop. Each tick advances game
+            time, updates the multiplier, triggers phase transitions, drives opponent cashouts,
+            and re-renders the canvas.
+          </p>
+
+          <pre><code><span class="kw">function</span> <span class="fn">gameLoop</span>(timestamp) {
+  <span class="kw">const</span> deltaSec = (timestamp - lastTime) / <span class="num">1000</span>;
+
+  <span class="cmt">// 1. Advance phase timer</span>
+  gameState.phaseElapsed += deltaSec;
+
+  <span class="cmt">// 2. Update multiplier (flying phase only)</span>
+  <span class="kw">if</span> (gameState.phase === <span class="str">'flying'</span>) {
+    gameState.multiplier = calcMultiplier(gameState.phaseElapsed);
+    runOpponentCashoutTick();
+  }
+
+  <span class="cmt">// 3. Check for phase transitions</span>
+  checkPhaseTransition();
+
+  <span class="cmt">// 4. Update DOM and canvas</span>
+  <span class="fn">updateGameUi</span>(timestamp);
+  <span class="fn">renderGameplayVisual</span>(deltaSec);
+
+  gameRaf = requestAnimationFrame(gameLoop);
+}</code></pre>
+
+          <h3>Multiplier Formula</h3>
+          <p>
+            The multiplier grows exponentially based on elapsed seconds in the flying phase:
+          </p>
+          <pre><code><span class="cmt">// MULTIPLIER_GROWTH_RATE = 0.08 (8% per second)</span>
+multiplier = Math.pow(<span class="num">1</span> + MULTIPLIER_GROWTH_RATE, phaseElapsed * <span class="num">10</span>)</code></pre>
+        </section>
+
+        <!-- ── Betting System ── -->
+        <section id="betting">
+          <h2>Betting System</h2>
+
+          <div class="fn-block">
+            <div class="fn-header">
+              <span class="fn-name">placeBet</span>
+              <span class="fn-sig">() → void</span>
+              <span class="tag tag-blue">taxi phase only</span>
+            </div>
+            <div class="fn-body">
+              <p>Places the player's bet using <code>gameState.betAmount</code>. Deducts from balance, sets <code>betPlaced = true</code>, and adds the player row to the Live Bets panel. Rejected if phase is not <code>"taxi"</code> or balance is insufficient.</p>
+            </div>
+          </div>
+
+          <div class="fn-block">
+            <div class="fn-header">
+              <span class="fn-name">cashOutBet</span>
+              <span class="fn-sig">(betId: string, source: string) → void</span>
+              <span class="tag tag-green">flying phase only</span>
+            </div>
+            <div class="fn-body">
+              <p>Cashes out a bet at the current multiplier. Calculates payout as <code>stake × multiplier</code>, updates balance, marks the bet row as cashed out, and triggers the cashout SFX. <code>source</code> is used for logging (<code>'player'</code> | <code>'pod'</code> | <code>'auto'</code>).</p>
+            </div>
+          </div>
+
+          <div class="fn-block">
+            <div class="fn-header">
+              <span class="fn-name">handleBetButtonAction</span>
+              <span class="fn-sig">() → void</span>
+            </div>
+            <div class="fn-body">
+              <p>Unified handler for the main bet button. Behavior changes based on phase and state:</p>
+              <ul>
+                <li><strong>taxi, no bet</strong> → calls <code>placeBet()</code></li>
+                <li><strong>taxi, bet placed</strong> → cancels the bet and refunds balance</li>
+                <li><strong>flying, active bet</strong> → calls <code>cashOutBet()</code></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="fn-block">
+            <div class="fn-header">
+              <span class="fn-name">updateBetAmount</span>
+              <span class="fn-sig">(next: number) → void</span>
+            </div>
+            <div class="fn-body">
+              <p>Sets <code>gameState.betAmount</code> to <code>next</code> and refreshes the bet input display. The ½ and 2× buttons call this with <code>betAmount / 2</code> and <code>betAmount * 2</code> respectively.</p>
+            </div>
+          </div>
+
+          <div class="fn-block">
+            <div class="fn-header">
+              <span class="fn-name">getCurrentPotentialWin</span>
+              <span class="fn-sig">() → number</span>
+            </div>
+            <div class="fn-body">
+              <p>Returns the hypothetical payout if the player were to cash out right now: <code>stake × gameState.multiplier</code>. Used to populate the "potential win" display in the control panel.</p>
+            </div>
+          </div>
+
+          <h3>Opponent Simulation</h3>
+          <p>
+            Opponents are seeded from <code>BET_SEED</code> and their cashouts are simulated
+            during the flying phase using a probabilistic delay model.
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Constant</th><th>Default</th><th>Effect</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>AUTO_CASHOUT_START_CHANCE</code></td><td>0.95</td><td>Probability an opponent cashes out per tick</td></tr>
+                <tr><td><code>AUTO_CASHOUT_START_DELAY_MS</code></td><td>10 ms</td><td>Minimum delay before first opponent cashout</td></tr>
+                <tr><td><code>AUTO_CASHOUT_MAX_DELAY_MS</code></td><td>1 400 ms</td><td>Maximum spacing between opponent cashouts</td></tr>
+                <tr><td><code>AUTO_CASHOUT_SLOWDOWN_FACTOR</code></td><td>0.09</td><td>Rate at which cashout spacing increases over time</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ── Power-ups ── -->
+        <section id="powerups">
+          <h2>Power-ups</h2>
+
+          <h3>Pod</h3>
+          <p>
+            Costs <strong>$10</strong>. When active, a pod detaches from the jet mid-flight and
+            automatically cashes out <strong>50% of the stake</strong> at a random safe multiplier
+            (roughly 1.3–2.5×). The remaining 50% continues riding the main multiplier.
+          </p>
+
+          <div class="fn-block">
+            <div class="fn-header">
+              <span class="fn-name">buyPod</span>
+              <span class="fn-sig">() → void</span>
+              <span class="tag tag-amber">$10 cost</span>
+            </div>
+            <div class="fn-body">
+              <p>Deducts $10, sets <code>gameState.podBought = true</code>, activates the pod UI, and schedules pod cashout. Only available when a bet is placed and the player has sufficient balance.</p>
+            </div>
+          </div>
+
+          <h3>Hypersonic</h3>
+          <p>
+            Costs <strong>$40</strong>. Guarantees the round's crash point will be one of the
+            preset high multipliers: <code>[5, 10, 20, 25, 50, 100]</code>. The jet enters a
+            special "hypersonic" exit animation when active.
+          </p>
+
+          <div class="fn-block">
+            <div class="fn-header">
+              <span class="fn-name">buyHypersonic</span>
+              <span class="fn-sig">() → void</span>
+              <span class="tag tag-violet">$40 cost</span>
+            </div>
+            <div class="fn-body">
+              <p>Deducts $40, picks a random value from <code>HYPERSONIC_MULTIPLIERS</code>, overrides <code>gameState.crashAtSec</code>, and sets <code>hypersonicActive = true</code>. Only available during the taxi phase with an active bet.</p>
+            </div>
+          </div>
+
+          <div class="callout info">
+            Power-ups are one-time-per-round purchases. They reset at the start of each new taxi phase.
+          </div>
+        </section>
+
+        <!-- ── Provably Fair ── -->
+        <section id="provably-fair">
+          <h2>Provably Fair</h2>
+          <p>
+            Each round's crash point is derived from a server hash, client seed, and nonce using
+            standard cryptographic primitives — allowing anyone to verify the result independently.
+          </p>
+
+          <h3>Algorithm</h3>
+          <pre><code><span class="kw">function</span> <span class="fn">calculateCrashPoint</span>(serverHash, clientSeed, nonce) {
+  <span class="cmt">// 1. Combine inputs into a deterministic seed</span>
+  <span class="kw">const</span> combined = serverHash + clientSeed + nonce;
+
+  <span class="cmt">// 2. Hash the combined seed</span>
+  <span class="kw">const</span> hash = <span class="fn">hashString</span>(combined);
+
+  <span class="cmt">// 3. Normalize to [0, 1]</span>
+  <span class="kw">const</span> normalized = hash / MAX_HASH_VALUE;
+
+  <span class="cmt">// 4. Map to crash multiplier (minimum 1.00×)</span>
+  <span class="kw">return</span> Math.max(<span class="num">1.0</span>, <span class="num">1</span> / (<span class="num">1</span> - normalized));
+}</code></pre>
+
+          <div class="fn-block">
+            <div class="fn-header">
+              <span class="fn-name">calculateCrashPoint</span>
+              <span class="fn-sig">(serverHash: string, clientSeed: string, nonce: number) → number</span>
+            </div>
+            <div class="fn-body">
+              <p>Returns the provably-fair crash multiplier for a given set of seeds. The player can supply their own <code>clientSeed</code> via the Provably Fair Settings modal to influence future rounds.</p>
+            </div>
+          </div>
+
+          <div class="fn-block">
+            <div class="fn-header">
+              <span class="fn-name">fnvHash</span>
+              <span class="fn-sig">(input: string) → number</span>
+            </div>
+            <div class="fn-body">
+              <p>32-bit FNV-1a hash. Used for deterministic crash history generation and client-side seed hashing.</p>
+            </div>
+          </div>
+
+          <h3>Round History Verification</h3>
+          <p>
+            Each history row exposes the <strong>server seed hash</strong> and <strong>nonce</strong>.
+            Players can verify any past round by entering these values in the Provably Fair modal,
+            which re-runs <code>calculateCrashPoint()</code> and compares to the recorded result.
+          </p>
+        </section>
+
+        <!-- ── Audio Engine ── -->
+        <section id="audio">
+          <h2>Audio Engine</h2>
+          <p>
+            All audio is synthesized in real time using the Web Audio API. There are no audio
+            files — every sound is generated from oscillators, noise buffers, and filters.
+          </p>
+
+          <h3>Audio Context</h3>
+          <pre><code><span class="cmt">// audio.js manages its own AudioContext</span>
+<span class="kw">let</span> sfxAudioCtx = <span class="kw">null</span>;   <span class="cmt">// lazy-initialized on first SFX call</span>
+<span class="kw">let</span> musicAudioCtx = <span class="kw">null</span>; <span class="cmt">// separate context for background music</span></code></pre>
+
+          <h3>Control Functions</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Function</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>setAudioEnabled(enabled)</code></td><td>Master on/off toggle. Suspends both audio contexts when disabled.</td></tr>
+                <tr><td><code>setSfxEnabled(enabled)</code></td><td>Toggle sound effects independently of music.</td></tr>
+                <tr><td><code>setMusicEnabled(enabled)</code></td><td>Toggle background music independently of SFX.</td></tr>
+                <tr><td><code>startMusic()</code></td><td>Begin adaptive background music playback.</td></tr>
+                <tr><td><code>stopMusic()</code></td><td>Fade out and stop all music nodes.</td></tr>
+                <tr><td><code>syncAudioState()</code></td><td>Called by script.js to sync UI toggles with audio state.</td></tr>
+                <tr><td><code>playSfx(name, ...args)</code></td><td>Play a named SFX. Names: <code>'bet'</code>, <code>'cashout'</code>, <code>'drone'</code>, <code>'slot'</code>, <code>'flyaway'</code>.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>SFX Primitives</h3>
+          <p>Low-level building blocks used to compose each sound effect:</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Function</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>subBody(ctx, t, startHz, endHz, vol, dur, dest)</code></td><td>Sine wave with frequency sweep. Used for low-end thud impacts.</td></tr>
+                <tr><td><code>transient(ctx, t, centerHz, vol, dur, dest)</code></td><td>Band-passed noise burst. Used for attack transients and clicks.</td></tr>
+                <tr><td><code>warmTone(ctx, t, freq, vol, dur, dest)</code></td><td>Waveshaped oscillator for melodic tones.</td></tr>
+                <tr><td><code>resonantBody(ctx, t, freq, vol, dur, dest)</code></td><td>Resonant filtered noise for woody/resonant impacts.</td></tr>
+                <tr><td><code>cabinBell(ctx, t, freq, vol, dur, dest)</code></td><td>Metallic bell tone via detuned oscillator pair.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Music System</h3>
+          <p>Background music is scheduled ahead of time using the Web Audio clock:</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Function</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>playPad(ctx, t)</code></td><td>Ambient pad layer — slow attack filtered chords.</td></tr>
+                <tr><td><code>playChime(ctx, t)</code></td><td>High-frequency melodic chime hits.</td></tr>
+                <tr><td><code>playDrone(ctx, t)</code></td><td>Continuous bass drone via detuned oscillators.</td></tr>
+                <tr><td><code>playBass(ctx, t)</code></td><td>Rhythmic bass pulses.</td></tr>
+                <tr><td><code>playPulse(ctx, t)</code></td><td>Rhythmic mid-range pulse layer.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout tip">
+            <strong>Tip:</strong> The music system uses a beat-scheduling loop that looks ahead
+            ~100 ms to schedule audio nodes precisely, avoiding audible gaps or jitter.
+          </div>
+        </section>
+
+        <!-- ── Visual Renderer ── -->
+        <section id="visuals">
+          <h2>Visual Renderer</h2>
+          <p>
+            The game scene uses three layered <code>&lt;canvas&gt;</code> elements plus CSS-animated
+            DOM elements for the aircraft model. All rendering is driven by
+            <code>renderGameplayVisual(deltaSec)</code> each frame.
+          </p>
+
+          <h3>Canvas Layers</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Canvas ID</th><th>Content</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>#starCanvas</code></td><td>Stars — fade in above 5× multiplier</td></tr>
+                <tr><td><code>#cloudCanvas</code></td><td>18 scrolling cloud particles (<code>CLOUD_COUNT</code>)</td></tr>
+                <tr><td><code>#contrailCanvas</code></td><td>Engine exhaust contrail puffs</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Rendering Functions</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Function</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>renderGameplayVisual(deltaSec)</code></td><td>Master visual update — dispatches to all sub-renderers</td></tr>
+                <tr><td><code>updateAircraftVisual(metrics, deltaSec)</code></td><td>Moves and rotates the jet DOM element via CSS transforms</td></tr>
+                <tr><td><code>updateClouds(metrics, deltaSec, ctx, w, h)</code></td><td>Scrolls and redraws cloud particles</td></tr>
+                <tr><td><code>updateStars(metrics, deltaSec, ctx, w, h)</code></td><td>Updates star fade-in and position</td></tr>
+                <tr><td><code>updateContrail(metrics, deltaSec, ctx, w, h)</code></td><td>Emits and decays contrail puff particles</td></tr>
+                <tr><td><code>updatePodVisual(metrics, deltaSec)</code></td><td>Animates pod drop arc and rotation</td></tr>
+                <tr><td><code>drawMiniGraph(ctx, width, height)</code></td><td>Draws the mini multiplier history graph in the history modal</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Scene Scaling</h3>
+          <p>
+            All positions are defined relative to a <strong>758 px tall reference scene</strong>
+            (<code>REFERENCE_SCENE_HEIGHT</code>) and scaled to the actual viewport at runtime:
+          </p>
+          <pre><code><span class="kw">const</span> scale = actualSceneHeight / REFERENCE_SCENE_HEIGHT;
+<span class="kw">const</span> jetX = REFERENCE_JET_REST_X * scale;  <span class="cmt">// 100 * scale</span>
+<span class="kw">const</span> jetY = REFERENCE_JET_REST_Y * scale;  <span class="cmt">// 597 * scale</span></code></pre>
+        </section>
+
+        <!-- ── UI & Modals ── -->
+        <section id="ui">
+          <h2>UI &amp; Modals</h2>
+
+          <h3>Tab System</h3>
+          <div class="fn-block">
+            <div class="fn-header">
+              <span class="fn-name">setTab</span>
+              <span class="fn-sig">(tabName: "bets" | "previous" | "top") → void</span>
+            </div>
+            <div class="fn-body">
+              <p>Switches the sidebar panel and updates ARIA attributes. Calls <code>renderPlayers(tabName)</code> to repopulate the player list for the selected view.</p>
+            </div>
+          </div>
+
+          <h3>Modal System</h3>
+          <p>
+            Modals use a shared backdrop pattern. Each modal has a wrapping
+            <code>.modal-backdrop</code> element that is shown/hidden via the functions below.
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Function</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>openModal(backdropEl)</code></td><td>Shows the backdrop, adds <code>open</code> class with a 280 ms CSS animation</td></tr>
+                <tr><td><code>closeModal(backdropEl)</code></td><td>Plays the close animation, then hides after <code>MODAL_ANIM_DURATION_MS</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h4>Available Modals</h4>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Modal</th><th>Trigger</th><th>Backdrop ID</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>How to Play</td><td>Menu → "How to Play"</td><td><code>#rulesBackdrop</code></td></tr>
+                <tr><td>Round History</td><td>History icon chip</td><td><code>#historyBackdrop</code></td></tr>
+                <tr><td>Round Info</td><td>History row click</td><td><code>#roundInfoBackdrop</code></td></tr>
+                <tr><td>Provably Fair</td><td>Menu → "Provably Fair Settings"</td><td><code>#provablyBackdrop</code></td></tr>
+                <tr><td>Game Limits</td><td>Menu → "Game Limits"</td><td><code>#gameLimitsBackdrop</code></td></tr>
+                <tr><td>Audio Settings</td><td>Sound button</td><td><code>#audioSettingsBackdrop</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>History Display</h3>
+          <div class="fn-block">
+            <div class="fn-header">
+              <span class="fn-name">renderHistory</span>
+              <span class="fn-sig">() → void</span>
+            </div>
+            <div class="fn-body">
+              <p>Populates the history modal table from <code>historyItems[]</code>. Each row shows round ID, crash value, seed hash, and nonce.</p>
+            </div>
+          </div>
+
+          <div class="fn-block">
+            <div class="fn-header">
+              <span class="fn-name">renderHeaderHistory</span>
+              <span class="fn-sig">() → void</span>
+            </div>
+            <div class="fn-body">
+              <p>Updates the five history chip buttons in the top bar to reflect the five most recent rounds. Applies color classes (<code>warm</code>, <code>green</code>, <code>lime</code>) based on crash value.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── Configuration Constants ── -->
+        <section id="constants">
+          <h2>Configuration Constants</h2>
+          <p>All tunable values are declared at the top of <code>script.js</code> as <code>const</code>.</p>
+
+          <h3>Timing</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Constant</th><th>Default</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>TAXI_DURATION_SEC</code></td><td>5</td><td>Length of taxi (betting) phase in seconds</td></tr>
+                <tr><td><code>ENDED_DURATION_SEC</code></td><td>1.5</td><td>Length of post-crash display phase</td></tr>
+                <tr><td><code>FLIGHT_MIN_SEC</code></td><td>7</td><td>Minimum flight duration</td></tr>
+                <tr><td><code>FLIGHT_MAX_SEC</code></td><td>15</td><td>Maximum flight duration</td></tr>
+                <tr><td><code>MODAL_ANIM_DURATION_MS</code></td><td>280</td><td>Modal open/close CSS animation duration</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Multiplier</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Constant</th><th>Default</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>MULTIPLIER_GROWTH_RATE</code></td><td>0.08</td><td>Exponential growth rate per second (8%)</td></tr>
+                <tr><td><code>HYPERSONIC_MULTIPLIERS</code></td><td>[5,10,20,25,50,100]</td><td>Possible guaranteed crash points for Hypersonic rounds</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Visuals</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Constant</th><th>Default</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>CLOUD_COUNT</code></td><td>18</td><td>Number of cloud particles in the scene</td></tr>
+                <tr><td><code>DRIFT_SPEED</code></td><td>150</td><td>Cloud scroll speed in px/s at reference scale</td></tr>
+                <tr><td><code>REFERENCE_SCENE_HEIGHT</code></td><td>758</td><td>Design reference height in px — all coordinates scale from this</td></tr>
+                <tr><td><code>REFERENCE_JET_REST_X/Y</code></td><td>100, 597</td><td>Jet rest position in reference coordinates</td></tr>
+                <tr><td><code>REFERENCE_JET_DISPLAY_W</code></td><td>170</td><td>Rendered jet width in reference px</td></tr>
+                <tr><td><code>POD_DROP_DURATION_SEC</code></td><td>5</td><td>Duration of pod drop animation</td></tr>
+                <tr><td><code>GEAR_RETRACT_DURATION_SEC</code></td><td>0.8</td><td>Landing gear retraction animation duration</td></tr>
+                <tr><td><code>VISUAL_LIFTOFF_SEC</code></td><td>5</td><td>Seconds into flight when jet lifts off visually</td></tr>
+                <tr><td><code>VISUAL_CRUISE_SEC</code></td><td>15</td><td>Seconds at which jet reaches cruise altitude</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Opponent Simulation</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Constant</th><th>Default</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>REACTION_SIM_MIN_DELAY_MS</code></td><td>850</td><td>Minimum delay between simulated chat messages</td></tr>
+                <tr><td><code>REACTION_SIM_MAX_DELAY_MS</code></td><td>2 600</td><td>Maximum delay between simulated chat messages</td></tr>
+                <tr><td><code>REACTION_SIM_MAX_MESSAGES</code></td><td>80</td><td>Max chat messages before simulation stops</td></tr>
+                <tr><td><code>AUTO_CASHOUT_START_CHANCE</code></td><td>0.95</td><td>Per-tick probability an opponent cashes out</td></tr>
+                <tr><td><code>AUTO_CASHOUT_MAX_DELAY_MS</code></td><td>1 400</td><td>Max spacing between opponent cashout events</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ── Data Structures ── -->
+        <section id="data-structures">
+          <h2>Data Structures</h2>
+
+          <h3>historyItems[]</h3>
+          <p>Stores the last N completed rounds for display and verification.</p>
+          <pre><code>{
+  <span class="prop">round</span>:      <span class="str">'#812531'</span>,    <span class="cmt">// round number string</span>
+  <span class="prop">crash</span>:      <span class="str">'1.16x'</span>,      <span class="cmt">// formatted crash multiplier</span>
+  <span class="prop">crashValue</span>: <span class="num">1.16</span>,          <span class="cmt">// numeric crash multiplier</span>
+  <span class="prop">seed</span>:       <span class="str">'f35b...79ff'</span>, <span class="cmt">// truncated server seed hash</span>
+  <span class="prop">nonce</span>:      <span class="num">128</span>            <span class="cmt">// round nonce for verification</span>
+}</code></pre>
+
+          <h3>BET_SEED[]</h3>
+          <p>
+            Initial opponent roster. Each entry defines a username and stake amount used to
+            populate <code>betsState</code> at the start of each round.
+          </p>
+          <pre><code>{ <span class="prop">user</span>: <span class="str">'JetStream'</span>, <span class="prop">stake</span>: <span class="num">190.0</span> }</code></pre>
+
+          <h3>SIMULATED_REACTIONS[]</h3>
+          <p>Pool of chat messages used by the reaction simulation engine.</p>
+          <pre><code>{
+  <span class="prop">author</span>:  <span class="str">'Rushtu'</span>,
+  <span class="prop">tone</span>:    <span class="str">'orange'</span>,   <span class="cmt">// CSS color class for username</span>
+  <span class="prop">message</span>: <span class="str">'Nice hit!'</span>
+}</code></pre>
+
+          <h3>TOP_RANGE_USER_SETS / TOP_RANGE_VALUE_PROFILE</h3>
+          <p>
+            Leaderboard data segmented by time range (<code>'day' | 'week' | 'month' | 'year'</code>).
+            <code>TOP_RANGE_VALUE_PROFILE</code> defines the multiplier and winnings ranges used
+            to generate synthetic leaderboard entries.
+          </p>
+          <pre><code>TOP_RANGE_VALUE_PROFILE.month = {
+  <span class="prop">xMin</span>: <span class="num">22</span>, <span class="prop">xMax</span>: <span class="num">210</span>,
+  <span class="prop">winMin</span>: <span class="num">48000</span>, <span class="prop">winMax</span>: <span class="num">460000</span>
+}</code></pre>
+        </section>
+
+        <!-- ── DOM Reference ── -->
+        <section id="dom-reference">
+          <h2>DOM Reference</h2>
+          <p>Key element IDs and classes used by <code>script.js</code> to update the UI.</p>
+
+          <h4>Game Display</h4>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Selector</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>#multiplier</code></td><td>Live multiplier text display</td></tr>
+                <tr><td><code>#stageBanner</code></td><td>"Betting Open" / crash value banner</td></tr>
+                <tr><td><code>#countdownOverlay</code></td><td>Circular countdown ring during taxi phase</td></tr>
+                <tr><td><code>.sky-stage</code></td><td>Upper game area containing jet and canvases</td></tr>
+                <tr><td><code>.ground-stage</code></td><td>Lower runway area</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h4>Aircraft Elements</h4>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Selector</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>#jetModel</code></td><td>Main jet plane DOM element (CSS-transformed each frame)</td></tr>
+                <tr><td><code>#podModel</code></td><td>Pod booster element</td></tr>
+                <tr><td><code>#parachuteModel</code></td><td>Parachute element shown after crash</td></tr>
+                <tr><td><code>#cloudCanvas</code></td><td>Cloud particle canvas</td></tr>
+                <tr><td><code>#starCanvas</code></td><td>Star particle canvas</td></tr>
+                <tr><td><code>#contrailCanvas</code></td><td>Contrail particle canvas</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h4>Controls</h4>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Selector</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>#betBtn</code></td><td>Main bet / cash out button</td></tr>
+                <tr><td><code>#cancelBetBtn</code></td><td>Cancel pending bet during taxi</td></tr>
+                <tr><td><code>#podActionBtn</code></td><td>Buy Pod / Pod status button</td></tr>
+                <tr><td><code>#hypersonicActionBtn</code></td><td>Buy Hypersonic button</td></tr>
+                <tr><td><code>#betInput</code></td><td>Bet amount display input</td></tr>
+                <tr><td><code>#balanceDisplay</code></td><td>Player balance text</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h4>Sidebar</h4>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Selector</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>#playerRows</code></td><td>Container for all player bet rows</td></tr>
+                <tr><td><code>#playersPanel</code></td><td>Live bets panel wrapper</td></tr>
+                <tr><td><code>#chatPanel</code></td><td>Chat / reactions panel</td></tr>
+                <tr><td><code>.tab[data-tab]</code></td><td>Tab buttons (Live, Previous, Top)</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout info">
+            All DOM nodes are cached in module-level variables during initialization. Avoid
+            querying the DOM repeatedly inside the game loop — use the cached references.
+          </div>
+        </section>
+
+      </div><!-- /content -->
+    </div><!-- /main -->
+
+    <script>
+      // Active nav link on scroll
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.nav a[href^="#"]');
+
+      function updateActiveLink() {
+        let current = '';
+        sections.forEach((s) => {
+          if (window.scrollY >= s.offsetTop - 100) current = s.id;
+        });
+        navLinks.forEach((a) => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+        });
+      }
+
+      window.addEventListener('scroll', updateActiveLink, { passive: true });
+      updateActiveLink();
+    </script>
+  </body>
+</html>
