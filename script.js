@@ -1779,6 +1779,9 @@ function cashOutJet() {
   gameState.balance = Number((gameState.balance + payout).toFixed(2));
   gameState.jetCashAmount = payout;
   gameState.showWinUntil = performance.now() + 2000;
+  if (gameState.podCashAmount > 0) {
+    gameState.podShowWinUntil = gameState.showWinUntil;
+  }
 
   clearBetPosition(true, true);
   updateGameUi();

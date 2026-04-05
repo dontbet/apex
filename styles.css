@@ -1150,23 +1150,12 @@ body.booting .scene {
   font-size: 16px;
 }
 
-.action-stack.pod-mode.pod-before-save #podActionBtn {
-  height: 58px;
+.action-stack.pod-mode #podActionBtn {
+  height: 66px;
 }
 
-.action-stack.pod-mode.pod-before-save #betBtn {
-  height: 32px;
-}
-
-.action-stack.pod-mode.pod-after-save #podActionBtn {
-  height: 32px;
-}
-
-.action-stack.pod-mode.pod-after-save #betBtn {
-  height: 58px;
-}
-
-.action-stack.pod-mode.pod-after-save #betBtn.state-cashout {
+.action-stack.pod-mode #betBtn {
+  height: 66px;
 }
 
 .action-stack.pod-mode.pod-before-save #betBtn.state-cashout {
