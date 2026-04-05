@@ -737,14 +737,8 @@ body.booting .scene {
 }
 
 .countdown-overlay.align-top {
-  flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   padding-top: 24px;
-  gap: 10px;
-}
-
-.countdown-overlay.align-top .countdown-title {
-  margin: 0;
 }
 
 .countdown-overlay.align-top .countdown-ring {
@@ -1839,9 +1833,8 @@ body.booting .scene {
   }
 
   .sidebar.show-players .chat {
-    display: block;
+    display: flex;
     max-height: 340px;
-    overflow-y: auto;
   }
 
   .sidebar.show-players #playersPanel {
