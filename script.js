@@ -1400,6 +1400,10 @@ function setActionButtonState(button, stateClass, lineOne, lineTwo = '', disable
 
   if (stateChanged) {
     const ma = window.motionAnimate;
+    // Clear any inline styles set by previous motion animations
+    button.style.transform = '';
+    button.style.boxShadow = '';
+
     if (stateClass === 'state-win' && ma) {
       const lineOne = button.querySelector('.btn-line-one');
       ma(button, {
@@ -1412,12 +1416,18 @@ function setActionButtonState(button, stateClass, lineOne, lineTwo = '', disable
       ma(button, {
         scale: [1, 1.06, 1.01],
         boxShadow: ['0px 0px 30px rgba(0,242,126,0.8)', '0px 0px 50px rgba(0,242,126,1)', '0px 0px 30px rgba(0,242,126,0.8)']
-      }, { duration: 0.4, times: [0, 0.3, 1] });
+      }, { duration: 0.4, times: [0, 0.3, 1] }).then(() => {
+        ma(button, { boxShadow: 'none' }, { duration: 0.5 });
+      });
       if (lineOne) ma(lineOne, { scale: [0.8, 1], opacity: [0, 1] }, { duration: 0.2, delay: 0.05 });
     } else if (stateClass === 'state-win' || stateClass === 'state-saved') {
       runButtonAnimation(button, 'amount-pop-enter', 420);
+    } else if (stateClass === 'state-drop') {
+      // Immediate — no enter animation so player can cash out right away
+    } else if (stateClass === 'state-cashout' && ma && button === betBtn && actionStackEl && actionStackEl.classList.contains('pod-after-save')) {
+      // Cash-out button revealed after pod drop: rise from below
+      ma(button, { y: [16, 0], opacity: [0.72, 1] }, { duration: 0.45, ease: [0.4, 0, 0.2, 1] });
     } else {
-      if (ma) ma(button, { scale: 1, boxShadow: 'none' }, { duration: 0 });
       runButtonAnimation(button, 'state-swap-enter', 320);
     }
   }

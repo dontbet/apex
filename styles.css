@@ -1166,7 +1166,7 @@ body.booting .scene {
 }
 
 .action-stack.pod-mode.pod-after-save #betBtn.state-cashout {
-  animation: podCashoutRise 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Rise animation driven by motion in script.js */
 }
 
 .action-stack.pod-mode.pod-before-save #betBtn.state-cashout {
@@ -2084,7 +2084,8 @@ body.modal-open {
 
 .bet-btn.state-drop:hover,
 .bet-btn.state-drop:focus-visible {
-  background: #f07a2e;
+  background: #e86a1c;
+  transform: none;
 }
 
 .bet-btn.state-cancel:hover,
@@ -2111,6 +2112,7 @@ body.modal-open {
 .bet-btn.state-saved:hover,
 .bet-btn.state-saved:focus-visible {
   transform: none;
+  cursor: default;
 }
 
 .adjust-btn:hover,
