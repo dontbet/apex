@@ -1150,12 +1150,20 @@ body.booting .scene {
   font-size: 16px;
 }
 
-.action-stack.pod-mode #podActionBtn {
-  height: 66px;
+.action-stack.pod-mode.pod-before-save #podActionBtn {
+  height: 96px;
 }
 
-.action-stack.pod-mode #betBtn {
-  height: 66px;
+.action-stack.pod-mode.pod-before-save #betBtn {
+  height: 36px;
+}
+
+.action-stack.pod-mode.pod-after-save #podActionBtn {
+  height: 36px;
+}
+
+.action-stack.pod-mode.pod-after-save #betBtn {
+  height: 96px;
 }
 
 .action-stack.pod-mode.pod-before-save #betBtn.state-cashout {
