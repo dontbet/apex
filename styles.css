@@ -1205,6 +1205,7 @@ body.booting .scene {
   line-height: 1.1;
   user-select: none;
   -webkit-user-select: none;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .bet-btn .btn-line-one,
@@ -1346,7 +1347,7 @@ body.booting .scene {
 }
 
 .bet-btn.amount-pop-enter {
-  animation: buttonWinPulse 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: buttonWinPulse 0.4s linear both;
   transform-origin: center center;
 }
 
@@ -1388,7 +1389,7 @@ body.booting .scene {
 @keyframes buttonWinPulse {
   0% {
     transform: scale(1);
-    box-shadow: 0 0 15px rgba(0, 242, 126, 0.3);
+    box-shadow: 0 0 30px rgba(0, 242, 126, 0.8);
   }
 
   30% {
