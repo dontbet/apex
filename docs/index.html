@@ -112,6 +112,18 @@
     .hero-meta span { display: flex; align-items: center; gap: 5px; }
     .dot-green { width: 7px; height: 7px; border-radius: 50%; background: var(--doc-accent); display: inline-block; }
 
+    /* ─── Icon grid ─── */
+    .icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(108px, 1fr)); gap: 8px; margin-bottom: 24px; }
+    .icon-card { background: var(--doc-surface); border: 1px solid var(--doc-border); border-radius: 8px; padding: 16px 8px 12px; display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; transition: border-color .15s, background .15s; user-select: none; }
+    .icon-card:hover { border-color: #333; background: #161616; }
+    .icon-card.ic-copied { border-color: var(--doc-accent); }
+    .icon-card.ic-copied .icon-name { color: var(--doc-accent); }
+    .icon-preview { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; color: #e8e8e8; }
+    .icon-preview img { width: 24px; height: 24px; object-fit: contain; }
+    .icon-preview svg { width: 24px; height: 24px; }
+    .icon-name { font-size: 11px; color: #ccc; font-weight: 500; text-align: center; line-height: 1.3; }
+    .icon-tag { font-size: 9px; color: #555; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; border: 1px solid #2a2a2a; padding: 2px 6px; border-radius: 3px; }
+
     /* ─── Divider ─── */
     .divider { height: 1px; background: var(--doc-border); margin: 0 0 8px; }
 
@@ -299,6 +311,7 @@
   <div class="nav-group">Foundation</div>
   <a href="#colors">Colors</a>
   <a href="#typography">Typography</a>
+  <a href="#icons">Icons</a>
   <div class="nav-group">Components</div>
   <a href="#chips">Chips</a>
   <a href="#tabs">Tabs &amp; Pills</a>
@@ -384,6 +397,84 @@
         <div class="g-root" style="font-size:16px;color:#f3f3f3;">Player name / UI text <span style="color:#666;font-size:14px;vertical-align:middle;font-family:Inter">Jersey 25, 16px</span></div>
         <div class="g-root" style="font-size:14px;color:#9fa7a8;">Muted label <span style="color:#666;font-size:14px;vertical-align:middle;font-family:Inter">Jersey 25, 14px, muted</span></div>
         <div style="font-family:Inter;font-size:13px;color:#c3c3c3;line-height:1.5;">Modal body text uses Inter, 13px, #c3c3c3</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ICONS ═══ -->
+  <section id="icons">
+    <div class="section-label">Foundation</div>
+    <h2>Icons</h2>
+    <p class="section-desc">All icons used in the game. Click any icon to copy its code to clipboard.</p>
+
+    <h3>Inline SVG</h3>
+    <div class="icon-grid">
+      <div class="icon-card" onclick="copyIconCode(this,'live')">
+        <div class="icon-preview">
+          <svg viewBox="0 0 20 20" aria-hidden="true" style="color:#e8e8e8"><path d="M3.5 10h5.5l3-3h4.5v6H12l-3 3H3.5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="icon-name">Live</div>
+        <div class="icon-tag">SVG</div>
+      </div>
+      <div class="icon-card" onclick="copyIconCode(this,'previous')">
+        <div class="icon-preview">
+          <svg viewBox="0 0 20 20" aria-hidden="true" style="color:#e8e8e8"><circle cx="10" cy="10" r="6.2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10 6.6v3.7l2.7 1.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="icon-name">Previous</div>
+        <div class="icon-tag">SVG</div>
+      </div>
+      <div class="icon-card" onclick="copyIconCode(this,'top')">
+        <div class="icon-preview">
+          <svg viewBox="0 0 20 20" aria-hidden="true" style="color:#e8e8e8"><path d="M5 15.3h10M6.3 7.2l3.7 3.2 3.7-3.2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.4 7.1h9.2l-1 7.1H6.4z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="icon-name">Top</div>
+        <div class="icon-tag">SVG</div>
+      </div>
+      <div class="icon-card" onclick="copyIconCode(this,'history')">
+        <div class="icon-preview">
+          <svg viewBox="0 0 16 16" aria-hidden="true" style="color:#e8e8e8"><path d="M8 1.6a6.4 6.4 0 1 0 4.92 10.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M8 4.2v3.9l2.5 1.4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M11.3 1.9h3v3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        </div>
+        <div class="icon-name">History</div>
+        <div class="icon-tag">SVG</div>
+      </div>
+    </div>
+
+    <h3>Asset Icons</h3>
+    <div class="icon-grid">
+      <div class="icon-card" onclick="copyIconCode(this,'icon-info')">
+        <div class="icon-preview"><img src="https://www.figma.com/api/mcp/asset/a8ef952a-e116-494f-a43a-456c635dd7d5" alt="Info" /></div>
+        <div class="icon-name">Info</div>
+        <div class="icon-tag">Asset</div>
+      </div>
+      <div class="icon-card" onclick="copyIconCode(this,'icon-sound')">
+        <div class="icon-preview"><img src="https://www.figma.com/api/mcp/asset/bee7451c-1ed1-4a85-8892-e19415ca3f94" alt="Sound" /></div>
+        <div class="icon-name">Sound</div>
+        <div class="icon-tag">Asset</div>
+      </div>
+      <div class="icon-card" onclick="copyIconCode(this,'icon-menu')">
+        <div class="icon-preview"><img src="https://www.figma.com/api/mcp/asset/b2371fca-3e10-401b-b526-405037601414" alt="Menu" /></div>
+        <div class="icon-name">Menu</div>
+        <div class="icon-tag">Asset</div>
+      </div>
+      <div class="icon-card" onclick="copyIconCode(this,'icon-lofi')">
+        <div class="icon-preview"><img src="https://www.figma.com/api/mcp/asset/dc884d88-8c72-4f94-b327-7d422ff71d23" alt="Lofi" /></div>
+        <div class="icon-name">Lofi</div>
+        <div class="icon-tag">Asset</div>
+      </div>
+      <div class="icon-card" onclick="copyIconCode(this,'icon-shield')">
+        <div class="icon-preview"><img src="https://www.figma.com/api/mcp/asset/feca08ab-18f9-4907-9052-81150fcba283" alt="Shield" /></div>
+        <div class="icon-name">Shield</div>
+        <div class="icon-tag">Asset</div>
+      </div>
+      <div class="icon-card" onclick="copyIconCode(this,'icon-pod')">
+        <div class="icon-preview"><img src="https://www.figma.com/api/mcp/asset/6048e193-947b-4a70-a662-77fd5a083e29" alt="Pod" /></div>
+        <div class="icon-name">Pod</div>
+        <div class="icon-tag">Asset</div>
+      </div>
+      <div class="icon-card" onclick="copyIconCode(this,'icon-hypersonic')">
+        <div class="icon-preview"><img src="https://www.figma.com/api/mcp/asset/dccee50a-641a-4fe3-a7f5-0f7b3a4b5533" alt="Hypersonic" /></div>
+        <div class="icon-name">Hypersonic</div>
+        <div class="icon-tag">Asset</div>
       </div>
     </div>
   </section>
@@ -1194,6 +1285,31 @@
       });
     });
   });
+
+  // Icon codes
+  const iconCodes = {
+    live: `<svg viewBox="0 0 20 20" aria-hidden="true">\n  <path d="M3.5 10h5.5l3-3h4.5v6H12l-3 3H3.5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>\n</svg>`,
+    previous: `<svg viewBox="0 0 20 20" aria-hidden="true">\n  <circle cx="10" cy="10" r="6.2" fill="none" stroke="currentColor" stroke-width="1.5"/>\n  <path d="M10 6.6v3.7l2.7 1.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>\n</svg>`,
+    top: `<svg viewBox="0 0 20 20" aria-hidden="true">\n  <path d="M5 15.3h10M6.3 7.2l3.7 3.2 3.7-3.2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>\n  <path d="M5.4 7.1h9.2l-1 7.1H6.4z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>\n</svg>`,
+    history: `<svg viewBox="0 0 16 16" aria-hidden="true">\n  <path d="M8 1.6a6.4 6.4 0 1 0 4.92 10.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>\n  <path d="M8 4.2v3.9l2.5 1.4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>\n  <path d="M11.3 1.9h3v3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>\n</svg>`,
+    'icon-info': `<img src="https://www.figma.com/api/mcp/asset/a8ef952a-e116-494f-a43a-456c635dd7d5" alt="Info" />`,
+    'icon-sound': `<img src="https://www.figma.com/api/mcp/asset/bee7451c-1ed1-4a85-8892-e19415ca3f94" alt="Sound" />`,
+    'icon-menu': `<img src="https://www.figma.com/api/mcp/asset/b2371fca-3e10-401b-b526-405037601414" alt="Menu" />`,
+    'icon-lofi': `<img src="https://www.figma.com/api/mcp/asset/dc884d88-8c72-4f94-b327-7d422ff71d23" alt="Lofi" />`,
+    'icon-shield': `<img src="https://www.figma.com/api/mcp/asset/feca08ab-18f9-4907-9052-81150fcba283" alt="Shield" />`,
+    'icon-pod': `<img src="https://www.figma.com/api/mcp/asset/6048e193-947b-4a70-a662-77fd5a083e29" alt="Pod" />`,
+    'icon-hypersonic': `<img src="https://www.figma.com/api/mcp/asset/dccee50a-641a-4fe3-a7f5-0f7b3a4b5533" alt="Hypersonic" />`,
+  };
+
+  function copyIconCode(card, key) {
+    navigator.clipboard.writeText(iconCodes[key]).then(() => {
+      card.classList.add('ic-copied');
+      const nameEl = card.querySelector('.icon-name');
+      const orig = nameEl.textContent;
+      nameEl.textContent = 'Copied!';
+      setTimeout(() => { card.classList.remove('ic-copied'); nameEl.textContent = orig; }, 1500);
+    });
+  }
 
   // Active nav on scroll
   const sections = document.querySelectorAll('section[id]');
