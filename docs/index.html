@@ -8,6 +8,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Jersey+25&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
+    /* ─── Hover table ─── */
+    .hover-table { width:100%; border-collapse:collapse; font-size:12.5px; }
+    .hover-table th { text-align:left; padding:6px 14px; font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:#444; background:#0a0a0a; border-bottom:1px solid var(--doc-border); font-weight:600; }
+    .hover-table td { padding:8px 14px; border-bottom:1px solid #1a1a1a; color:#888; vertical-align:middle; }
+    .hover-table tr:last-child td { border-bottom:none; }
+    .hover-table td:first-child { font-family:var(--mono); font-size:11.5px; color:#ccc; }
+    .hover-pair { display:flex; align-items:center; gap:8px; }
+    .hover-swatch { width:14px; height:14px; border-radius:3px; border:1px solid rgba(255,255,255,.08); flex-shrink:0; }
+    .hover-hex { font-family:var(--mono); font-size:11px; }
+    .hover-arrow { color:#444; font-size:12px; }
+
     /* ─── Doc shell ─── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -394,6 +405,7 @@
       <div class="code-tabs">
         <button class="code-tab active" onclick="switchTab(this,'ht-html')">HTML</button>
         <button class="code-tab" onclick="switchTab(this,'ht-css')">CSS</button>
+        <button class="code-tab" onclick="switchTab(this,'ht-hover')">Hover</button>
       </div>
       <div class="code-panel active" id="ht-html">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
@@ -417,6 +429,16 @@
 <span class="t-sel">.history-chip.warm</span>  { color: <span class="t-str">#ffcf6b</span>; }
 <span class="t-sel">.history-chip.green</span> { color: <span class="t-str">#35cf58</span>; }
 <span class="t-sel">.history-chip.lime</span>  { color: <span class="t-str">#a0e03b</span>; }</pre>
+      </div>
+      <div class="code-panel" id="ht-hover">
+        <table class="hover-table">
+          <thead><tr><th>Property</th><th>Default</th><th>Hover</th></tr></thead>
+          <tbody>
+            <tr><td>background</td><td><div class="hover-pair"><div class="hover-swatch" style="background:#303030"></div><span class="hover-hex">#303030</span></div></td><td><div class="hover-pair"><div class="hover-swatch" style="background:#3a3a3a"></div><span class="hover-hex">#3a3a3a</span></div></td></tr>
+            <tr><td>border-color</td><td><div class="hover-pair"><div class="hover-swatch" style="background:#525252"></div><span class="hover-hex">#525252</span></div></td><td><div class="hover-pair"><div class="hover-swatch" style="background:#6a6a6a"></div><span class="hover-hex">#6a6a6a</span></div></td></tr>
+            <tr><td>transform</td><td><span style="font-family:var(--mono);font-size:11px;color:#888">none</span></td><td><span style="font-family:var(--mono);font-size:11px;color:#888">translateY(-1px)</span></td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
@@ -468,6 +490,7 @@
       <div class="code-tabs">
         <button class="code-tab active" onclick="switchTab(this,'tb-html')">HTML</button>
         <button class="code-tab" onclick="switchTab(this,'tb-css')">CSS</button>
+        <button class="code-tab" onclick="switchTab(this,'tb-hover')">Hover</button>
       </div>
       <div class="code-panel active" id="tb-html">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
@@ -490,6 +513,15 @@
 <span class="t-sel">.tab</span>        { background: <span class="t-str">#151515</span>; color: <span class="t-str">#9fa7a8</span>; padding: <span class="t-num">8px 0</span>; font: inherit; border: 0; }
 <span class="t-sel">.tab.active</span> { background: <span class="t-str">#343434</span>; color: <span class="t-str">#ffffff</span>; border-radius: <span class="t-num">10px</span>; }</pre>
       </div>
+      <div class="code-panel" id="tb-hover">
+        <table class="hover-table">
+          <thead><tr><th>State</th><th>Default</th><th>Hover</th></tr></thead>
+          <tbody>
+            <tr><td>.tab (inactive)</td><td><div class="hover-pair"><div class="hover-swatch" style="background:#151515"></div><span class="hover-hex">#151515</span></div></td><td><div class="hover-pair"><div class="hover-swatch" style="background:#1f1f1f"></div><span class="hover-hex">#1f1f1f</span></div></td></tr>
+            <tr><td>.tab.active</td><td><div class="hover-pair"><div class="hover-swatch" style="background:#343434"></div><span class="hover-hex">#343434 — no change</span></div></td><td><div class="hover-pair"><div class="hover-swatch" style="background:#343434"></div><span class="hover-hex">#343434 — no change</span></div></td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <div class="comp">
@@ -509,6 +541,7 @@
       <div class="code-tabs">
         <button class="code-tab active" onclick="switchTab(this,'pi-html')">HTML</button>
         <button class="code-tab" onclick="switchTab(this,'pi-css')">CSS</button>
+        <button class="code-tab" onclick="switchTab(this,'pi-hover')">Hover</button>
       </div>
       <div class="code-panel active" id="pi-html">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
@@ -524,6 +557,15 @@
 <span class="t-sel">.topbets-row-range</span>      { grid-template-columns: repeat(4, 1fr); }
 <span class="t-sel">.topbets-pill</span>           { border: 0; background: <span class="t-str">#151515</span>; color: <span class="t-str">#9fa7a8</span>; font: inherit; padding: <span class="t-num">8px 0</span>; }
 <span class="t-sel">.topbets-pill.active</span>    { background: <span class="t-str">#343434</span>; color: <span class="t-str">#fff</span>; border-radius: <span class="t-num">10px</span>; }</pre>
+      </div>
+      <div class="code-panel" id="pi-hover">
+        <table class="hover-table">
+          <thead><tr><th>State</th><th>Default</th><th>Hover</th></tr></thead>
+          <tbody>
+            <tr><td>.topbets-pill (inactive)</td><td><div class="hover-pair"><div class="hover-swatch" style="background:#151515"></div><span class="hover-hex">#151515</span></div></td><td><div class="hover-pair"><div class="hover-swatch" style="background:#1f1f1f"></div><span class="hover-hex">#1f1f1f</span></div></td></tr>
+            <tr><td>.topbets-pill.active</td><td><div class="hover-pair"><div class="hover-swatch" style="background:#343434"></div><span class="hover-hex">#343434 — no change</span></div></td><td><div class="hover-pair"><div class="hover-swatch" style="background:#343434"></div><span class="hover-hex">#343434 — no change</span></div></td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
@@ -547,6 +589,7 @@
       <div class="code-tabs">
         <button class="code-tab active" onclick="switchTab(this,'pr-html')">HTML</button>
         <button class="code-tab" onclick="switchTab(this,'pr-css')">CSS</button>
+        <button class="code-tab" onclick="switchTab(this,'pr-hover')">Hover</button>
       </div>
       <div class="code-panel active" id="pr-html">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
@@ -576,6 +619,14 @@
 <span class="t-sel">.multi.muted</span> { color: <span class="t-str">#9fa7a8</span>; }
 <span class="t-sel">.amount.money</span> { color: <span class="t-str">#35cf58</span>; text-align: right; }</pre>
       </div>
+      <div class="code-panel" id="pr-hover">
+        <table class="hover-table">
+          <thead><tr><th>Property</th><th>Default</th><th>Hover</th></tr></thead>
+          <tbody>
+            <tr><td>background</td><td><div class="hover-pair"><div class="hover-swatch" style="background:#272727"></div><span class="hover-hex">#272727</span></div></td><td><div class="hover-pair"><div class="hover-swatch" style="background:#313131"></div><span class="hover-hex">#313131</span></div></td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 
@@ -603,6 +654,7 @@
       <div class="code-tabs">
         <button class="code-tab active" onclick="switchTab(this,'ch-html')">HTML</button>
         <button class="code-tab" onclick="switchTab(this,'ch-css')">CSS</button>
+        <button class="code-tab" onclick="switchTab(this,'ch-hover')">Hover</button>
       </div>
       <div class="code-panel active" id="ch-html">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
@@ -633,6 +685,15 @@
   font-size: <span class="t-num">16px</span>;
 }</pre>
       </div>
+      <div class="code-panel" id="ch-hover">
+        <table class="hover-table">
+          <thead><tr><th>Element</th><th>Default</th><th>Hover</th></tr></thead>
+          <tbody>
+            <tr><td>.reaction-btn background</td><td><div class="hover-pair"><div class="hover-swatch" style="background:#3b3b3b"></div><span class="hover-hex">#3b3b3b</span></div></td><td><div class="hover-pair"><div class="hover-swatch" style="background:#474747"></div><span class="hover-hex">#474747</span></div></td></tr>
+            <tr><td>.reaction-btn border</td><td><div class="hover-pair"><div class="hover-swatch" style="background:#242728"></div><span class="hover-hex">#242728</span></div></td><td><div class="hover-pair"><div class="hover-swatch" style="background:#5a5a5a"></div><span class="hover-hex">#5a5a5a</span></div></td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 
@@ -654,7 +715,7 @@
           <span style="font-size:11px;color:#555;font-family:Inter">state-cashout</span>
         </div>
         <div style="display:flex;flex-direction:column;gap:4px;align-items:center;">
-          <button class="g-bet-btn state-accepted"><span>Waiting...</span><span class="sub">$10.00</span></button>
+          <button class="g-bet-btn state-accepted"><span>Bet Accepted</span><span class="sub">$10.00</span></button>
           <span style="font-size:11px;color:#555;font-family:Inter">state-accepted</span>
         </div>
         <div style="display:flex;flex-direction:column;gap:4px;align-items:center;">
@@ -673,6 +734,7 @@
       <div class="code-tabs">
         <button class="code-tab active" onclick="switchTab(this,'bb-html')">HTML</button>
         <button class="code-tab" onclick="switchTab(this,'bb-css')">CSS</button>
+        <button class="code-tab" onclick="switchTab(this,'bb-hover')">Hover</button>
       </div>
       <div class="code-panel active" id="bb-html">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
@@ -689,6 +751,19 @@
 <span class="t-sel">.bet-btn.state-drop</span>    { background: <span class="t-str">#e86a1c</span>; color: <span class="t-str">#ffffff</span>; }
 <span class="t-sel">.bet-btn.state-win</span>     { background: <span class="t-str">#00f27e</span>; color: <span class="t-str">#ffffff</span>; }
 <span class="t-sel">.bet-btn.state-saved</span>   { background: <span class="t-str">#303030</span>; color: <span class="t-str">#00f27e</span>; }</pre>
+      </div>
+      <div class="code-panel" id="bb-hover">
+        <table class="hover-table">
+          <thead><tr><th>State</th><th>Default</th><th>Hover</th></tr></thead>
+          <tbody>
+            <tr><td>.bet-btn</td><td><div class="hover-pair"><div class="hover-swatch" style="background:#00f27e"></div><span class="hover-hex">#00f27e</span></div></td><td><div class="hover-pair"><div class="hover-swatch" style="background:#14ff89"></div><span class="hover-hex">#14ff89</span></div></td></tr>
+            <tr><td>.state-cashout</td><td><div class="hover-pair"><div class="hover-swatch" style="background:#ffbd30"></div><span class="hover-hex">#ffbd30</span></div></td><td><div class="hover-pair"><div class="hover-swatch" style="background:#ffc940"></div><span class="hover-hex">#ffc940</span></div></td></tr>
+            <tr><td>.state-accepted</td><td><div class="hover-pair"><div class="hover-swatch" style="background:#c1c1c1"></div><span class="hover-hex">#c1c1c1</span></div></td><td><div class="hover-pair"><div class="hover-swatch" style="background:#c1c1c1"></div><span class="hover-hex">#c1c1c1 — no change</span></div></td></tr>
+            <tr><td>.state-drop</td><td><div class="hover-pair"><div class="hover-swatch" style="background:#e86a1c"></div><span class="hover-hex">#e86a1c</span></div></td><td><div class="hover-pair"><div class="hover-swatch" style="background:#f07a2e"></div><span class="hover-hex">#f07a2e</span></div></td></tr>
+            <tr><td>.state-win</td><td><div class="hover-pair"><div class="hover-swatch" style="background:#00f27e"></div><span class="hover-hex">#00f27e</span></div></td><td><div class="hover-pair"><div class="hover-swatch" style="background:#00f27e"></div><span class="hover-hex">#00f27e — no change</span></div></td></tr>
+            <tr><td>.state-saved</td><td><div class="hover-pair"><div class="hover-swatch" style="background:#303030"></div><span class="hover-hex">#303030</span></div></td><td><div class="hover-pair"><div class="hover-swatch" style="background:#303030"></div><span class="hover-hex">#303030 — no change</span></div></td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
@@ -711,6 +786,7 @@
       <div class="code-tabs">
         <button class="code-tab active" onclick="switchTab(this,'adj-html')">HTML</button>
         <button class="code-tab" onclick="switchTab(this,'adj-css')">CSS</button>
+        <button class="code-tab" onclick="switchTab(this,'adj-hover')">Hover</button>
       </div>
       <div class="code-panel active" id="adj-html">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
@@ -728,6 +804,15 @@
 <span class="t-sel">.amount-box</span>  { border-radius: <span class="t-num">8px 0 0 8px</span>; }
 <span class="t-sel">.adjust-btn:last-child</span> { border-radius: <span class="t-num">0 8px 8px 0</span>; }</pre>
       </div>
+      <div class="code-panel" id="adj-hover">
+        <table class="hover-table">
+          <thead><tr><th>Element</th><th>Default</th><th>Hover</th></tr></thead>
+          <tbody>
+            <tr><td>.adjust-btn background</td><td><div class="hover-pair"><div class="hover-swatch" style="background:#383838"></div><span class="hover-hex">#383838</span></div></td><td><div class="hover-pair"><div class="hover-swatch" style="background:#454545"></div><span class="hover-hex">#454545</span></div></td></tr>
+            <tr><td>.adjust-btn color</td><td><div class="hover-pair"><div class="hover-swatch" style="background:#c3c3c3"></div><span class="hover-hex">#c3c3c3</span></div></td><td><div class="hover-pair"><div class="hover-swatch" style="background:#f3f3f3"></div><span class="hover-hex">#f3f3f3</span></div></td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <div class="comp">
@@ -738,6 +823,7 @@
       <div class="code-tabs">
         <button class="code-tab active" onclick="switchTab(this,'cb-html')">HTML</button>
         <button class="code-tab" onclick="switchTab(this,'cb-css')">CSS</button>
+        <button class="code-tab" onclick="switchTab(this,'cb-hover')">Hover</button>
       </div>
       <div class="code-panel active" id="cb-html">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
@@ -756,6 +842,14 @@
   font-size: <span class="t-num">13px</span>;
   font-weight: <span class="t-num">600</span>;
 }</pre>
+      </div>
+      <div class="code-panel" id="cb-hover">
+        <table class="hover-table">
+          <thead><tr><th>Property</th><th>Default</th><th>Hover</th></tr></thead>
+          <tbody>
+            <tr><td>background</td><td><div class="hover-pair"><div class="hover-swatch" style="background:#383838"></div><span class="hover-hex">#383838</span></div></td><td><div class="hover-pair"><div class="hover-swatch" style="background:#454545"></div><span class="hover-hex">#454545</span></div></td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
@@ -783,6 +877,7 @@
       <div class="code-tabs">
         <button class="code-tab active" onclick="switchTab(this,'pc-html')">HTML</button>
         <button class="code-tab" onclick="switchTab(this,'pc-css')">CSS</button>
+        <button class="code-tab" onclick="switchTab(this,'pc-hover')">Hover</button>
       </div>
       <div class="code-panel active" id="pc-html">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
@@ -809,6 +904,18 @@
 <span class="t-sel">.power-card.disabled</span> { opacity: <span class="t-num">0.5</span>; cursor: default; }
 <span class="t-sel">.label</span> { color: <span class="t-str">rgba(219,219,219,.7)</span>; font-size: <span class="t-num">14px</span>; }
 <span class="t-sel">.buy</span>   { color: <span class="t-str">#dbdbdb</span>; font-size: <span class="t-num">16px</span>; }</pre>
+      </div>
+      <div class="code-panel" id="pc-hover">
+        <table class="hover-table">
+          <thead><tr><th>State</th><th>Default</th><th>Hover</th></tr></thead>
+          <tbody>
+            <tr><td>.power-card background</td><td><div class="hover-pair"><div class="hover-swatch" style="background:#383838"></div><span class="hover-hex">#383838</span></div></td><td><div class="hover-pair"><div class="hover-swatch" style="background:#343434"></div><span class="hover-hex">#343434</span></div></td></tr>
+            <tr><td>.power-card border</td><td><div class="hover-pair"><div class="hover-swatch" style="background:#4a4a4a"></div><span class="hover-hex">#4a4a4a</span></div></td><td><div class="hover-pair"><div class="hover-swatch" style="background:#525252"></div><span class="hover-hex">#525252</span></div></td></tr>
+            <tr><td>transform</td><td><span style="font-family:var(--mono);font-size:11px;color:#888">none</span></td><td><span style="font-family:var(--mono);font-size:11px;color:#888">translateY(-1px)</span></td></tr>
+            <tr><td>.active-addon</td><td colspan="2"><span style="font-size:11px;color:#666">no change on hover</span></td></tr>
+            <tr><td>.disabled</td><td colspan="2"><span style="font-size:11px;color:#666">no change on hover</span></td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
@@ -840,6 +947,7 @@
       <div class="code-tabs">
         <button class="code-tab active" onclick="switchTab(this,'mn-html')">HTML</button>
         <button class="code-tab" onclick="switchTab(this,'mn-css')">CSS</button>
+        <button class="code-tab" onclick="switchTab(this,'mn-hover')">Hover</button>
       </div>
       <div class="code-panel active" id="mn-html">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
@@ -863,6 +971,15 @@
 <span class="t-sel">.menu-switch-slider</span>              { width: <span class="t-num">34px</span>; height: <span class="t-num">20px</span>; border-radius: <span class="t-num">999px</span>; border: <span class="t-num">1px</span> solid <span class="t-str">#525252</span>; background: <span class="t-str">#232323</span>; }
 <span class="t-sel">.menu-switch-input:checked + .menu-switch-slider</span> { background: <span class="t-str">#224734</span>; border-color: <span class="t-str">#35cf58</span>; }
 <span class="t-sel">.menu-switch-slider::after</span>        { content: ''; position: absolute; top: <span class="t-num">1px</span>; left: <span class="t-num">1px</span>; width: <span class="t-num">16px</span>; height: <span class="t-num">16px</span>; border-radius: <span class="t-num">50%</span>; background: <span class="t-str">#919191</span>; }</pre>
+      </div>
+      <div class="code-panel" id="mn-hover">
+        <table class="hover-table">
+          <thead><tr><th>Element</th><th>Default</th><th>Hover</th></tr></thead>
+          <tbody>
+            <tr><td>.menu-item background</td><td><span style="font-family:var(--mono);font-size:11px;color:#888">transparent</span></td><td><div class="hover-pair"><div class="hover-swatch" style="background:#313131"></div><span class="hover-hex">#313131</span></div></td></tr>
+            <tr><td>.menu-switch-row background</td><td><span style="font-family:var(--mono);font-size:11px;color:#888">transparent</span></td><td><div class="hover-pair"><div class="hover-swatch" style="background:#313131"></div><span class="hover-hex">#313131</span></div></td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
