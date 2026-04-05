@@ -1142,6 +1142,7 @@ body.booting .scene {
 
 .action-stack.pod-mode .bet-btn {
   line-height: 1.1;
+  transition: height 0.35s ease;
 }
 
 .action-stack.pod-mode .bet-btn .btn-line-one,
@@ -1166,7 +1167,6 @@ body.booting .scene {
 }
 
 .action-stack.pod-mode.pod-after-save #betBtn.state-cashout {
-  /* Rise animation driven by motion in script.js */
 }
 
 .action-stack.pod-mode.pod-before-save #betBtn.state-cashout {

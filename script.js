@@ -1424,9 +1424,6 @@ function setActionButtonState(button, stateClass, lineOne, lineTwo = '', disable
       runButtonAnimation(button, 'amount-pop-enter', 420);
     } else if (stateClass === 'state-drop') {
       // Immediate — no enter animation so player can cash out right away
-    } else if (stateClass === 'state-cashout' && ma && button === betBtn && actionStackEl && actionStackEl.classList.contains('pod-after-save')) {
-      // Cash-out button revealed after pod drop: rise from below
-      ma(button, { y: [16, 0], opacity: [0.72, 1] }, { duration: 0.45, ease: [0.4, 0, 0.2, 1] });
     } else {
       runButtonAnimation(button, 'state-swap-enter', 320);
     }
@@ -1516,13 +1513,10 @@ function updateBetButtonUI(now = performance.now()) {
   const podNeedsDrop = gameState.phase === 'flying' && gameState.betActive && gameState.podActive && !gameState.podCashedOut;
   const podAfterSaveLayout = podFlowActive && !podNeedsDrop;
 
-  let isPodAfterSaveNew = false;
   if (actionStackEl) {
-    const wasPodAfterSave = actionStackEl.classList.contains('pod-after-save');
     actionStackEl.classList.toggle('pod-mode', podFlowActive);
     actionStackEl.classList.toggle('pod-before-save', podFlowActive && podNeedsDrop);
     actionStackEl.classList.toggle('pod-after-save', podAfterSaveLayout);
-    isPodAfterSaveNew = !wasPodAfterSave && podAfterSaveLayout;
     const acceptedShiftRight = !podFlowActive && gameState.betPlaced && gameState.podBought;
     const acceptedShiftLeft = !podFlowActive && gameState.betPlaced && gameState.hypersonicBought;
     actionStackEl.classList.toggle('accepted-shift-right', acceptedShiftRight);
@@ -1560,9 +1554,6 @@ function updateBetButtonUI(now = performance.now()) {
   if (gameState.phase === 'flying' && gameState.betActive) {
     const payout = formatCurrency(getCurrentPotentialWin());
     setBetButtonState('state-cashout', 'CASH OUT', payout, false);
-    if (isPodAfterSaveNew && window.motionAnimate && betBtn) {
-      window.motionAnimate(betBtn, { y: [16, 0], opacity: [0, 1] }, { duration: 0.45, ease: [0.4, 0, 0.2, 1] });
-    }
     return;
   }
 
