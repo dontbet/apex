@@ -1416,7 +1416,7 @@ function setPodActionButtonState(stateClass, lineOne, lineTwo = '', disabled = f
 }
 
 function updateBalanceUI() {
-  balanceValueEl.textContent = formatUsdValue(gameState.balance);
+  if (balanceValueEl) balanceValueEl.textContent = formatUsdValue(gameState.balance);
 }
 
 function updateAmountUI() {
