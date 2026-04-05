@@ -21,9 +21,6 @@
         </div>
 
         <nav class="sidebar-nav" id="sidebarNav" aria-label="Documentation sections">
-          <p class="nav-group">Getting Started</p>
-          <a href="#overview" data-nav-link>Overview</a>
-
           <p class="nav-group">Foundations</p>
           <a href="#colors" data-nav-link>Colors</a>
           <a href="#spacing" data-nav-link>Spacing</a>
@@ -37,35 +34,10 @@
           <a href="#cards" data-nav-link>Cards</a>
           <a href="#modals" data-nav-link>Modals</a>
           <a href="#tables" data-nav-link>Tables</a>
-          <a href="#game-components" data-nav-link>Game Components</a>
         </nav>
       </aside>
 
       <main class="content">
-        <section class="doc-section" id="overview" data-doc-section>
-          <header class="section-head">
-            <p class="eyebrow">Getting Started</p>
-            <h2>Overview</h2>
-            <p>This documentation package gives developers production-oriented patterns for building and extending the apeX interface with consistent visuals and behavior.</p>
-          </header>
-
-          <div class="intro-grid">
-            <article class="info-card">
-              <h3>Usage Model</h3>
-              <ul>
-                <li>Use design tokens first (colors, space, typography).</li>
-                <li>Build UI from documented component classes.</li>
-                <li>Keep state classes explicit for predictability.</li>
-              </ul>
-            </article>
-            <article class="info-card">
-              <h3>Quick Start</h3>
-              <pre><code>&lt;link rel="stylesheet" href="/docs/styles.css" /&gt;
-&lt;script src="/docs/script.js" defer&gt;&lt;/script&gt;</code></pre>
-            </article>
-          </div>
-        </section>
-
         <section class="doc-section" id="colors" data-doc-section>
           <header class="section-head">
             <p class="eyebrow">Foundations</p>
@@ -347,70 +319,6 @@
               <div class="table-row"><span>HyperMint</span><span class="x warm">8.4x</span><span class="money">$220.16</span></div>
               <div class="table-row"><span>SafeLine</span><span class="x cool">2.9x</span><span class="money">$44.08</span></div>
             </div>
-          </div>
-        </section>
-
-        <section class="doc-section" id="game-components" data-doc-section>
-          <header class="section-head">
-            <p class="eyebrow">Components</p>
-            <h2>Game Components</h2>
-            <p>apeX-specific UI pieces and state naming convention.</p>
-          </header>
-
-          <div class="state-grid">
-            <article class="state-card">
-              <h3>Bet Panel States</h3>
-              <ul>
-                <li><code>state-bet</code>: ready to place wager</li>
-                <li><code>state-accepted</code>: bet queued/accepted</li>
-                <li><code>state-cashout</code>: live payout action</li>
-                <li><code>state-drop</code>: pod action available</li>
-                <li><code>state-win</code>: cashout success amount</li>
-                <li><code>state-saved</code>: pod saved amount</li>
-              </ul>
-            </article>
-            <article class="state-card">
-              <h3>Power Card States</h3>
-              <ul>
-                <li><code>.active-addon</code>: purchased and active</li>
-                <li><code>.disabled</code>: not available for this phase</li>
-                <li><code>.docked</code>: moved inside accepted card</li>
-                <li><code>.hidden</code>: unavailable state</li>
-              </ul>
-            </article>
-          </div>
-
-          <div class="code-example" data-example>
-            <div class="code-tabs">
-              <button class="code-tab active" data-code-tab="html" type="button">HTML</button>
-              <button class="code-tab" data-code-tab="css" type="button">CSS</button>
-              <button class="copy-code" data-copy type="button">Copy</button>
-            </div>
-            <pre class="code-panel active" data-code-panel="html"><code>&lt;div class="action-stack pod-mode pod-before-save"&gt;
-  &lt;button class="bet-btn state-drop"&gt;
-    &lt;span class="btn-line-one"&gt;DROP POD&lt;/span&gt;
-    &lt;span class="btn-line-two"&gt;$34.67&lt;/span&gt;
-  &lt;/button&gt;
-  &lt;button class="bet-btn state-cashout" disabled&gt;
-    &lt;span class="btn-line-one"&gt;CASH OUT (NEXT)&lt;/span&gt;
-  &lt;/button&gt;
-&lt;/div&gt;</code></pre>
-            <pre class="code-panel" data-code-panel="css"><code>.action-stack.pod-mode {
-  display: grid;
-  grid-template-rows: 1fr 38px;
-  gap: 6px;
-}
-
-.bet-btn.state-drop {
-  background: #e86a1c;
-  color: #fff;
-}
-
-.bet-btn.state-cashout[disabled] {
-  background: #5a5a5a;
-  color: #d1d1d1;
-  opacity: 0.8;
-}</code></pre>
           </div>
         </section>
       </main>
