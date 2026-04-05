@@ -1016,28 +1016,6 @@
     <h2>Banners &amp; Multiplier</h2>
     <p class="section-desc">Stage banner overlay and the main live multiplier display.</p>
 
-    <div class="comp">
-      <div class="comp-title">Stage Banner — .stage-banner</div>
-      <div class="comp-preview g-root" style="background:#73a0cb;gap:10px;justify-content:center;">
-        <div class="g-banner">Betting Open</div>
-        <div class="g-banner ended">1.16x — CRASHED</div>
-      </div>
-      <div class="code-tabs">
-        <button class="code-tab active" onclick="switchTab(this,'sb-html')">HTML</button>
-        <button class="code-tab" onclick="switchTab(this,'sb-css')">CSS</button>
-      </div>
-      <div class="code-panel active" id="sb-html">
-        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
-        <pre><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"stage-banner"</span><span class="t-tag">&gt;</span>Betting Open<span class="t-tag">&lt;/div&gt;</span>
-<span class="t-cmt">&lt;!-- crashed state --&gt;</span>
-<span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"stage-banner phase-ended"</span><span class="t-tag">&gt;</span>1.16x<span class="t-tag">&lt;/div&gt;</span></pre>
-      </div>
-      <div class="code-panel" id="sb-css">
-        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
-        <pre><span class="t-sel">.stage-banner</span>             { height: <span class="t-num">28px</span>; padding: <span class="t-num">0 14px</span>; border-radius: <span class="t-num">999px</span>; border: <span class="t-num">1px</span> solid <span class="t-str">rgba(255,255,255,.2)</span>; background: <span class="t-str">rgba(15,17,18,.5)</span>; color: <span class="t-str">#fff</span>; font-size: <span class="t-num">18px</span>; }
-<span class="t-sel">.stage-banner.phase-ended</span>  { color: <span class="t-str">#ffcf6b</span>; border-color: <span class="t-str">rgba(255,207,107,.45)</span>; }</pre>
-      </div>
-    </div>
 
     <div class="comp">
       <div class="comp-title">Live Multiplier — .multiplier</div>
