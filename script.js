@@ -1799,7 +1799,7 @@ function handlePodActionButton() {
 
 function handleBetButtonAction() {
   const now = performance.now();
-  if (gameState.showWinUntil > now || gameState.podShowWinUntil > now) {
+  if (gameState.showWinUntil > now) {
     return;
   }
 
