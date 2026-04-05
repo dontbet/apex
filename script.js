@@ -242,6 +242,9 @@ const multiplierEl = document.getElementById('multiplier');
 const stageBannerEl = document.getElementById('stageBanner');
 const historyChips = Array.from(document.querySelectorAll('.history-chip[data-history-point]'));
 const mobileTabButtons = Array.from(document.querySelectorAll('.mobile-tab-btn[data-mobile-tab]'));
+const mobileSubTabsEl = document.getElementById('mobileSubTabs');
+const mobileSubTabButtons = Array.from(document.querySelectorAll('.mobile-sub-tab[data-subtab]'));
+let mobileSubTab = 'bets';
 
 const menuBtn = document.getElementById('menuBtn');
 const menuDropdown = document.getElementById('menuDropdown');
@@ -859,6 +862,17 @@ function updateTopFiltersUi() {
 
   if (sidebarEl) {
     sidebarEl.classList.toggle('hidden', mobileNoSelection);
+    sidebarEl.classList.toggle('show-players', isMobileViewport() && mobileOpenTab === 'bets' && mobileSubTab === 'players');
+  }
+
+  if (mobileSubTabsEl) {
+    const showSubTabs = isMobileViewport() && mobileOpenTab === 'bets';
+    mobileSubTabsEl.classList.toggle('hidden', !showSubTabs);
+    mobileSubTabButtons.forEach((btn) => {
+      const active = btn.dataset.subtab === mobileSubTab;
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
   }
 
   if (chatPanelEl) {
@@ -3268,6 +3282,7 @@ mobileTabButtons.forEach((button) => {
     if (isMobileViewport()) {
       if (mobileOpenTab === tabName) {
         mobileOpenTab = null;
+        mobileSubTab = 'bets';
         updateMobileTabButtons();
         updateTopFiltersUi();
         return;
@@ -3277,6 +3292,15 @@ mobileTabButtons.forEach((button) => {
     }
 
     setTab(tabName);
+  });
+});
+
+mobileSubTabButtons.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const subtab = btn.dataset.subtab;
+    if (!subtab || subtab === mobileSubTab) return;
+    mobileSubTab = subtab;
+    updateTopFiltersUi();
   });
 });
 

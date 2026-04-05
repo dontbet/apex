@@ -201,6 +201,10 @@ body.booting .scene {
   display: none;
 }
 
+.mobile-sub-tabs {
+  display: none;
+}
+
 .mobile-tab-btn {
   width: 30px;
   height: 30px;
@@ -1779,14 +1783,20 @@ body.booting .scene {
   }
 
   .layout {
-    display: block;
+    display: flex;
+    flex-direction: column;
     flex: 1 1 auto;
     min-height: 0;
     padding: 0 12px 8px;
     overflow: visible;
   }
 
+  .game-column {
+    order: 1;
+  }
+
   .sidebar {
+    order: 2;
     display: flex;
     width: 100%;
     margin-bottom: 10px;
@@ -1798,11 +1808,45 @@ body.booting .scene {
     display: none;
   }
 
+  .mobile-sub-tabs {
+    display: flex;
+    gap: 0;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #525252;
+  }
+
+  .mobile-sub-tab {
+    flex: 1;
+    padding: 8px 0;
+    border: none;
+    background: #303030;
+    color: #888;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .mobile-sub-tab.active {
+    background: #3e3e3e;
+    color: #fff;
+  }
+
   .players {
     max-height: 340px;
   }
 
   .chat {
+    display: none;
+  }
+
+  .sidebar.show-players .chat {
+    display: block;
+  }
+
+  .sidebar.show-players #playersPanel {
     display: none;
   }
 
