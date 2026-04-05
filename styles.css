@@ -1,18 +1,4 @@
-:root {
-  --bg-main: #272727;
-  --shell: #272727;
-  --ink: #151616;
-  --ink-soft: #242728;
-  --line: #353535;
-  --text: #f3f3f3;
-  --muted: #9fa7a8;
-  --green: #35cf58;
-  --accent: #00f27e;
-  --radius: 12px;
-  --chip: #303030;
-  --panel-shadow: 0 0 14px rgba(255, 255, 255, 0.25);
-  --mult-shadow-soft: 0 4px 10px rgba(27, 44, 65, 0.22);
-}
+@import './tokens.css';
 
 * {
   box-sizing: border-box;
@@ -1644,8 +1630,8 @@ body.booting .scene {
   grid-template-columns: 1fr auto;
   gap: 8px;
   align-items: center;
-  border: 1px solid #242728;
-  background: #3f464a;
+  border: 1px solid var(--n-border-soft);
+  background: var(--n-bg);
   border-radius: 16px;
   padding: 6px 8px 6px 12px;
 }
@@ -1654,7 +1640,7 @@ body.booting .scene {
   width: 100%;
   border: 0;
   background: transparent;
-  color: #d4d8d9;
+  color: var(--n-text);
   font-size: 14px;
   line-height: 1.3;
   outline: none;
@@ -1664,19 +1650,19 @@ body.booting .scene {
 .round-copy-btn {
   width: 32px;
   height: 32px;
-  border: 1px solid #596265;
+  border: 1px solid var(--n-border);
   border-radius: 10px;
-  background: #3b4145;
-  color: #aab3b4;
+  background: var(--n-surface);
+  color: var(--n-icon);
   font-size: 16px;
   cursor: pointer;
 }
 
 .round-copy-btn:hover,
 .round-copy-btn:focus-visible {
-  background: #4a5257;
-  border-color: #7d878b;
-  color: #e4e8e9;
+  background: var(--n-hover-bg);
+  border-color: var(--n-hover-border);
+  color: var(--n-hover-text);
   outline: none;
 }
 

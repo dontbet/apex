@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Jersey+25&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../tokens.css" />
   <style>
     /* ─── Hover table ─── */
     .hover-table { width:100%; border-collapse:collapse; font-size:12.5px; }
@@ -270,10 +271,10 @@
     .g-modal-body { padding: 16px; font-family: 'Inter', sans-serif; font-size: 13px; color: #c3c3c3; line-height: 1.5; }
 
     /* Copy field */
-    .g-copy-field { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; border: 1px solid #242728; background: #3f464a; border-radius: 16px; padding: 6px 8px 6px 12px; }
-    .g-copy-field input { width: 100%; border: 0; background: transparent; color: #d4d8d9; font-family: 'Jersey 25', sans-serif; font-size: 14px; outline: none; padding: 0; }
-    .g-copy-field-btn { width: 32px; height: 32px; border: 1px solid #596265; border-radius: 10px; background: #3b4145; color: #aab3b4; font-size: 16px; cursor: pointer; display: grid; place-items: center; transition: background .15s; font-family: inherit; }
-    .g-copy-field-btn:hover { background: #4a5257; border-color: #7d878b; color: #e4e8e9; }
+    .g-copy-field { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; border: 1px solid var(--n-border-soft); background: var(--n-bg); border-radius: 16px; padding: 6px 8px 6px 12px; }
+    .g-copy-field input { width: 100%; border: 0; background: transparent; color: var(--n-text); font-family: 'Jersey 25', sans-serif; font-size: 14px; outline: none; padding: 0; }
+    .g-copy-field-btn { width: 32px; height: 32px; border: 1px solid var(--n-border); border-radius: 10px; background: var(--n-surface); color: var(--n-icon); font-size: 16px; cursor: pointer; display: grid; place-items: center; transition: background .15s; font-family: inherit; }
+    .g-copy-field-btn:hover { background: var(--n-hover-bg); border-color: var(--n-hover-border); color: var(--n-hover-text); }
 
     /* History row */
     .g-history-row { display: grid; grid-template-columns: 1fr 80px 1fr 40px; padding: 8px 12px; border-bottom: 1px solid #1f2224; font-family: 'Jersey 25', sans-serif; font-size: 14px; color: #9fa7a8; gap: 8px; cursor: pointer; transition: background .12s; }
@@ -1148,9 +1149,10 @@
       </div>
       <div class="code-panel" id="cf-css">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
-        <pre><span class="t-sel">.round-copy-field</span>  { display: grid; grid-template-columns: <span class="t-num">1fr auto</span>; border: <span class="t-num">1px</span> solid <span class="t-str">#242728</span>; background: <span class="t-str">#3f464a</span>; border-radius: <span class="t-num">16px</span>; padding: <span class="t-num">6px 8px 6px 12px</span>; }
-<span class="t-sel">.round-copy-field input</span> { border: 0; background: transparent; color: <span class="t-str">#d4d8d9</span>; font-size: <span class="t-num">14px</span>; outline: none; }
-<span class="t-sel">.round-copy-btn</span>    { width: <span class="t-num">32px</span>; height: <span class="t-num">32px</span>; border: <span class="t-num">1px</span> solid <span class="t-str">#596265</span>; border-radius: <span class="t-num">10px</span>; background: <span class="t-str">#3b4145</span>; color: <span class="t-str">#aab3b4</span>; }
+        <pre><span class="t-sel">.round-copy-field</span>  { display: grid; grid-template-columns: <span class="t-num">1fr auto</span>; border: <span class="t-num">1px</span> solid <span class="t-prop">var(--n-border-soft)</span>; background: <span class="t-prop">var(--n-bg)</span>; border-radius: <span class="t-num">16px</span>; padding: <span class="t-num">6px 8px 6px 12px</span>; }
+<span class="t-sel">.round-copy-field input</span> { border: 0; background: transparent; color: <span class="t-prop">var(--n-text)</span>; font-size: <span class="t-num">14px</span>; outline: none; }
+<span class="t-sel">.round-copy-btn</span>    { width: <span class="t-num">32px</span>; height: <span class="t-num">32px</span>; border: <span class="t-num">1px</span> solid <span class="t-prop">var(--n-border)</span>; border-radius: <span class="t-num">10px</span>; background: <span class="t-prop">var(--n-surface)</span>; color: <span class="t-prop">var(--n-icon)</span>; }
+<span class="t-sel">.round-copy-btn:hover</span>  { background: <span class="t-prop">var(--n-hover-bg)</span>; border-color: <span class="t-prop">var(--n-hover-border)</span>; color: <span class="t-prop">var(--n-hover-text)</span>; }
 <span class="t-sel">.round-copy-btn.copied</span> { border-color: <span class="t-str">#4f9f67</span>; color: <span class="t-str">#9af7b8</span>; }</pre>
       </div>
     </div>
