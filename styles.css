@@ -1171,6 +1171,7 @@ body.booting .scene {
 
 .action-stack.pod-mode .bet-btn {
   line-height: 1.1;
+  transition: none;
 }
 
 .action-stack.pod-mode.pod-after-save .bet-btn {
