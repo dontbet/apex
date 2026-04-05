@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>F35 Crash</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+25&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css?v=20260405-2333" />
+  </head>
+  <body class="booting">
+    <div class="boot-loader" id="bootLoader" role="status" aria-live="polite">
+      <div class="boot-loader-card">
+        <p class="boot-loader-title">Loading F35 Crash</p>
+        <div class="boot-loader-track" aria-hidden="true">
+          <div class="boot-loader-fill" id="bootLoaderFill"></div>
+        </div>
+        <p class="boot-loader-percent" id="bootLoaderPercent">0%</p>
+      </div>
+    </div>
+    <div class="scene">
+      <header class="topbar">
+        <h1 class="brand" aria-label="apeX">
+          ape<span>X</span>
+        </h1>
+
+        <div class="history-strip glassy">
+          <div class="mobile-left-icons" role="tablist" aria-label="Mobile tabs">
+            <button class="mobile-tab-btn" type="button" data-mobile-tab="bets" aria-label="Live" aria-selected="false">
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M3.5 10h5.5l3-3h4.5v6H12l-3 3H3.5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button class="mobile-tab-btn" type="button" data-mobile-tab="previous" aria-label="Previous" aria-selected="false">
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <circle cx="10" cy="10" r="6.2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M10 6.6v3.7l2.7 1.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <button class="mobile-tab-btn" type="button" data-mobile-tab="top" aria-label="Top" aria-selected="false">
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M5 15.3h10M6.3 7.2l3.7 3.2 3.7-3.2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M5.4 7.1h9.2l-1 7.1H6.4z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <div class="mobile-history-right">
+            <button class="history-chip warm" data-history-point="1.16x">1.16x</button>
+            <button class="history-chip green" data-history-point="4.57x">4.57x</button>
+            <button class="history-chip green" data-history-point="5.74x">5.74x</button>
+            <button class="history-chip green" data-history-point="3.11x">3.11x</button>
+            <button class="history-chip lime" data-history-point="13.85x">13.85x</button>
+            <button class="history-chip icon-chip" id="historyXBtn" aria-label="History">
+              <svg viewBox="0 0 16 16" role="img" aria-hidden="true">
+                <path d="M8 1.6a6.4 6.4 0 1 0 4.92 10.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                <path d="M8 4.2v3.9l2.5 1.4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                <path d="M11.3 1.9h3v3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="utility-strip glassy menu-anchor">
+          <button class="utility-chip" id="infoBtn" aria-label="Info">
+            <img src="https://www.figma.com/api/mcp/asset/a8ef952a-e116-494f-a43a-456c635dd7d5" alt="Info" />
+          </button>
+          <button class="utility-chip" id="soundBtn" aria-label="Sound">
+            <img src="https://www.figma.com/api/mcp/asset/bee7451c-1ed1-4a85-8892-e19415ca3f94" alt="Sound" />
+          </button>
+          <button class="utility-chip" id="menuBtn" aria-label="Menu">
+            <img src="https://www.figma.com/api/mcp/asset/b2371fca-3e10-401b-b526-405037601414" alt="Menu" />
+          </button>
+
+          <div class="menu-dropdown hidden" id="menuDropdown" role="menu" aria-label="Game menu">
+            <button class="menu-item" data-menu-action="rules">How to Play</button>
+            <button class="menu-item" data-menu-action="provably-settings">Provably Fair Settings</button>
+            <button class="menu-item" data-menu-action="game-limits">Game Limits</button>
+            <div class="menu-divider" role="separator"></div>
+            <label class="menu-switch-row" for="musicSwitch">
+              <span>Background Music</span>
+              <input class="menu-switch-input" id="musicSwitch" type="checkbox" checked />
+              <span class="menu-switch-slider" aria-hidden="true"></span>
+            </label>
+            <label class="menu-switch-row" for="sfxSwitch">
+              <span>Sound Effects</span>
+              <input class="menu-switch-input" id="sfxSwitch" type="checkbox" checked />
+              <span class="menu-switch-slider" aria-hidden="true"></span>
+            </label>
+          </div>
+        </div>
+      </header>
+
+      <main class="layout">
+        <aside class="sidebar shell-panel">
+          <div class="tabbar" id="tabbar" role="tablist" aria-label="Sidebar tabs">
+            <button class="tab active" data-tab="bets" role="tab" aria-selected="true">Live</button>
+            <button class="tab" data-tab="previous" role="tab" aria-selected="false">Previous</button>
+            <button class="tab" data-tab="top" role="tab" aria-selected="false">Top</button>
+          </div>
+
+          <section class="players card-panel" id="playersPanel" aria-live="polite">
+            <section class="topbets-filters hidden" id="topBetsFilters" aria-label="Top bets filters">
+              <div class="topbets-row topbets-row-metric" role="tablist" aria-label="Top ranking metric">
+                <button class="topbets-pill active" data-top-metric="x" role="tab" aria-selected="true">X</button>
+                <button class="topbets-pill" data-top-metric="win" role="tab" aria-selected="false">Win</button>
+              </div>
+              <div class="topbets-row topbets-row-range" role="tablist" aria-label="Top ranking period">
+                <button class="topbets-pill" data-top-range="day" role="tab" aria-selected="false">Day</button>
+                <button class="topbets-pill" data-top-range="week" role="tab" aria-selected="false">Week</button>
+                <button class="topbets-pill active" data-top-range="month" role="tab" aria-selected="true">Month</button>
+                <button class="topbets-pill" data-top-range="year" role="tab" aria-selected="false">Year</button>
+              </div>
+            </section>
+
+            <section class="previous-result hidden" id="previousResultPanel" aria-live="polite">
+              <p class="previous-result-label">Round Result</p>
+              <p class="previous-result-value blue" id="previousRoundValue">1.18x</p>
+            </section>
+
+            <div id="playerRows"></div>
+          </section>
+
+          <section class="chat card-panel" id="chatPanel">
+            <div class="chat-head">
+              <span id="chatTitle">Players</span>
+              <span class="muted" id="reactionCount">215</span>
+            </div>
+            <div class="chat-lines" id="chatLines">
+              <p><span class="name orange">Rushtu</span> Nice hit!</p>
+              <p><span class="name cyan">OpqR</span> Thanks! Booster helped a lot.</p>
+              <p><span class="name violet">StuV</span> Cash out early today.</p>
+              <p><span class="name blue">LmnO</span> Wild booster is so strong.</p>
+              <p><span class="name orange">PqrS</span> Let's go for 10x!</p>
+            </div>
+            <div class="quick-reactions" id="quickReactions">
+              <button class="reaction-btn" data-reaction="Nice hit!">Nice hit!</button>
+              <button class="reaction-btn" data-reaction="GG!">GG!</button>
+              <button class="reaction-btn" data-reaction="Let's go!">Let's go!</button>
+              <button class="reaction-btn" data-reaction="Wow!">Wow!</button>
+            </div>
+          </section>
+
+          <footer class="sidebar-footer">
+            <div class="fairness" id="fairnessBtn" role="button" tabindex="0" aria-label="Open provably fair tools">
+              <img src="https://www.figma.com/api/mcp/asset/feca08ab-18f9-4907-9052-81150fcba283" alt="Shield" />
+              <span>Provably fair game</span>
+            </div>
+            <div class="credit">
+              <span>Created by</span>
+              <img src="https://www.figma.com/api/mcp/asset/dd77a0dd-ace5-443b-b035-ac0fbed55f74" alt="andados" />
+            </div>
+          </footer>
+        </aside>
+
+        <section class="game-column">
+          <div class="sky-stage" id="skyStage">
+            <div class="sky-bg" id="skyBg"></div>
+            <canvas class="sky-canvas clouds-layer" id="cloudCanvas" aria-hidden="true"></canvas>
+            <canvas class="sky-canvas stars-layer" id="starCanvas" aria-hidden="true"></canvas>
+            <canvas class="sky-canvas trail-layer" id="contrailCanvas" aria-hidden="true"></canvas>
+            <div class="runway-layer" id="runwayLayer" aria-hidden="true"></div>
+
+            <button class="lofi" aria-label="Lofi">
+              <img src="https://www.figma.com/api/mcp/asset/dc884d88-8c72-4f94-b327-7d422ff71d23" alt="Lofi" />
+            </button>
+
+            <div class="countdown-overlay" id="countdownOverlay" aria-hidden="true">
+              <p class="countdown-title" id="countdownTitle">Takeoff</p>
+              <div class="countdown-ring">
+                <svg viewBox="0 0 96 96" role="img" aria-hidden="true">
+                  <circle class="countdown-bg" cx="48" cy="48" r="40"></circle>
+                  <circle class="countdown-progress" id="countdownArc" cx="48" cy="48" r="40"></circle>
+                </svg>
+                <span id="countdownNumber">5</span>
+              </div>
+              <div class="vegas-slot hidden" id="vegasSlot" aria-hidden="true">
+                <div class="vegas-slot-frame">
+                  <div class="vegas-slot-mask"></div>
+                  <div class="vegas-slot-line"></div>
+                  <div class="vegas-slot-strip" id="vegasSlotStrip"></div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="aircraft-layer" id="aircraftLayer" aria-hidden="true">
+              <div class="aircraft" id="jetModel">
+                <div class="flight-amount jet-amount hidden" id="jetAmount">$100.00</div>
+
+                <img class="jet-shadow" id="jetShadow" src="./assets/shadow.png" alt="" />
+                <div class="engine-flame" id="engineFlame">
+                  <div class="flame-layer flame-ambient"></div>
+                  <div class="flame-layer flame-outer"></div>
+                  <div class="flame-layer flame-mid"></div>
+                  <div class="flame-layer flame-core"></div>
+                  <div class="flame-layer flame-nozzle"></div>
+                  <div class="flame-diamond diamond-1"></div>
+                  <div class="flame-diamond diamond-2"></div>
+                  <div class="flame-diamond diamond-3"></div>
+                  <div class="flame-spark spark-1"></div>
+                  <div class="flame-spark spark-2"></div>
+                  <div class="flame-spark spark-3"></div>
+                  <div class="flame-spark spark-4"></div>
+                  <div class="flame-spark spark-5"></div>
+                  <div class="flame-spark spark-6"></div>
+                  <div class="flame-spark spark-7"></div>
+                  <div class="flame-spark spark-8"></div>
+                  <div class="flame-spark spark-9"></div>
+                  <div class="flame-spark spark-10"></div>
+                </div>
+                <img class="jet-plane" id="planeImage" src="./assets/plane.png?v=20260405-0941" alt="" />
+                <img class="jet-wheel jet-wheel-back" id="backWheels" src="./assets/back-wheels.png" alt="" />
+                <img class="jet-wheel jet-wheel-front" id="frontWheel" src="./assets/front-wheels.png" alt="" />
+                <div class="jet-body"></div>
+                <div class="jet-wing"></div>
+                <div class="jet-tail"></div>
+              </div>
+
+              <div class="pod-model hidden" id="podModel">
+                <div class="flight-amount pod-amount hidden" id="podAmount">$100.00</div>
+                <img src="./assets/pod.png" alt="" />
+              </div>
+
+
+              <div class="parachute-model hidden" id="parachuteModel">
+                <img src="./assets/parachute.png" alt="" />
+              </div>
+            </div>
+
+            <div class="stage-banner" id="stageBanner"></div>
+
+            <div class="flew-away hidden" id="flewAwayOverlay" aria-hidden="true">
+              <div class="flew-away-title">Flew Away!</div>
+              <div class="flew-away-mult" id="flewAwayMult">1.00x</div>
+            </div>
+
+            <div class="multiplier" id="multiplier">1.00x</div>
+
+            <div class="hypersonic-mult hidden" id="hypersonicOverlay" aria-hidden="true">
+              <div class="hypersonic-game-mult" id="hypersonicGameMult">1.00x</div>
+              <div class="hypersonic-boost-mult" id="hypersonicBoostMult">—</div>
+            </div>
+
+          </div>
+
+          <div class="ground-stage">
+            <div class="control-panel shell-panel">
+              <div class="balance">Balance: <strong id="balanceValue">$4,950</strong></div>
+
+              <div class="powerups" id="powerups">
+                <article class="power-card" id="podCard" role="button" tabindex="0" aria-label="Buy pod addon">
+                  <img class="icon-pod pod-icon" src="https://www.figma.com/api/mcp/asset/6048e193-947b-4a70-a662-77fd5a083e29" alt="Pod" />
+                  <span class="label">Pod</span>
+                  <span class="buy" id="podBuy">Buy $10</span>
+                </article>
+                <article class="power-card" id="hypersonicCard" role="button" tabindex="0" aria-label="Buy hypersonic addon">
+                  <img class="icon-pod hypersonic-icon" src="https://www.figma.com/api/mcp/asset/dccee50a-641a-4fe3-a7f5-0f7b3a4b5533" alt="Hypersonic" />
+                  <span class="label">Hypersonic</span>
+                  <span class="buy" id="hypersonicBuy">Buy $40</span>
+                </article>
+              </div>
+
+              <div class="mini-graph hidden" id="miniGraphPanel" aria-hidden="true">
+                <canvas id="miniGraphCanvas"></canvas>
+              </div>
+
+              <div class="action-stack" id="actionStack">
+                <button class="bet-btn hidden" id="podActionBtn">DROP POD<br /><span>$10.00</span></button>
+                <button class="bet-btn" id="betBtn">BET<br /><span>$10.00</span></button>
+              </div>
+
+              <div class="adjustment" id="adjustmentRow">
+                <div class="amount-box" id="amountBox">$10.00</div>
+                <button class="adjust-btn" id="decreaseBtn" aria-label="Half">÷</button>
+                <button class="adjust-btn" id="increaseBtn" aria-label="Double">×</button>
+              </div>
+              <button class="cancel-bet-btn hidden" id="cancelBetBtn">Cancel Bet</button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal-backdrop hidden" id="infoModalBackdrop" aria-hidden="true">
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="infoModalTitle">
+        <header class="modal-head">
+          <h2 id="infoModalTitle">How to play</h2>
+          <button class="modal-close" data-close-target="infoModalBackdrop" aria-label="Close">x</button>
+        </header>
+        <div class="modal-body">
+          <ul class="info-list">
+            <li>Each round starts at 1.00x and grows until it crashes at a random point.</li>
+            <li>Place your bet during countdown. When accepted, it joins the next round.</li>
+            <li>Press Cash Out before crash to lock your current payout.</li>
+            <li>Pod booster: buy it before the round, then press DROP POD during flight to save that pod value while your main bet keeps running.</li>
+            <li>Hypersonic booster: buy it before the round to enter faster, higher-risk rounds that can reach much bigger multipliers.</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <div class="modal-backdrop hidden" id="historyModalBackdrop" aria-hidden="true">
+      <section class="modal modal-wide" role="dialog" aria-modal="true" aria-labelledby="historyModalTitle">
+        <header class="modal-head">
+          <h2 id="historyModalTitle">History X + Provably Fair</h2>
+          <button class="modal-close" data-close-target="historyModalBackdrop" aria-label="Close">x</button>
+        </header>
+        <div class="modal-body modal-grid">
+          <div class="history-card">
+            <h3>Recent Rounds</h3>
+            <div class="history-table" id="historyTable"></div>
+          </div>
+
+          <div class="history-card">
+            <h3>Provably Fair Tools</h3>
+            <label>Server Seed Hash</label>
+            <input id="serverHashInput" type="text" value="f35b7e9c1a42c8df01467dc0a93b79ff" />
+
+            <label>Client Seed</label>
+            <input id="clientSeedInput" type="text" value="player-seed-01" />
+
+            <label>Nonce</label>
+            <input id="nonceInput" type="number" min="0" value="128" />
+
+            <button id="verifyProvablyBtn" class="modal-action">Verify Crash Point</button>
+            <p id="verifyResult" class="verify-result">Run verification to calculate crash point.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+
+    <div class="modal-backdrop hidden" id="roundInfoModalBackdrop" aria-hidden="true">
+      <section class="modal modal-round-info" role="dialog" aria-modal="true" aria-labelledby="roundInfoModalTitle">
+        <header class="modal-head">
+          <h2 id="roundInfoModalTitle">Round Info</h2>
+          <button class="modal-close" data-close-target="roundInfoModalBackdrop" aria-label="Close">x</button>
+        </header>
+        <div class="modal-body round-info-body">
+          <div class="round-info-meta">
+            <div class="round-info-meta-item">
+              <span class="round-info-label">Time</span>
+              <strong id="roundInfoTime">11:49:04</strong>
+            </div>
+            <div class="round-info-meta-item">
+              <span class="round-info-label">Round</span>
+              <strong id="roundInfoRound">86442</strong>
+            </div>
+          </div>
+
+          <section class="round-info-section">
+            <h3>Server Seed</h3>
+            <p>Generated on our side</p>
+            <div class="round-copy-field">
+              <input id="roundInfoServerSeed" type="text" readonly value="" />
+              <button class="round-copy-btn" data-copy-target="roundInfoServerSeed" aria-label="Copy server seed">⧉</button>
+            </div>
+          </section>
+
+          <section class="round-info-section">
+            <h3>Client Seed</h3>
+            <p>Generated on players side</p>
+            <div class="round-client-list" id="roundInfoClientList"></div>
+          </section>
+
+          <section class="round-info-section">
+            <h3>Combined SHA512 Hash</h3>
+            <p>Above seeds combined and converted to SHA512 Hash. This is your result</p>
+            <div class="round-copy-field">
+              <input id="roundInfoCombinedHash" type="text" readonly value="" />
+              <button class="round-copy-btn" data-copy-target="roundInfoCombinedHash" aria-label="Copy combined hash">⧉</button>
+            </div>
+          </section>
+
+          <div class="round-result-grid">
+            <div>
+              <span class="round-info-label">Hex</span>
+              <strong id="roundInfoHex">0EEC5AED0B73F</strong>
+            </div>
+            <div>
+              <span class="round-info-label">Decimal</span>
+              <strong id="roundInfoDecimal">26253280881983</strong>
+            </div>
+            <div>
+              <span class="round-info-label">Result</span>
+              <strong id="roundInfoResult" class="round-result-value">15.57x</strong>
+            </div>
+          </div>
+
+          <button class="round-fair-link" id="roundFairLinkBtn" type="button">What is Provably Fair?</button>
+        </div>
+      </section>
+    </div>
+    <div class="modal-backdrop hidden" id="historyListModalBackdrop" aria-hidden="true">
+      <section class="modal modal-history-list" role="dialog" aria-modal="true" aria-labelledby="historyListModalTitle">
+        <header class="modal-head">
+          <h2 id="historyListModalTitle">History X</h2>
+          <button class="modal-close" data-close-target="historyListModalBackdrop" aria-label="Close">x</button>
+        </header>
+        <div class="modal-body history-icon-body">
+          <div class="history-icon-table-head"><span>Time</span><span>Round</span><span>X</span></div>
+          <div class="history-icon-list" id="historyIconList"></div>
+        </div>
+      </section>
+    </div>
+
+    <div class="modal-backdrop hidden" id="provablySettingsModalBackdrop" aria-hidden="true">
+      <section class="modal modal-provably-settings" role="dialog" aria-modal="true" aria-labelledby="provablySettingsTitle">
+        <header class="modal-head">
+          <h2 id="provablySettingsTitle">Provably Fair Settings</h2>
+          <button class="modal-close" data-close-target="provablySettingsModalBackdrop" aria-label="Close">x</button>
+        </header>
+        <div class="modal-body provably-settings-body">
+          <p class="provably-settings-lead">This game uses Provably Fair technology to determine game result. This tool gives you ability to change your seed and check fairness of the game.</p>
+
+          <section class="provably-settings-section">
+            <h3>Client (Your) Seed</h3>
+            <p>Round result is determined form combination of server seed and first 3 bets of the round.</p>
+            <div class="round-copy-field provably-seed-field">
+              <input id="provablyClientSeedInput" type="text" readonly value="Random every round:" />
+              <button class="round-copy-btn" data-copy-target="provablyClientSeedInput" aria-label="Copy client seed">⧉</button>
+            </div>
+            <button class="provably-manual-link" id="provablyManualSeedBtn" type="button">Switch to Enter Manually</button>
+          </section>
+
+          <section class="provably-settings-section">
+            <h3>Server Seed SHA512:</h3>
+            <div class="round-copy-field provably-seed-field">
+              <input id="provablyServerSeedInput" type="text" readonly value="" />
+              <button class="round-copy-btn" data-copy-target="provablyServerSeedInput" aria-label="Copy server seed">⧉</button>
+            </div>
+          </section>
+
+          <p class="provably-settings-foot">You can check fairness of each bet from bets history</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="modal-backdrop hidden" id="gameLimitsModalBackdrop" aria-hidden="true">
+      <section class="modal modal-game-limits" role="dialog" aria-modal="true" aria-labelledby="gameLimitsTitle">
+        <header class="modal-head">
+          <h2 id="gameLimitsTitle">Game Limits</h2>
+          <button class="modal-close" data-close-target="gameLimitsModalBackdrop" aria-label="Close">x</button>
+        </header>
+        <div class="modal-body game-limits-body">
+          <p class="game-limits-lead">Betting limits define the minimum and maximum amounts allowed per wager. Limits help you control spending, play responsibly, and ensure a fair gaming experience for everyone.</p>
+          <div class="game-limit-card">Minimum bet: <strong>€0.10</strong></div>
+          <div class="game-limit-card">Maximum bet: <strong>€100.00</strong></div>
+          <div class="game-limit-card">Maximum win for one bet: <strong>€40,000.00</strong></div>
+        </div>
+      </section>
+    </div>
+
+    <script src="./audio.js?v=20260405-1322"></script>
+    <script src="./script.js?v=20260405-2333"></script>
+  </body>
+</html>
