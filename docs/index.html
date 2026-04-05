@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>apeX Design System Docs</title>
+    <title>apeX Docs</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Jersey+25&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/docs/styles.css" />
   </head>
-  <body>
+  <body data-page="home">
     <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation">Menu</button>
 
     <div class="docs-layout">
@@ -17,308 +17,77 @@
         <div class="sidebar-head">
           <p class="eyebrow">apeX</p>
           <h1>Developer Docs</h1>
-          <p class="muted">Foundations, components, and implementation-ready snippets.</p>
+          <p class="muted">Separate pages for faster navigation.</p>
         </div>
 
-        <nav class="sidebar-nav" id="sidebarNav" aria-label="Documentation sections">
+        <nav class="sidebar-nav" aria-label="Documentation pages">
+          <p class="nav-group">Home</p>
+          <a href="./index.html" data-nav-link="home">Docs Home</a>
+
           <p class="nav-group">Foundations</p>
-          <a href="#colors" data-nav-link>Colors</a>
-          <a href="#spacing" data-nav-link>Spacing</a>
-          <a href="#typography" data-nav-link>Typography</a>
+          <a href="./colors.html" data-nav-link="colors">Colors</a>
+          <a href="./spacing.html" data-nav-link="spacing">Spacing</a>
+          <a href="./typography.html" data-nav-link="typography">Typography</a>
 
           <p class="nav-group">Components</p>
-          <a href="#buttons" data-nav-link>Buttons</a>
-          <a href="#chips" data-nav-link>Chips</a>
-          <a href="#inputs" data-nav-link>Inputs</a>
-          <a href="#tabs" data-nav-link>Tabs & Segments</a>
-          <a href="#cards" data-nav-link>Cards</a>
-          <a href="#modals" data-nav-link>Modals</a>
-          <a href="#tables" data-nav-link>Tables</a>
+          <a href="./buttons.html" data-nav-link="buttons">Buttons</a>
+          <a href="./chips.html" data-nav-link="chips">Chips</a>
+          <a href="./inputs.html" data-nav-link="inputs">Inputs</a>
+          <a href="./tabs.html" data-nav-link="tabs">Tabs & Segments</a>
+          <a href="./cards.html" data-nav-link="cards">Cards</a>
+          <a href="./modals.html" data-nav-link="modals">Modals</a>
+          <a href="./tables.html" data-nav-link="tables">Tables</a>
         </nav>
       </aside>
 
       <main class="content">
-        <section class="doc-section" id="colors" data-doc-section>
+        <section class="doc-section">
           <header class="section-head">
-            <p class="eyebrow">Foundations</p>
-            <h2>Colors</h2>
-            <p>Core semantic colors used by the game and docs.</p>
+            <h2>apeX Docs</h2>
+            <p>Select a page from the sidebar. Component pages use Example, HTML, and CSS tabs in that order.</p>
           </header>
 
-          <div class="swatch-grid">
-            <article class="swatch">
-              <div class="swatch-color" style="background:#151515"></div>
-              <h3>App Background</h3>
-              <p><code>#151515</code></p>
-            </article>
-            <article class="swatch">
-              <div class="swatch-color" style="background:#272727"></div>
-              <h3>Panel Surface</h3>
-              <p><code>#272727</code></p>
-            </article>
-            <article class="swatch">
-              <div class="swatch-color" style="background:#303030"></div>
-              <h3>Elevated Surface</h3>
-              <p><code>#303030</code></p>
-            </article>
-            <article class="swatch">
-              <div class="swatch-color" style="background:#353535"></div>
-              <h3>Border Default</h3>
-              <p><code>#353535</code></p>
-            </article>
-            <article class="swatch">
-              <div class="swatch-color" style="background:#00f27e"></div>
-              <h3>Primary Accent</h3>
-              <p><code>#00F27E</code></p>
-            </article>
-            <article class="swatch">
-              <div class="swatch-color" style="background:#ffbd30"></div>
-              <h3>Cash Out Yellow</h3>
-              <p><code>#FFBD30</code></p>
-            </article>
-            <article class="swatch">
-              <div class="swatch-color" style="background:#e86a1c"></div>
-              <h3>Pod Orange</h3>
-              <p><code>#E86A1C</code></p>
-            </article>
-            <article class="swatch">
-              <div class="swatch-color" style="background:#35cf58"></div>
-              <h3>Profit Green</h3>
-              <p><code>#35CF58</code></p>
-            </article>
-          </div>
-
-          <div class="code-example" data-example>
-            <div class="code-tabs">
-              <button class="code-tab active" data-code-tab="css" type="button">CSS</button>
-              <button class="copy-code" data-copy type="button">Copy</button>
-            </div>
-            <pre class="code-panel active" data-code-panel="css"><code>:root {
-  --bg-main: #151515;
-  --surface: #272727;
-  --surface-elevated: #303030;
-  --line: #353535;
-  --text: #f3f3f3;
-  --muted: #9fa7a8;
-  --accent: #00f27e;
-  --cashout: #ffbd30;
-  --pod: #e86a1c;
-  --profit: #35cf58;
-}</code></pre>
-          </div>
-        </section>
-
-        <section class="doc-section" id="spacing" data-doc-section>
-          <header class="section-head">
-            <p class="eyebrow">Foundations</p>
-            <h2>Spacing</h2>
-            <p>Use an 8px-root scale with compact 4px increments for dense states.</p>
-          </header>
-
-          <div class="spacing-list">
-            <div class="space-row"><span>4px</span><div style="width:4px"></div></div>
-            <div class="space-row"><span>8px</span><div style="width:8px"></div></div>
-            <div class="space-row"><span>12px</span><div style="width:12px"></div></div>
-            <div class="space-row"><span>16px</span><div style="width:16px"></div></div>
-            <div class="space-row"><span>20px</span><div style="width:20px"></div></div>
-            <div class="space-row"><span>24px</span><div style="width:24px"></div></div>
-            <div class="space-row"><span>32px</span><div style="width:32px"></div></div>
-            <div class="space-row"><span>40px</span><div style="width:40px"></div></div>
-          </div>
-        </section>
-
-        <section class="doc-section" id="typography" data-doc-section>
-          <header class="section-head">
-            <p class="eyebrow">Foundations</p>
-            <h2>Typography</h2>
-            <p>Jersey 25 is used across documentation and game-facing UI for consistency.</p>
-          </header>
-
-          <div class="type-grid">
-            <article class="type-card">
-              <h3>Display / Game</h3>
-              <p class="sample-display">13.85x</p>
-              <p><code>font-family: "Jersey 25"</code></p>
-            </article>
-            <article class="type-card">
-              <h3>Code / Utility</h3>
-              <p class="sample-body">Use this style for helper descriptions and docs narration.</p>
-              <p><code>font-family: monospace</code></p>
-            </article>
-          </div>
-        </section>
-
-        <section class="doc-section" id="buttons" data-doc-section>
-          <header class="section-head">
-            <p class="eyebrow">Components</p>
-            <h2>Buttons</h2>
-            <p>Primary action set with key game states and static hover previews.</p>
-          </header>
-
-          <div class="preview-card">
-            <div class="preview-row wrap">
-              <button class="ds-btn is-primary">BET</button>
-              <button class="ds-btn is-primary is-hover">BET (Hover)</button>
-              <button class="ds-btn is-warning">CASH OUT</button>
-              <button class="ds-btn is-pod">DROP POD</button>
-              <button class="ds-btn is-accepted">BET ACCEPTED</button>
-              <button class="ds-btn is-win">+$24.90</button>
-              <button class="ds-btn is-disabled" disabled>DISABLED</button>
-            </div>
-          </div>
-
-          <div class="code-example" data-example>
-            <div class="code-tabs">
-              <button class="code-tab active" data-code-tab="html" type="button">HTML</button>
-              <button class="code-tab" data-code-tab="css" type="button">CSS</button>
-              <button class="copy-code" data-copy type="button">Copy</button>
-            </div>
-            <pre class="code-panel active" data-code-panel="html"><code>&lt;button class="ds-btn is-primary"&gt;BET&lt;/button&gt;
-&lt;button class="ds-btn is-warning"&gt;CASH OUT&lt;/button&gt;
-&lt;button class="ds-btn is-pod"&gt;DROP POD&lt;/button&gt;
-&lt;button class="ds-btn is-accepted"&gt;BET ACCEPTED&lt;/button&gt;
-&lt;button class="ds-btn is-win"&gt;+$24.90&lt;/button&gt;</code></pre>
-            <pre class="code-panel" data-code-panel="css"><code>.ds-btn {
-  height: 52px;
-  padding: 0 20px;
-  border: 1px solid #353535;
-  border-radius: 14px;
-  background: #303030;
-  color: #f3f3f3;
-  font: 600 18px/1 "Jersey 25", sans-serif;
-}
-
-.ds-btn.is-primary { background: #00f27e; color: #151616; }
-.ds-btn.is-warning { background: #ffbd30; color: #151616; }
-.ds-btn.is-pod { background: #e86a1c; color: #fff; }
-.ds-btn.is-accepted { background: #c1c1c1; color: #151616; }
-.ds-btn.is-win { background: #00f27e; color: #fff; font-size: 28px; }</code></pre>
-          </div>
-        </section>
-
-        <section class="doc-section" id="chips" data-doc-section>
-          <header class="section-head">
-            <p class="eyebrow">Components</p>
-            <h2>Chips</h2>
-            <p>History/result chips with tone variants.</p>
-          </header>
-
-          <div class="preview-card">
-            <div class="preview-row wrap">
-              <span class="ds-chip warm">1.16x</span>
-              <span class="ds-chip green">4.57x</span>
-              <span class="ds-chip lime">13.85x</span>
-              <span class="ds-chip neutral">History</span>
-            </div>
-          </div>
-        </section>
-
-        <section class="doc-section" id="inputs" data-doc-section>
-          <header class="section-head">
-            <p class="eyebrow">Components</p>
-            <h2>Inputs</h2>
-            <p>Default, focused, error, and disabled states.</p>
-          </header>
-
-          <div class="preview-card">
-            <div class="preview-column">
-              <label class="field">
-                <span>Default</span>
-                <input class="ds-input" type="text" value="Client seed" />
-              </label>
-              <label class="field">
-                <span>Focused (Static)</span>
-                <input class="ds-input is-focus" type="text" value="apeX-demo" />
-              </label>
-              <label class="field">
-                <span>Error</span>
-                <input class="ds-input is-error" type="text" value="Invalid value" />
-              </label>
-              <label class="field">
-                <span>Disabled</span>
-                <input class="ds-input" type="text" value="Disabled" disabled />
-              </label>
-            </div>
-          </div>
-        </section>
-
-        <section class="doc-section" id="tabs" data-doc-section>
-          <header class="section-head">
-            <p class="eyebrow">Components</p>
-            <h2>Tabs & Segments</h2>
-            <p>Primary segmented controls for panel switching and top filters.</p>
-          </header>
-
-          <div class="preview-card">
-            <div class="segment-row">
-              <button class="segment active">Live</button>
-              <button class="segment">Previous</button>
-              <button class="segment">Top</button>
-            </div>
-            <div class="segment-row compact">
-              <button class="segment active">X</button>
-              <button class="segment">Win</button>
-            </div>
-            <div class="segment-row compact">
-              <button class="segment">Day</button>
-              <button class="segment active">Week</button>
-              <button class="segment">Month</button>
-              <button class="segment">Year</button>
-            </div>
-          </div>
-        </section>
-
-        <section class="doc-section" id="cards" data-doc-section>
-          <header class="section-head">
-            <p class="eyebrow">Components</p>
-            <h2>Cards</h2>
-            <p>Use cards to group panel content with consistent border and spacing.</p>
-          </header>
-
-          <div class="card-grid">
-            <article class="ds-card">
-              <h3>Standard Card</h3>
-              <p>Generic container for controls and informational blocks.</p>
-            </article>
-            <article class="ds-card is-highlight">
-              <h3>Highlighted Card</h3>
-              <p>Use for active round state summaries.</p>
-            </article>
-          </div>
-        </section>
-
-        <section class="doc-section" id="modals" data-doc-section>
-          <header class="section-head">
-            <p class="eyebrow">Components</p>
-            <h2>Modals</h2>
-            <p>Consistent shell for all overlays (round info, limits, provably fair).</p>
-          </header>
-
-          <div class="preview-card">
-            <div class="modal-preview">
-              <div class="modal-preview-head">
-                <h3>Round Info</h3>
-                <button type="button" aria-label="Close">x</button>
-              </div>
-              <p>Use fixed width up to 520px, high-contrast title, and grouped content blocks.</p>
-            </div>
-          </div>
-        </section>
-
-        <section class="doc-section" id="tables" data-doc-section>
-          <header class="section-head">
-            <p class="eyebrow">Components</p>
-            <h2>Tables</h2>
-            <p>Rows for live bets, previous rounds, and leaderboard views.</p>
-          </header>
-
-          <div class="preview-card">
-            <div class="table-preview">
-              <div class="table-row table-head"><span>Player</span><span>X</span><span>Win</span></div>
-              <div class="table-row"><span>NovaPilot</span><span class="x hot">25.2x</span><span class="money">$1,121.99</span></div>
-              <div class="table-row"><span>HyperMint</span><span class="x warm">8.4x</span><span class="money">$220.16</span></div>
-              <div class="table-row"><span>SafeLine</span><span class="x cool">2.9x</span><span class="money">$44.08</span></div>
-            </div>
+          <div class="page-grid">
+            <a class="page-link-card" href="./colors.html">
+              <h3>Colors</h3>
+              <p>Palette and copyable HEX values.</p>
+            </a>
+            <a class="page-link-card" href="./spacing.html">
+              <h3>Spacing</h3>
+              <p>Core spacing scale.</p>
+            </a>
+            <a class="page-link-card" href="./typography.html">
+              <h3>Typography</h3>
+              <p>Type rules used by docs and game UI.</p>
+            </a>
+            <a class="page-link-card" href="./buttons.html">
+              <h3>Buttons</h3>
+              <p>Action button states and snippets.</p>
+            </a>
+            <a class="page-link-card" href="./chips.html">
+              <h3>Chips</h3>
+              <p>History multiplier chips.</p>
+            </a>
+            <a class="page-link-card" href="./inputs.html">
+              <h3>Inputs</h3>
+              <p>Input states and field patterns.</p>
+            </a>
+            <a class="page-link-card" href="./tabs.html">
+              <h3>Tabs & Segments</h3>
+              <p>Primary segmented controls.</p>
+            </a>
+            <a class="page-link-card" href="./cards.html">
+              <h3>Cards</h3>
+              <p>Content containers and highlights.</p>
+            </a>
+            <a class="page-link-card" href="./modals.html">
+              <h3>Modals</h3>
+              <p>Modal shell and structure.</p>
+            </a>
+            <a class="page-link-card" href="./tables.html">
+              <h3>Tables</h3>
+              <p>Bets and leaderboard rows.</p>
+            </a>
           </div>
         </section>
       </main>

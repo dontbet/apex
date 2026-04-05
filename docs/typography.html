@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>apeX Docs - Typography</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+25&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/docs/styles.css" />
+  </head>
+  <body data-page="typography">
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation">Menu</button>
+    <div class="docs-layout">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-head"><p class="eyebrow">apeX</p><h1>Developer Docs</h1><p class="muted">Separate pages for faster navigation.</p></div>
+        <nav class="sidebar-nav" aria-label="Documentation pages">
+          <p class="nav-group">Home</p><a href="./index.html" data-nav-link="home">Docs Home</a>
+          <p class="nav-group">Foundations</p><a href="./colors.html" data-nav-link="colors">Colors</a><a href="./spacing.html" data-nav-link="spacing">Spacing</a><a href="./typography.html" data-nav-link="typography">Typography</a>
+          <p class="nav-group">Components</p><a href="./buttons.html" data-nav-link="buttons">Buttons</a><a href="./chips.html" data-nav-link="chips">Chips</a><a href="./inputs.html" data-nav-link="inputs">Inputs</a><a href="./tabs.html" data-nav-link="tabs">Tabs & Segments</a><a href="./cards.html" data-nav-link="cards">Cards</a><a href="./modals.html" data-nav-link="modals">Modals</a><a href="./tables.html" data-nav-link="tables">Tables</a>
+        </nav>
+      </aside>
+      <main class="content">
+        <section class="doc-section">
+          <header class="section-head"><h2>Typography</h2><p>Use Jersey at 16px for body and 24px for titles.</p></header>
+          <div class="type-grid">
+            <article class="type-card"><h3>Title</h3><p class="sample-text">24px Jersey 25 for page and section titles.</p></article>
+            <article class="type-card"><h3>Body</h3><p class="sample-text">16px Jersey 25 for labels, descriptions, and controls.</p></article>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="/docs/script.js"></script>
+  </body>
+</html>

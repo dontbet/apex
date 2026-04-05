@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>apeX Docs - Chips</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+25&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/docs/styles.css" />
+  </head>
+  <body data-page="chips">
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation">Menu</button>
+    <div class="docs-layout">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-head"><p class="eyebrow">apeX</p><h1>Developer Docs</h1><p class="muted">Separate pages for faster navigation.</p></div>
+        <nav class="sidebar-nav" aria-label="Documentation pages">
+          <p class="nav-group">Home</p><a href="./index.html" data-nav-link="home">Docs Home</a>
+          <p class="nav-group">Foundations</p><a href="./colors.html" data-nav-link="colors">Colors</a><a href="./spacing.html" data-nav-link="spacing">Spacing</a><a href="./typography.html" data-nav-link="typography">Typography</a>
+          <p class="nav-group">Components</p><a href="./buttons.html" data-nav-link="buttons">Buttons</a><a href="./chips.html" data-nav-link="chips">Chips</a><a href="./inputs.html" data-nav-link="inputs">Inputs</a><a href="./tabs.html" data-nav-link="tabs">Tabs & Segments</a><a href="./cards.html" data-nav-link="cards">Cards</a><a href="./modals.html" data-nav-link="modals">Modals</a><a href="./tables.html" data-nav-link="tables">Tables</a>
+        </nav>
+      </aside>
+      <main class="content">
+        <section class="doc-section">
+          <header class="section-head"><h2>Chips</h2><p>History and result chips used in round history blocks.</p></header>
+
+          <div class="code-example" data-example>
+            <div class="code-tabs">
+              <button class="code-tab active" data-code-tab="example" type="button">Example</button>
+              <button class="code-tab" data-code-tab="html" type="button">HTML</button>
+              <button class="code-tab" data-code-tab="css" type="button">CSS</button>
+              <button class="copy-code" data-copy type="button">Copy</button>
+            </div>
+            <div class="code-panel active" data-code-panel="example">
+              <div class="preview-row">
+                <span class="ds-chip warm">1.16x</span>
+                <span class="ds-chip green">4.57x</span>
+                <span class="ds-chip lime">13.85x</span>
+                <span class="ds-chip neutral">History</span>
+              </div>
+            </div>
+            <pre class="code-panel" data-code-panel="html"><code>&lt;span class="ds-chip warm"&gt;1.16x&lt;/span&gt;
+&lt;span class="ds-chip green"&gt;4.57x&lt;/span&gt;
+&lt;span class="ds-chip lime"&gt;13.85x&lt;/span&gt;</code></pre>
+            <pre class="code-panel" data-code-panel="css"><code>.ds-chip { height: 30px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 16px; }
+.ds-chip.warm { color: #c38813; }
+.ds-chip.green { color: #1ea548; }
+.ds-chip.lime { color: #6ea700; }</code></pre>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="/docs/script.js"></script>
+  </body>
+</html>

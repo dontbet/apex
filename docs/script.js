@@ -1,58 +1,11 @@
 const bodyEl = document.body;
 const navToggleBtn = document.getElementById('navToggle');
 const navLinks = Array.from(document.querySelectorAll('[data-nav-link]'));
-const sections = Array.from(document.querySelectorAll('[data-doc-section]'));
 const codeExamples = Array.from(document.querySelectorAll('[data-example]'));
-
-function setActiveNav(hash) {
-  navLinks.forEach((link) => {
-    link.classList.toggle('active', link.getAttribute('href') === hash);
-  });
-}
-
-if (navToggleBtn) {
-  navToggleBtn.addEventListener('click', () => {
-    bodyEl.classList.toggle('sidebar-open');
-  });
-}
-
-navLinks.forEach((link) => {
-  link.addEventListener('click', () => {
-    if (window.innerWidth <= 900) {
-      bodyEl.classList.remove('sidebar-open');
-    }
-  });
-});
-
-if ('IntersectionObserver' in window && sections.length) {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      const visible = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-      if (!visible) {
-        return;
-      }
-
-      const id = visible.target.getAttribute('id');
-      if (id) {
-        setActiveNav(`#${id}`);
-      }
-    },
-    {
-      rootMargin: '-20% 0px -60% 0px',
-      threshold: [0.1, 0.2, 0.4, 0.65]
-    }
-  );
-
-  sections.forEach((section) => observer.observe(section));
-} else if (sections.length) {
-  setActiveNav(`#${sections[0].id}`);
-}
+const colorCopyButtons = Array.from(document.querySelectorAll('[data-copy-value]'));
 
 async function copyText(text) {
-  if (!text.trim()) {
+  if (!text || !text.trim()) {
     return false;
   }
 
@@ -64,60 +17,58 @@ async function copyText(text) {
   }
 }
 
+if (navToggleBtn) {
+  navToggleBtn.addEventListener('click', () => {
+    bodyEl.classList.toggle('sidebar-open');
+  });
+}
+
+const currentPage = bodyEl.dataset.page || 'home';
+navLinks.forEach((link) => {
+  const isActive = link.dataset.navLink === currentPage;
+  link.classList.toggle('active', isActive);
+
+  link.addEventListener('click', () => {
+    if (window.innerWidth <= 900) {
+      bodyEl.classList.remove('sidebar-open');
+    }
+  });
+});
+
 codeExamples.forEach((example) => {
   const tabs = Array.from(example.querySelectorAll('[data-code-tab]'));
   const panels = Array.from(example.querySelectorAll('[data-code-panel]'));
   const copyBtn = example.querySelector('[data-copy]');
 
-  if (!panels.length) {
+  if (!tabs.length || !panels.length || !copyBtn) {
     return;
   }
 
-  const getActivePanel = () => panels.find((panel) => panel.classList.contains('active')) || panels[0];
-
   const getActivePanelName = () => {
-    const panelName = getActivePanel().dataset.codePanel || 'code';
-    return panelName.toUpperCase();
+    const active = panels.find((panel) => panel.classList.contains('active'));
+    return active ? active.dataset.codePanel || 'example' : 'example';
   };
 
-  const getActiveCodeText = () => {
-    const codeEl = getActivePanel().querySelector('code');
-    return codeEl ? codeEl.textContent || '' : '';
-  };
+  const updateCopyButton = () => {
+    const panelName = getActivePanelName();
 
-  const setCopyButtonState = (state = 'default') => {
-    if (!copyBtn) {
-      return;
-    }
-
-    const labelBase = `Copy ${getActivePanelName()}`;
-
-    if (state === 'copied') {
-      copyBtn.textContent = 'Copied';
-      copyBtn.classList.add('copied');
-      return;
-    }
-
-    if (state === 'failed') {
-      copyBtn.textContent = 'Failed';
+    if (panelName === 'html') {
+      copyBtn.disabled = false;
+      copyBtn.textContent = 'Copy HTML';
       copyBtn.classList.remove('copied');
       return;
     }
 
-    copyBtn.textContent = labelBase;
+    if (panelName === 'css') {
+      copyBtn.disabled = false;
+      copyBtn.textContent = 'Copy CSS';
+      copyBtn.classList.remove('copied');
+      return;
+    }
+
+    copyBtn.disabled = true;
+    copyBtn.textContent = 'Copy';
     copyBtn.classList.remove('copied');
-  };
-
-  const flashCopyFeedback = (state) => {
-    setCopyButtonState(state);
-    window.setTimeout(() => {
-      setCopyButtonState('default');
-    }, 1100);
-  };
-
-  const copyActivePanel = async () => {
-    const didCopy = await copyText(getActiveCodeText());
-    flashCopyFeedback(didCopy ? 'copied' : 'failed');
   };
 
   const setPanel = (panelName) => {
@@ -129,39 +80,58 @@ codeExamples.forEach((example) => {
       panel.classList.toggle('active', panel.dataset.codePanel === panelName);
     });
 
-    setCopyButtonState('default');
+    updateCopyButton();
   };
 
   tabs.forEach((tab) => {
     tab.addEventListener('click', () => {
       const panelName = tab.dataset.codeTab;
-      if (panelName) {
-        setPanel(panelName);
+      if (!panelName) {
+        return;
       }
+      setPanel(panelName);
     });
   });
 
-  if (copyBtn) {
-    copyBtn.addEventListener('click', copyActivePanel);
-  }
+  copyBtn.addEventListener('click', async () => {
+    if (copyBtn.disabled) {
+      return;
+    }
 
-  panels.forEach((panel) => {
-    panel.setAttribute('title', 'Click to copy');
-    panel.setAttribute('tabindex', '0');
+    const activePanel = panels.find((panel) => panel.classList.contains('active'));
+    const codeEl = activePanel ? activePanel.querySelector('code') : null;
+    const text = codeEl ? codeEl.textContent || '' : '';
+    const copied = await copyText(text);
 
-    panel.addEventListener('click', copyActivePanel);
-    panel.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        copyActivePanel();
-      }
-    });
+    if (!copied) {
+      copyBtn.textContent = 'Failed';
+      window.setTimeout(() => updateCopyButton(), 900);
+      return;
+    }
+
+    copyBtn.textContent = 'Copied';
+    copyBtn.classList.add('copied');
+    window.setTimeout(() => updateCopyButton(), 900);
   });
 
-  const activeName = getActivePanel().dataset.codePanel;
-  if (activeName) {
-    setPanel(activeName);
-  } else {
-    setCopyButtonState('default');
-  }
+  setPanel('example');
+});
+
+colorCopyButtons.forEach((btn) => {
+  btn.addEventListener('click', async () => {
+    const value = btn.dataset.copyValue || '';
+    const copied = await copyText(value);
+
+    if (!copied) {
+      return;
+    }
+
+    btn.classList.add('copied');
+    const previous = btn.textContent;
+    btn.textContent = '✓';
+    window.setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.textContent = previous;
+    }, 700);
+  });
 });
