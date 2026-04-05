@@ -1156,6 +1156,9 @@ body.booting .scene {
 
 .action-stack.pod-mode .bet-btn {
   line-height: 1.1;
+}
+
+.action-stack.pod-mode.pod-after-save .bet-btn {
   transition: height 0.35s ease;
 }
 
