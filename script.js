@@ -1838,7 +1838,7 @@ function handleBetButtonAction() {
 }
 
 function updateBetAmount(next) {
-  gameState.betAmount = Math.max(1, Math.min(500, Number(next.toFixed(2))));
+  gameState.betAmount = Math.max(0.01, Math.min(500, Number(next.toFixed(2))));
   updateGameUi();
 }
 
