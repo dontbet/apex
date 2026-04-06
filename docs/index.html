@@ -120,8 +120,8 @@
     .icon-card.ic-copied { border-color: var(--doc-accent); }
     .icon-card.ic-copied .icon-name { color: var(--doc-accent); }
     .icon-preview { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; color: #e8e8e8; }
-    .icon-preview img { width: 24px; height: 24px; object-fit: contain; }
-    .icon-preview svg { width: 24px; height: 24px; }
+    .icon-preview img { width: 16px; height: 16px; object-fit: contain; filter: brightness(0) invert(1); }
+    .icon-preview svg { width: 16px; height: 16px; }
     .icon-name { font-size: 11px; color: #ccc; font-weight: 500; text-align: center; line-height: 1.3; }
     .icon-tag { font-size: 9px; color: #555; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; border: 1px solid #2a2a2a; padding: 2px 6px; border-radius: 3px; }
 
@@ -330,27 +330,12 @@
   <a href="#menu">Menu</a>
   <a href="#modal">Modal</a>
   <a href="#copy-field">Copy Field</a>
-  <a href="#history-view-tabs">History View Tabs</a>
   <a href="#history">History</a>
-  <a href="#banners">Banners</a>
-  <a href="#flight-amounts">Flight Amounts</a>
-  <a href="#mobile-sub-tabs">Mobile Sub-Tabs</a>
 </nav>
 
 <!-- ── Content ── -->
 <div class="main">
 <div class="content">
-
-  <!-- Hero -->
-  <div class="hero">
-    <h1>ape<span>X</span> Design System</h1>
-    <p>Component library for the F35 Crash game. Copy HTML snippets and CSS class names directly into your implementation.</p>
-    <div class="hero-meta">
-      <span><span class="dot-green"></span>Jersey 25 — game font</span>
-      <span><span class="dot-green"></span>Inter — UI/body font</span>
-      <span><span class="dot-green"></span>Dark theme only</span>
-    </div>
-  </div>
 
   <!-- ═══ COLORS ═══ -->
   <section id="colors">
@@ -466,11 +451,6 @@
         <div class="icon-name">Menu</div>
         <div class="icon-tag">Asset</div>
       </div>
-      <div class="icon-card" onclick="copyIconCode(this,'icon-lofi')">
-        <div class="icon-preview"><img src="https://www.figma.com/api/mcp/asset/dc884d88-8c72-4f94-b327-7d422ff71d23" alt="Lofi" /></div>
-        <div class="icon-name">Lofi</div>
-        <div class="icon-tag">Asset</div>
-      </div>
       <div class="icon-card" onclick="copyIconCode(this,'icon-shield')">
         <div class="icon-preview"><img src="https://www.figma.com/api/mcp/asset/feca08ab-18f9-4907-9052-81150fcba283" alt="Shield" /></div>
         <div class="icon-name">Shield</div>
@@ -536,18 +516,10 @@
         <button class="g-history-chip lime">13.85x</button>
       </div>
       <div class="code-tabs">
-        <button class="code-tab active" onclick="switchTab(this,'ht-html')">HTML</button>
-        <button class="code-tab" onclick="switchTab(this,'ht-css')">CSS</button>
+        <button class="code-tab active" onclick="switchTab(this,'ht-css')">CSS</button>
         <button class="code-tab" onclick="switchTab(this,'ht-hover')">Hover</button>
       </div>
-      <div class="code-panel active" id="ht-html">
-        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
-        <pre><span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"history-chip"</span><span class="t-tag">&gt;</span>1.04x<span class="t-tag">&lt;/button&gt;</span>
-<span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"history-chip warm"</span><span class="t-tag">&gt;</span>1.16x<span class="t-tag">&lt;/button&gt;</span>
-<span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"history-chip green"</span><span class="t-tag">&gt;</span>4.57x<span class="t-tag">&lt;/button&gt;</span>
-<span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"history-chip lime"</span><span class="t-tag">&gt;</span>13.85x<span class="t-tag">&lt;/button&gt;</span></pre>
-      </div>
-      <div class="code-panel" id="ht-css">
+      <div class="code-panel active" id="ht-css">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
         <pre><span class="t-sel">.history-chip</span> {
   border: <span class="t-num">1px</span> solid <span class="t-str">#525252</span>;
@@ -584,16 +556,9 @@
         </div>
       </div>
       <div class="code-tabs">
-        <button class="code-tab active" onclick="switchTab(this,'gl-html')">HTML</button>
-        <button class="code-tab" onclick="switchTab(this,'gl-css')">CSS</button>
+        <button class="code-tab active" onclick="switchTab(this,'gl-css')">CSS</button>
       </div>
-      <div class="code-panel active" id="gl-html">
-        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
-        <pre><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"glassy"</span><span class="t-tag">&gt;</span>
-  <span class="t-cmt">&lt;!-- chips go here --&gt;</span>
-<span class="t-tag">&lt;/div&gt;</span></pre>
-      </div>
-      <div class="code-panel" id="gl-css">
+      <div class="code-panel active" id="gl-css">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
         <pre><span class="t-sel">.glassy</span> {
   background: <span class="t-str">rgba(15, 17, 18, 0.8)</span>;
@@ -621,19 +586,10 @@
         </div>
       </div>
       <div class="code-tabs">
-        <button class="code-tab active" onclick="switchTab(this,'tb-html')">HTML</button>
-        <button class="code-tab" onclick="switchTab(this,'tb-css')">CSS</button>
+        <button class="code-tab active" onclick="switchTab(this,'tb-css')">CSS</button>
         <button class="code-tab" onclick="switchTab(this,'tb-hover')">Hover</button>
       </div>
-      <div class="code-panel active" id="tb-html">
-        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
-        <pre><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"tabbar"</span> <span class="t-attr">role</span>=<span class="t-val">"tablist"</span><span class="t-tag">&gt;</span>
-  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"tab active"</span> <span class="t-attr">role</span>=<span class="t-val">"tab"</span><span class="t-tag">&gt;</span>Live<span class="t-tag">&lt;/button&gt;</span>
-  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"tab"</span>        <span class="t-attr">role</span>=<span class="t-val">"tab"</span><span class="t-tag">&gt;</span>Previous<span class="t-tag">&lt;/button&gt;</span>
-  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"tab"</span>        <span class="t-attr">role</span>=<span class="t-val">"tab"</span><span class="t-tag">&gt;</span>Top<span class="t-tag">&lt;/button&gt;</span>
-<span class="t-tag">&lt;/div&gt;</span></pre>
-      </div>
-      <div class="code-panel" id="tb-css">
+      <div class="code-panel active" id="tb-css">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
         <pre><span class="t-sel">.tabbar</span> {
   display: grid;
@@ -672,18 +628,10 @@
         </div>
       </div>
       <div class="code-tabs">
-        <button class="code-tab active" onclick="switchTab(this,'pi-html')">HTML</button>
-        <button class="code-tab" onclick="switchTab(this,'pi-css')">CSS</button>
+        <button class="code-tab active" onclick="switchTab(this,'pi-css')">CSS</button>
         <button class="code-tab" onclick="switchTab(this,'pi-hover')">Hover</button>
       </div>
-      <div class="code-panel active" id="pi-html">
-        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
-        <pre><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"topbets-row topbets-row-range"</span><span class="t-tag">&gt;</span>
-  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"topbets-pill"</span><span class="t-tag">&gt;</span>Day<span class="t-tag">&lt;/button&gt;</span>
-  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"topbets-pill active"</span><span class="t-tag">&gt;</span>Month<span class="t-tag">&lt;/button&gt;</span>
-<span class="t-tag">&lt;/div&gt;</span></pre>
-      </div>
-      <div class="code-panel" id="pi-css">
+      <div class="code-panel active" id="pi-css">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
         <pre><span class="t-sel">.topbets-row</span>            { display: grid; border: <span class="t-num">2px</span> solid <span class="t-str">#151616</span>; background: <span class="t-str">#151515</span>; border-radius: <span class="t-num">12px</span>; overflow: hidden; }
 <span class="t-sel">.topbets-row-metric</span>     { grid-template-columns: repeat(2, 1fr); }
@@ -720,19 +668,10 @@
         </div>
       </div>
       <div class="code-tabs">
-        <button class="code-tab active" onclick="switchTab(this,'pr-html')">HTML</button>
-        <button class="code-tab" onclick="switchTab(this,'pr-css')">CSS</button>
+        <button class="code-tab active" onclick="switchTab(this,'pr-css')">CSS</button>
         <button class="code-tab" onclick="switchTab(this,'pr-hover')">Hover</button>
       </div>
-      <div class="code-panel active" id="pr-html">
-        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
-        <pre><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"player-row"</span><span class="t-tag">&gt;</span>
-  <span class="t-tag">&lt;span</span> <span class="t-attr">class</span>=<span class="t-val">"user"</span><span class="t-tag">&gt;</span>JetStream<span class="t-tag">&lt;/span&gt;</span>
-  <span class="t-tag">&lt;span</span> <span class="t-attr">class</span>=<span class="t-val">"multi teal"</span><span class="t-tag">&gt;</span>3.22x<span class="t-tag">&lt;/span&gt;</span>
-  <span class="t-tag">&lt;span</span> <span class="t-attr">class</span>=<span class="t-val">"amount money"</span><span class="t-tag">&gt;</span>$611.80<span class="t-tag">&lt;/span&gt;</span>
-<span class="t-tag">&lt;/div&gt;</span></pre>
-      </div>
-      <div class="code-panel" id="pr-css">
+      <div class="code-panel active" id="pr-css">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
         <pre><span class="t-sel">.player-row</span> {
   height: <span class="t-num">30px</span>;
@@ -785,21 +724,10 @@
         </div>
       </div>
       <div class="code-tabs">
-        <button class="code-tab active" onclick="switchTab(this,'ch-html')">HTML</button>
-        <button class="code-tab" onclick="switchTab(this,'ch-css')">CSS</button>
+        <button class="code-tab active" onclick="switchTab(this,'ch-css')">CSS</button>
         <button class="code-tab" onclick="switchTab(this,'ch-hover')">Hover</button>
       </div>
-      <div class="code-panel active" id="ch-html">
-        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
-        <pre><span class="t-cmt">&lt;!-- Chat lines --&gt;</span>
-<span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"chat-lines"</span><span class="t-tag">&gt;</span>
-  <span class="t-tag">&lt;p&gt;&lt;span</span> <span class="t-attr">class</span>=<span class="t-val">"name orange"</span><span class="t-tag">&gt;</span>Rushtu<span class="t-tag">&lt;/span&gt;</span> Nice hit!<span class="t-tag">&lt;/p&gt;</span>
-  <span class="t-tag">&lt;p&gt;&lt;span</span> <span class="t-attr">class</span>=<span class="t-val">"name cyan"</span><span class="t-tag">&gt;</span>OpqR<span class="t-tag">&lt;/span&gt;</span> Cashed out.<span class="t-tag">&lt;/p&gt;</span>
-<span class="t-tag">&lt;/div&gt;</span>
-<span class="t-cmt">&lt;!-- Reaction buttons --&gt;</span>
-<span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"reaction-btn"</span><span class="t-tag">&gt;</span>Nice hit!<span class="t-tag">&lt;/button&gt;</span></pre>
-      </div>
-      <div class="code-panel" id="ch-css">
+      <div class="code-panel active" id="ch-css">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
         <pre><span class="t-sel">.name.orange</span> { color: <span class="t-str">#ff956b</span>; }
 <span class="t-sel">.name.cyan</span>   { color: <span class="t-str">#25bfc5</span>; }
@@ -865,18 +793,10 @@
         </div>
       </div>
       <div class="code-tabs">
-        <button class="code-tab active" onclick="switchTab(this,'bb-html')">HTML</button>
-        <button class="code-tab" onclick="switchTab(this,'bb-css')">CSS</button>
+        <button class="code-tab active" onclick="switchTab(this,'bb-css')">CSS</button>
         <button class="code-tab" onclick="switchTab(this,'bb-hover')">Hover</button>
       </div>
-      <div class="code-panel active" id="bb-html">
-        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
-        <pre><span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"bet-btn state-bet"</span><span class="t-tag">&gt;</span>
-  <span class="t-tag">&lt;span</span> <span class="t-attr">class</span>=<span class="t-val">"btn-line-one"</span><span class="t-tag">&gt;</span>BET<span class="t-tag">&lt;/span&gt;</span>
-  <span class="t-tag">&lt;span</span> <span class="t-attr">class</span>=<span class="t-val">"btn-line-two"</span><span class="t-tag">&gt;</span>$0.10<span class="t-tag">&lt;/span&gt;</span>
-<span class="t-tag">&lt;/button&gt;</span></pre>
-      </div>
-      <div class="code-panel" id="bb-css">
+      <div class="code-panel active" id="bb-css">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
         <pre><span class="t-sel">.bet-btn</span>              { background: <span class="t-str">#00f27e</span>; color: <span class="t-str">#151616</span>; border-radius: <span class="t-num">12px</span>; height: <span class="t-num">96px</span>; }
 <span class="t-sel">.bet-btn.state-cashout</span> { background: <span class="t-str">#ffbd30</span>; color: <span class="t-str">#151616</span>; }
@@ -917,20 +837,10 @@
         </div>
       </div>
       <div class="code-tabs">
-        <button class="code-tab active" onclick="switchTab(this,'adj-html')">HTML</button>
-        <button class="code-tab" onclick="switchTab(this,'adj-css')">CSS</button>
+        <button class="code-tab active" onclick="switchTab(this,'adj-css')">CSS</button>
         <button class="code-tab" onclick="switchTab(this,'adj-hover')">Hover</button>
       </div>
-      <div class="code-panel active" id="adj-html">
-        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
-        <pre><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"adjustment"</span><span class="t-tag">&gt;</span>
-  <span class="t-tag">&lt;div</span>    <span class="t-attr">class</span>=<span class="t-val">"amount-box"</span><span class="t-tag">&gt;</span>$0.10<span class="t-tag">&lt;/div&gt;</span>
-  <span class="t-tag">&lt;input</span>  <span class="t-attr">class</span>=<span class="t-val">"amount-input hidden"</span> <span class="t-attr">type</span>=<span class="t-val">"number"</span> <span class="t-attr">min</span>=<span class="t-val">"0.01"</span> <span class="t-attr">max</span>=<span class="t-val">"500"</span> <span class="t-attr">step</span>=<span class="t-val">"0.01"</span> <span class="t-tag">/&gt;</span>
-  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"adjust-btn"</span><span class="t-tag">&gt;</span><span class="t-cmt">&lt;!-- Divide SVG 12×12 --&gt;</span><span class="t-tag">&lt;/button&gt;</span>
-  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"adjust-btn"</span><span class="t-tag">&gt;</span><span class="t-cmt">&lt;!-- Multiply SVG 12×12 --&gt;</span><span class="t-tag">&lt;/button&gt;</span>
-<span class="t-tag">&lt;/div&gt;</span></pre>
-      </div>
-      <div class="code-panel" id="adj-css">
+      <div class="code-panel active" id="adj-css">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
         <pre><span class="t-sel">.adjustment</span> { display: grid; grid-template-columns: <span class="t-num">1fr 62px 62px</span>; height: <span class="t-num">37px</span>; }
 <span class="t-sel">.amount-box</span> { border: <span class="t-num">1px</span> solid <span class="t-str">#525252</span>; background: <span class="t-str">#383838</span>; color: <span class="t-str">#d9d9d9</span>; font: inherit; font-size: <span class="t-num">18px</span>; border-radius: <span class="t-num">8px 0 0 8px</span>; cursor: pointer; }
@@ -958,15 +868,10 @@
         <button class="g-cancel-btn">Cancel Bet</button>
       </div>
       <div class="code-tabs">
-        <button class="code-tab active" onclick="switchTab(this,'cb-html')">HTML</button>
-        <button class="code-tab" onclick="switchTab(this,'cb-css')">CSS</button>
+        <button class="code-tab active" onclick="switchTab(this,'cb-css')">CSS</button>
         <button class="code-tab" onclick="switchTab(this,'cb-hover')">Hover</button>
       </div>
-      <div class="code-panel active" id="cb-html">
-        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
-        <pre><span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"cancel-bet-btn"</span><span class="t-tag">&gt;</span>Cancel Bet<span class="t-tag">&lt;/button&gt;</span></pre>
-      </div>
-      <div class="code-panel" id="cb-css">
+      <div class="code-panel active" id="cb-css">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
         <pre><span class="t-sel">.cancel-bet-btn</span> {
   width: <span class="t-num">100%</span>;
@@ -1012,19 +917,10 @@
         </div>
       </div>
       <div class="code-tabs">
-        <button class="code-tab active" onclick="switchTab(this,'pc-html')">HTML</button>
-        <button class="code-tab" onclick="switchTab(this,'pc-css')">CSS</button>
+        <button class="code-tab active" onclick="switchTab(this,'pc-css')">CSS</button>
         <button class="code-tab" onclick="switchTab(this,'pc-hover')">Hover</button>
       </div>
-      <div class="code-panel active" id="pc-html">
-        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
-        <pre><span class="t-tag">&lt;article</span> <span class="t-attr">class</span>=<span class="t-val">"power-card"</span> <span class="t-attr">role</span>=<span class="t-val">"button"</span><span class="t-tag">&gt;</span>
-  <span class="t-tag">&lt;img</span>  <span class="t-attr">class</span>=<span class="t-val">"icon-pod"</span> <span class="t-attr">src</span>=<span class="t-val">"..."</span> <span class="t-attr">alt</span>=<span class="t-val">"Pod"</span> <span class="t-tag">/&gt;</span>
-  <span class="t-tag">&lt;span</span> <span class="t-attr">class</span>=<span class="t-val">"label"</span><span class="t-tag">&gt;</span>Pod<span class="t-tag">&lt;/span&gt;</span>
-  <span class="t-tag">&lt;span</span> <span class="t-attr">class</span>=<span class="t-val">"buy"</span><span class="t-tag">&gt;</span>Buy $10<span class="t-tag">&lt;/span&gt;</span>
-<span class="t-tag">&lt;/article&gt;</span></pre>
-      </div>
-      <div class="code-panel" id="pc-css">
+      <div class="code-panel active" id="pc-css">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
         <pre><span class="t-sel">.power-card</span> {
   background: <span class="t-str">#383838</span>;
@@ -1082,23 +978,10 @@
         </div>
       </div>
       <div class="code-tabs">
-        <button class="code-tab active" onclick="switchTab(this,'mn-html')">HTML</button>
-        <button class="code-tab" onclick="switchTab(this,'mn-css')">CSS</button>
+        <button class="code-tab active" onclick="switchTab(this,'mn-css')">CSS</button>
         <button class="code-tab" onclick="switchTab(this,'mn-hover')">Hover</button>
       </div>
-      <div class="code-panel active" id="mn-html">
-        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
-        <pre><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"menu-dropdown"</span><span class="t-tag">&gt;</span>
-  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"menu-item"</span><span class="t-tag">&gt;</span>How to Play<span class="t-tag">&lt;/button&gt;</span>
-  <span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"menu-divider"</span><span class="t-tag">&gt;&lt;/div&gt;</span>
-  <span class="t-tag">&lt;label</span> <span class="t-attr">class</span>=<span class="t-val">"menu-switch-row"</span><span class="t-tag">&gt;</span>
-    <span class="t-tag">&lt;span&gt;</span>Background Music<span class="t-tag">&lt;/span&gt;</span>
-    <span class="t-tag">&lt;input</span> <span class="t-attr">class</span>=<span class="t-val">"menu-switch-input"</span> <span class="t-attr">type</span>=<span class="t-val">"checkbox"</span> <span class="t-attr">checked</span> <span class="t-tag">/&gt;</span>
-    <span class="t-tag">&lt;span</span> <span class="t-attr">class</span>=<span class="t-val">"menu-switch-slider"</span><span class="t-tag">&gt;&lt;/span&gt;</span>
-  <span class="t-tag">&lt;/label&gt;</span>
-<span class="t-tag">&lt;/div&gt;</span></pre>
-      </div>
-      <div class="code-panel" id="mn-css">
+      <div class="code-panel active" id="mn-css">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
         <pre><span class="t-sel">.menu-dropdown</span>    { background: <span class="t-str">#272727</span>; border: <span class="t-num">1px</span> solid <span class="t-str">#3f3f3f</span>; border-radius: <span class="t-num">10px</span>; padding: <span class="t-num">6px</span>; width: <span class="t-num">190px</span>; }
 <span class="t-sel">.menu-item</span>        { background: transparent; color: <span class="t-str">#f3f3f3</span>; font-size: <span class="t-num">15px</span>; padding: <span class="t-num">8px 10px</span>; border-radius: <span class="t-num">8px</span>; }
@@ -1141,22 +1024,9 @@
         </div>
       </div>
       <div class="code-tabs">
-        <button class="code-tab active" onclick="switchTab(this,'mo-html')">HTML</button>
-        <button class="code-tab" onclick="switchTab(this,'mo-css')">CSS</button>
+        <button class="code-tab active" onclick="switchTab(this,'mo-css')">CSS</button>
       </div>
-      <div class="code-panel active" id="mo-html">
-        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
-        <pre><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"modal-backdrop"</span> <span class="t-attr">id</span>=<span class="t-val">"myModal"</span><span class="t-tag">&gt;</span>
-  <span class="t-tag">&lt;section</span> <span class="t-attr">class</span>=<span class="t-val">"modal"</span> <span class="t-attr">role</span>=<span class="t-val">"dialog"</span> <span class="t-attr">aria-modal</span>=<span class="t-val">"true"</span><span class="t-tag">&gt;</span>
-    <span class="t-tag">&lt;header</span> <span class="t-attr">class</span>=<span class="t-val">"modal-head"</span><span class="t-tag">&gt;</span>
-      <span class="t-tag">&lt;h2&gt;</span>Title<span class="t-tag">&lt;/h2&gt;</span>
-      <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"modal-close"</span><span class="t-tag">&gt;</span>x<span class="t-tag">&lt;/button&gt;</span>
-    <span class="t-tag">&lt;/header&gt;</span>
-    <span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"modal-body"</span><span class="t-tag">&gt;</span>Content<span class="t-tag">&lt;/div&gt;</span>
-  <span class="t-tag">&lt;/section&gt;</span>
-<span class="t-tag">&lt;/div&gt;</span></pre>
-      </div>
-      <div class="code-panel" id="mo-css">
+      <div class="code-panel active" id="mo-css">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
         <pre><span class="t-sel">.modal-backdrop</span> { position: fixed; inset: 0; background: <span class="t-str">rgba(0,0,0,.72)</span>; backdrop-filter: blur(<span class="t-num">4px</span>); display: flex; align-items: center; justify-content: center; }
 <span class="t-sel">.modal</span>          { background: <span class="t-str">#151616</span>; border: <span class="t-num">1px</span> solid <span class="t-str">#242728</span>; border-radius: <span class="t-num">12px</span>; width: min(<span class="t-num">520px</span>, calc(<span class="t-num">100vw</span> - <span class="t-num">32px</span>)); }
@@ -1182,111 +1052,15 @@
         </div>
       </div>
       <div class="code-tabs">
-        <button class="code-tab active" onclick="switchTab(this,'cf-html')">HTML</button>
-        <button class="code-tab" onclick="switchTab(this,'cf-css')">CSS</button>
+        <button class="code-tab active" onclick="switchTab(this,'cf-css')">CSS</button>
       </div>
-      <div class="code-panel active" id="cf-html">
-        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
-        <pre><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"round-copy-field"</span><span class="t-tag">&gt;</span>
-  <span class="t-tag">&lt;input</span> <span class="t-attr">id</span>=<span class="t-val">"seedInput"</span> <span class="t-attr">type</span>=<span class="t-val">"text"</span> <span class="t-attr">readonly</span> <span class="t-attr">value</span>=<span class="t-val">"..."</span> <span class="t-tag">/&gt;</span>
-  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"round-copy-btn"</span> <span class="t-attr">data-copy-target</span>=<span class="t-val">"seedInput"</span><span class="t-tag">&gt;</span>⧉<span class="t-tag">&lt;/button&gt;</span>
-<span class="t-tag">&lt;/div&gt;</span></pre>
-      </div>
-      <div class="code-panel" id="cf-css">
+      <div class="code-panel active" id="cf-css">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
         <pre><span class="t-sel">.round-copy-field</span>  { display: grid; grid-template-columns: <span class="t-num">1fr auto</span>; border: <span class="t-num">1px</span> solid <span class="t-prop">var(--n-border-soft)</span>; background: <span class="t-prop">var(--n-bg)</span>; border-radius: <span class="t-num">16px</span>; padding: <span class="t-num">6px 8px 6px 12px</span>; }
 <span class="t-sel">.round-copy-field input</span> { border: 0; background: transparent; color: <span class="t-prop">var(--n-text)</span>; font-size: <span class="t-num">14px</span>; outline: none; }
 <span class="t-sel">.round-copy-btn</span>    { width: <span class="t-num">32px</span>; height: <span class="t-num">32px</span>; border: <span class="t-num">1px</span> solid <span class="t-prop">var(--n-border)</span>; border-radius: <span class="t-num">10px</span>; background: <span class="t-prop">var(--n-surface)</span>; color: <span class="t-prop">var(--n-icon)</span>; }
 <span class="t-sel">.round-copy-btn:hover</span>  { background: <span class="t-prop">var(--n-hover-bg)</span>; border-color: <span class="t-prop">var(--n-hover-border)</span>; color: <span class="t-prop">var(--n-hover-text)</span>; }
 <span class="t-sel">.round-copy-btn.copied</span> { border-color: <span class="t-str">#4f9f67</span>; color: <span class="t-str">#9af7b8</span>; }</pre>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ HISTORY VIEW TABS ═══ -->
-  <section id="history-view-tabs">
-    <div class="section-label">Components</div>
-    <h2>History View Tabs</h2>
-    <p class="section-desc">Tab toggle inside the History X modal. Switches between Chips grid view (default) and List table view.</p>
-
-    <div class="comp">
-      <div class="comp-title">View Toggle — .history-view-tabs</div>
-      <div class="comp-preview g-root">
-        <div class="g-history-view-tabs" style="width:280px;">
-          <button class="g-history-view-tab active"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.16667 10.8333V14H2V10.8333H5.16667ZM9.5 10.8333V14H6.5V10.8333H9.5ZM14 14H10.8333V10.8333H14V14ZM14 9.5H10.8333V6.5H14V9.5ZM5.16667 6.5V9.5H2V6.5H5.16667ZM9.5 6.5V9.5H6.5V6.5H9.5ZM14 5.16667H10.8333V2H14V5.16667ZM5.16667 5.16667H2V2H5.16667V5.16667ZM9.5 5.16667H6.5V2H9.5V5.16667Z" fill="currentColor"/></svg> Chips</button>
-          <button class="g-history-view-tab"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="2" width="13" height="2" fill="currentColor"/><rect x="1" y="5.33398" width="13" height="2" fill="currentColor"/><rect x="1" y="8.66797" width="13" height="2" fill="currentColor"/><rect x="1" y="12.002" width="13" height="2" fill="currentColor"/></svg> List</button>
-        </div>
-      </div>
-      <div class="code-tabs">
-        <button class="code-tab active" onclick="switchTab(this,'hvt-html')">HTML</button>
-        <button class="code-tab" onclick="switchTab(this,'hvt-css')">CSS</button>
-      </div>
-      <div class="code-panel active" id="hvt-html">
-        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
-        <pre><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"history-view-tabs"</span><span class="t-tag">&gt;</span>
-  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"history-view-tab active"</span> <span class="t-attr">data-history-view</span>=<span class="t-val">"chips"</span><span class="t-tag">&gt;</span>
-    <span class="t-cmt">&lt;!-- Chips SVG --&gt;</span> Chips
-  <span class="t-tag">&lt;/button&gt;</span>
-  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"history-view-tab"</span> <span class="t-attr">data-history-view</span>=<span class="t-val">"list"</span><span class="t-tag">&gt;</span>
-    <span class="t-cmt">&lt;!-- List SVG --&gt;</span> List
-  <span class="t-tag">&lt;/button&gt;</span>
-<span class="t-tag">&lt;/div&gt;</span></pre>
-      </div>
-      <div class="code-panel" id="hvt-css">
-        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
-        <pre><span class="t-sel">.history-view-tabs</span> {
-  display: grid;
-  grid-template-columns: <span class="t-num">1fr 1fr</span>;
-  border: <span class="t-num">2px</span> solid <span class="t-str">#151616</span>;
-  border-radius: <span class="t-num">12px</span>;
-  overflow: hidden;
-  margin: <span class="t-num">10px 14px 0</span>;
-}
-<span class="t-sel">.history-view-tab</span> {
-  border: 0;
-  background: <span class="t-str">#151515</span>;
-  color: <span class="t-str">#9fa7a8</span>;
-  font-size: <span class="t-num">14px</span>;
-  padding: <span class="t-num">8px 0</span>;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: <span class="t-num">6px</span>;
-}
-<span class="t-sel">.history-view-tab svg</span> { width: <span class="t-num">14px</span>; height: <span class="t-num">14px</span>; }
-<span class="t-sel">.history-view-tab.active</span> { background: <span class="t-str">#343434</span>; color: <span class="t-str">#ffffff</span>; border-radius: <span class="t-num">10px</span>; }</pre>
-      </div>
-    </div>
-
-    <div class="comp">
-      <div class="comp-title">Chips Grid — .history-chips-grid</div>
-      <div class="comp-preview g-root" style="flex-wrap:wrap;gap:8px;">
-        <button class="g-history-chip warm">1.16x</button>
-        <button class="g-history-chip green">4.57x</button>
-        <button class="g-history-chip green">5.74x</button>
-        <button class="g-history-chip lime">13.85x</button>
-        <button class="g-history-chip green">3.11x</button>
-        <button class="g-history-chip warm">1.42x</button>
-        <button class="g-history-chip green">2.08x</button>
-        <button class="g-history-chip lime">22.50x</button>
-      </div>
-      <div class="code-tabs">
-        <button class="code-tab active" onclick="switchTab(this,'hcg-css')">CSS</button>
-      </div>
-      <div class="code-panel active" id="hcg-css">
-        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
-        <pre><span class="t-sel">.history-chips-grid</span> {
-  display: flex;
-  flex-wrap: wrap;
-  gap: <span class="t-num">8px</span>;
-  max-height: min(<span class="t-num">60vh</span>, <span class="t-num">420px</span>);
-  overflow: auto;
-}
-<span class="t-sel">.history-chips-grid .history-chip</span> {
-  font-size: <span class="t-num">13px</span>;
-  padding: <span class="t-num">6px 10px</span>;
-}
-<span class="t-cmt">/* Each chip is clickable → opens round info */</span></pre>
       </div>
     </div>
   </section>
@@ -1307,19 +1081,9 @@
         </div>
       </div>
       <div class="code-tabs">
-        <button class="code-tab active" onclick="switchTab(this,'hr-html')">HTML</button>
-        <button class="code-tab" onclick="switchTab(this,'hr-css')">CSS</button>
+        <button class="code-tab active" onclick="switchTab(this,'hr-css')">CSS</button>
       </div>
-      <div class="code-panel active" id="hr-html">
-        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
-        <pre><span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"history-row"</span><span class="t-tag">&gt;</span>
-  <span class="t-tag">&lt;span&gt;</span>#812531<span class="t-tag">&lt;/span&gt;</span>
-  <span class="t-tag">&lt;span&gt;</span>1.16x<span class="t-tag">&lt;/span&gt;</span>
-  <span class="t-tag">&lt;span&gt;</span>f35b...79ff<span class="t-tag">&lt;/span&gt;</span>
-  <span class="t-tag">&lt;span&gt;</span>128<span class="t-tag">&lt;/span&gt;</span>
-<span class="t-tag">&lt;/button&gt;</span></pre>
-      </div>
-      <div class="code-panel" id="hr-css">
+      <div class="code-panel active" id="hr-css">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
         <pre><span class="t-sel">.history-row</span> { display: grid; grid-template-columns: <span class="t-num">1fr 80px 1fr 40px</span>; padding: <span class="t-num">8px 12px</span>; border-bottom: <span class="t-num">1px</span> solid <span class="t-str">#1f2224</span>; font-size: <span class="t-num">14px</span>; color: <span class="t-str">#9fa7a8</span>; background: none; border-left: 0; border-right: 0; border-top: 0; width: 100%; }</pre>
       </div>
@@ -1334,16 +1098,9 @@
         </div>
       </div>
       <div class="code-tabs">
-        <button class="code-tab active" onclick="switchTab(this,'pv-html')">HTML</button>
-        <button class="code-tab" onclick="switchTab(this,'pv-css')">CSS</button>
+        <button class="code-tab active" onclick="switchTab(this,'pv-css')">CSS</button>
       </div>
-      <div class="code-panel active" id="pv-html">
-        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
-        <pre><span class="t-tag">&lt;p</span> <span class="t-attr">class</span>=<span class="t-val">"previous-result-label"</span><span class="t-tag">&gt;</span>Round Result<span class="t-tag">&lt;/p&gt;</span>
-<span class="t-cmt">&lt;!-- color classes: .blue  .green  .lime --&gt;</span>
-<span class="t-tag">&lt;p</span> <span class="t-attr">class</span>=<span class="t-val">"previous-result-value blue"</span><span class="t-tag">&gt;</span>3.74x<span class="t-tag">&lt;/p&gt;</span></pre>
-      </div>
-      <div class="code-panel" id="pv-css">
+      <div class="code-panel active" id="pv-css">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
         <pre><span class="t-sel">.previous-result-value</span>       { font-size: clamp(<span class="t-num">46px</span>, <span class="t-num">5.6vw</span>, <span class="t-num">64px</span>); line-height: <span class="t-num">0.9</span>; }
 <span class="t-sel">.previous-result-value.blue</span>  { color: <span class="t-str">#53a1fc</span>; }
@@ -1353,104 +1110,6 @@
     </div>
   </section>
 
-  <!-- ═══ BANNERS ═══ -->
-  <section id="banners">
-    <div class="section-label">Components</div>
-    <h2>Banners &amp; Multiplier</h2>
-    <p class="section-desc">Stage banner overlay and the main live multiplier display.</p>
-
-
-    <div class="comp">
-      <div class="comp-title">Live Multiplier — .multiplier</div>
-      <div class="comp-preview g-root" style="background:#73a0cb;justify-content:center;padding:32px 24px;">
-        <div class="g-multiplier">3.42x</div>
-      </div>
-      <div class="code-tabs">
-        <button class="code-tab active" onclick="switchTab(this,'mx-html')">HTML</button>
-        <button class="code-tab" onclick="switchTab(this,'mx-css')">CSS</button>
-      </div>
-      <div class="code-panel active" id="mx-html">
-        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
-        <pre><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"multiplier"</span> <span class="t-attr">id</span>=<span class="t-val">"multiplier"</span><span class="t-tag">&gt;</span>3.42x<span class="t-tag">&lt;/div&gt;</span></pre>
-      </div>
-      <div class="code-panel" id="mx-css">
-        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
-        <pre><span class="t-sel">.multiplier</span> {
-  font-size: clamp(<span class="t-num">132px</span>, <span class="t-num">12vw</span>, <span class="t-num">182px</span>);
-  letter-spacing: <span class="t-num">-2px</span>;
-  color: <span class="t-str">#ffffff</span>;
-  text-shadow: <span class="t-str">0 4px 10px rgba(27,44,65,.22)</span>;
-  animation: breathe <span class="t-num">1.5s</span> ease-in-out infinite;
-}</pre>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ FLIGHT AMOUNTS ═══ -->
-  <section id="flight-amounts">
-    <div class="section-label">Components</div>
-    <h2>Flight Amounts</h2>
-    <p class="section-desc">Win amount labels that follow the jet and pod during flight. Shows live bet value or cashed-out winnings.</p>
-
-    <div class="comp">
-      <div class="comp-title">Flight Amount — .flight-amount</div>
-      <div class="comp-preview g-root" style="background:#73a0cb;gap:24px;justify-content:center;padding:24px;">
-        <span style="font-family:'Jersey 25',sans-serif;font-size:24px;font-weight:800;color:#ffffff;text-shadow:0 1px 3px rgba(0,0,0,0.45);">$4.20</span>
-        <span style="font-family:'Jersey 25',sans-serif;font-size:24px;font-weight:800;color:#00e676;text-shadow:0 1px 3px rgba(0,0,0,0.45);">$42.50</span>
-      </div>
-      <div class="code-tabs">
-        <button class="code-tab active" onclick="switchTab(this,'fa-css')">CSS</button>
-      </div>
-      <div class="code-panel active" id="fa-css">
-        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
-        <pre><span class="t-sel">.flight-amount</span> {
-  font-weight: <span class="t-num">800</span>;
-  color: <span class="t-str">#ffffff</span>;
-  text-shadow: <span class="t-str">0 1px 3px rgba(0, 0, 0, 0.45)</span>;
-}
-<span class="t-sel">.jet-amount</span> { font-size: calc(<span class="t-num">24px</span> * <span class="t-kw">var</span>(--jet-scale)); }
-<span class="t-sel">.pod-amount</span> { font-size: calc(<span class="t-num">24px</span> * <span class="t-kw">var</span>(--jet-scale)); }
-<span class="t-sel">.flight-amount.live</span>   { color: <span class="t-str">#ffffff</span>; }
-<span class="t-sel">.flight-amount.cashed</span> { color: <span class="t-str">#00e676</span>; }</pre>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ MOBILE SUB-TABS ═══ -->
-  <section id="mobile-sub-tabs">
-    <div class="section-label">Components</div>
-    <h2>Mobile Sub-Tabs</h2>
-    <p class="section-desc">Bets/Players toggle shown below the Live tab on screens &lt; 1024px. Uses the same .tabbar/.tab pattern.</p>
-
-    <div class="comp">
-      <div class="comp-title">Sub-tabs — .mobile-sub-tabs</div>
-      <div class="comp-preview g-root">
-        <div class="g-tabbar" style="grid-template-columns:repeat(2,1fr);width:200px;">
-          <button class="g-tab active">Bets</button>
-          <button class="g-tab">Players</button>
-        </div>
-      </div>
-      <div class="code-tabs">
-        <button class="code-tab active" onclick="switchTab(this,'mst-html')">HTML</button>
-        <button class="code-tab" onclick="switchTab(this,'mst-css')">CSS</button>
-      </div>
-      <div class="code-panel active" id="mst-html">
-        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
-        <pre><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"tabbar mobile-sub-tabs"</span><span class="t-tag">&gt;</span>
-  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"tab active"</span><span class="t-tag">&gt;</span>Bets<span class="t-tag">&lt;/button&gt;</span>
-  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"tab"</span><span class="t-tag">&gt;</span>Players<span class="t-tag">&lt;/button&gt;</span>
-<span class="t-tag">&lt;/div&gt;</span></pre>
-      </div>
-      <div class="code-panel" id="mst-css">
-        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
-        <pre><span class="t-sel">.tabbar.mobile-sub-tabs</span> {
-  display: grid;
-  grid-template-columns: repeat(<span class="t-num">2</span>, <span class="t-num">1fr</span>);
-}
-<span class="t-cmt">/* Hidden on desktop, visible only below 1024px when Live tab is active */</span></pre>
-      </div>
-    </div>
-  </section>
 
 </div><!-- /content -->
 </div><!-- /main -->
@@ -1496,7 +1155,6 @@
     'icon-info': `<img src="https://www.figma.com/api/mcp/asset/a8ef952a-e116-494f-a43a-456c635dd7d5" alt="Info" />`,
     'icon-sound': `<img src="https://www.figma.com/api/mcp/asset/bee7451c-1ed1-4a85-8892-e19415ca3f94" alt="Sound" />`,
     'icon-menu': `<img src="https://www.figma.com/api/mcp/asset/b2371fca-3e10-401b-b526-405037601414" alt="Menu" />`,
-    'icon-lofi': `<img src="https://www.figma.com/api/mcp/asset/dc884d88-8c72-4f94-b327-7d422ff71d23" alt="Lofi" />`,
     'icon-shield': `<img src="https://www.figma.com/api/mcp/asset/feca08ab-18f9-4907-9052-81150fcba283" alt="Shield" />`,
     'icon-pod': `<img src="https://www.figma.com/api/mcp/asset/6048e193-947b-4a70-a662-77fd5a083e29" alt="Pod" />`,
     'icon-hypersonic': `<img src="https://www.figma.com/api/mcp/asset/dccee50a-641a-4fe3-a7f5-0f7b3a4b5533" alt="Hypersonic" />`,
