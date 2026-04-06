@@ -461,6 +461,12 @@ body.booting .scene {
   height: 11px;
   display: block;
   object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(56%) sepia(87%) saturate(2348%) hue-rotate(353deg) brightness(95%) contrast(94%);
+}
+
+.multi-addon-icon.pod-icon img {
+  width: 14px;
+  height: 14px;
 }
 
 .multi.hot {
@@ -1503,6 +1509,11 @@ body.booting .scene {
 
 .adjust-btn {
   color: #c3c3c3;
+}
+
+.adjust-btn svg {
+  width: 16px;
+  height: 16px;
 }
 
 

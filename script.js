@@ -660,9 +660,10 @@ function renderMultiplierMarkup(row) {
     return multiplierText;
   }
 
+  const iconClass = row.boostType === 'pod' ? 'multi-addon-icon pod-icon' : 'multi-addon-icon';
   return '<span class="multi-content">' +
     '<span class="multi-value">' + multiplierText + '</span>' +
-    '<span class="multi-addon-icon" aria-hidden="true"><img src="' + iconUrl + '" alt="" /></span>' +
+    '<span class="' + iconClass + '" aria-hidden="true"><img src="' + iconUrl + '" alt="" /></span>' +
   '</span>';
 }
 
@@ -2637,7 +2638,7 @@ function updateContrail(metrics, deltaSec, isHypersonic) {
     visualState.lastTrailEmitAt = visualState.lastTimestamp;
 
     const exhaustX = visualState.jet.x + 2 * sceneScale;
-    const exhaustY = visualState.jet.y + 26 * sceneScale;
+    const exhaustY = visualState.jet.y + 29 * sceneScale;
     const emissionX = exhaustX + Math.cos(backAngle) * 32 * sceneScale;
     const emissionY = exhaustY + Math.sin(backAngle) * 32 * sceneScale;
 
@@ -2662,7 +2663,7 @@ function updateContrail(metrics, deltaSec, isHypersonic) {
     const lifeRatio = Math.min(1, puff.age / 4.5);
     const fadeOut = Math.pow(1 - lifeRatio, 4);
     const breathe = 0.92 + 0.08 * Math.sin(puff.age * 0.4 + puff.seed);
-    const alpha = 0.72 * fadeIn * fadeOut * breathe;
+    const alpha = 0.78 * fadeIn * fadeOut * breathe;
 
     const radius = (5 + Math.abs(Math.sin(puff.seed * 1.17)) * 2.5 + puff.age * 1.8) * sceneScale;
     const drawX = puff.x - 10 * sceneScale;
