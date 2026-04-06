@@ -2637,7 +2637,7 @@ function updateContrail(metrics, deltaSec, isHypersonic) {
     visualState.lastTrailEmitAt = visualState.lastTimestamp;
 
     const exhaustX = visualState.jet.x + 2 * sceneScale;
-    const exhaustY = visualState.jet.y + 20 * sceneScale;
+    const exhaustY = visualState.jet.y + 26 * sceneScale;
     const emissionX = exhaustX + Math.cos(backAngle) * 32 * sceneScale;
     const emissionY = exhaustY + Math.sin(backAngle) * 32 * sceneScale;
 
