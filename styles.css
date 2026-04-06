@@ -917,7 +917,7 @@ body.booting .scene {
 
 .hypersonic-boost-mult {
   margin-top: -8px;
-  font-size: 140px;
+  font-size: clamp(90px, 14vw, 140px);
   font-weight: 800;
   letter-spacing: -0.03em;
   color: #ffcc00;
