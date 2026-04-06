@@ -375,8 +375,7 @@ function formatUsdValue(amount) {
 }
 
 function formatBuyValue(amount) {
-  const value = Number.isInteger(amount) ? amount.toFixed(0) : amount.toFixed(2);
-  return `$${value}`;
+  return `$${amount.toFixed(2)}`;
 }
 
 function formatFlightAmount(amount) {
