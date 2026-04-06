@@ -165,7 +165,7 @@ let historyIconItems = [];
 
 const gameState = {
   balance: 4950,
-  betAmount: 10,
+  betAmount: 0.10,
   phase: 'taxi',
   phaseElapsed: 0,
   crashAtSec: 10,
