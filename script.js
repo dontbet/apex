@@ -135,7 +135,7 @@ const WHEEL_RETRACT_PX = REFERENCE_GEAR_RETRACT_NATIVE_PX * (REFERENCE_JET_DISPL
 const GEAR_RETRACT_DURATION_SEC = 0.8;
 const GEAR_RETRACT_EXTRA_DELAY_SEC = 1;
 const MODAL_ANIM_DURATION_MS = 280;
-const HISTORY_ICON_TARGET_ROWS = 48;
+const HISTORY_ICON_TARGET_ROWS = 50;
 
 let historyRoundCounter = 812532;
 let historyItems = [
@@ -1037,6 +1037,22 @@ function renderHistoryIconList() {
         + '<span class="history-icon-round">' + escapeHtml(roundId) + '</span>'
         + '<span class="history-icon-mult ' + escapeHtml(tone) + '">' + escapeHtml(item.crash) + '</span>'
         + '</button>';
+    })
+    .join('');
+
+  renderHistoryChipsGrid();
+}
+
+function renderHistoryChipsGrid() {
+  const gridEl = document.getElementById('historyChipsGrid');
+  if (!gridEl) {
+    return;
+  }
+
+  gridEl.innerHTML = historyIconItems
+    .map((item, index) => {
+      const tone = getHistoryChipTone(item.crashValue);
+      return '<button class="history-chip ' + escapeHtml(tone) + '" data-history-index="' + index + '" type="button">' + escapeHtml(item.crash) + '</button>';
     })
     .join('');
 }
@@ -3169,6 +3185,37 @@ historyXBtn.addEventListener('click', () => {
   renderHistoryIconList();
   openModal(historyListModalBackdrop);
 });
+
+document.querySelectorAll('.history-view-tab').forEach((tab) => {
+  tab.addEventListener('click', () => {
+    const view = tab.dataset.historyView;
+    document.querySelectorAll('.history-view-tab').forEach((t) => t.classList.toggle('active', t === tab));
+    const chipsGrid = document.getElementById('historyChipsGrid');
+    const listView = document.querySelector('.history-list-view');
+    if (view === 'chips') {
+      chipsGrid.classList.remove('hidden');
+      listView.classList.add('hidden');
+    } else {
+      chipsGrid.classList.add('hidden');
+      listView.classList.remove('hidden');
+    }
+  });
+});
+
+document.getElementById('historyChipsGrid').addEventListener('click', (event) => {
+  const chip = event.target.closest('.history-chip');
+  if (!chip) {
+    return;
+  }
+  const index = Number(chip.dataset.historyIndex);
+  const item = historyIconItems[index] || getHistoryItemByIndex(index);
+  if (!item) {
+    return;
+  }
+  closeModal(historyListModalBackdrop);
+  openRoundInfo(item, index);
+});
+
 fairnessBtn.addEventListener('click', () => openModal(historyModalBackdrop));
 
 fairnessBtn.addEventListener('keydown', (event) => {

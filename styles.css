@@ -3059,6 +3059,66 @@ body.modal-open {
   width: min(460px, calc(100vw - 32px));
 }
 
+.history-view-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 2px solid #151616;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 10px 14px 0;
+}
+
+.history-view-tab {
+  border: 0;
+  background: #151515;
+  color: #9fa7a8;
+  font-family: inherit;
+  font-size: 14px;
+  padding: 8px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.history-view-tab svg {
+  width: 14px;
+  height: 14px;
+}
+
+.history-view-tab.active {
+  background: #343434;
+  color: #ffffff;
+  border-radius: 10px;
+}
+
+.history-chips-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-height: min(60vh, 420px);
+  overflow: auto;
+  padding-right: 2px;
+}
+
+.history-chips-grid .history-chip {
+  font-size: 13px;
+  padding: 6px 10px;
+  min-width: 0;
+  width: auto;
+}
+
+.history-chips-grid.hidden,
+.history-list-view.hidden {
+  display: none;
+}
+
+.history-list-view {
+  display: grid;
+  gap: 8px;
+}
+
 .history-icon-body {
   display: grid;
   gap: 8px;
