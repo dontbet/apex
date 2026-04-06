@@ -2637,7 +2637,7 @@ function updateContrail(metrics, deltaSec, isHypersonic) {
     visualState.lastTrailEmitAt = visualState.lastTimestamp;
 
     const exhaustX = visualState.jet.x + 2 * sceneScale;
-    const exhaustY = visualState.jet.y + 16 * sceneScale;
+    const exhaustY = visualState.jet.y + 20 * sceneScale;
     const emissionX = exhaustX + Math.cos(backAngle) * 32 * sceneScale;
     const emissionY = exhaustY + Math.sin(backAngle) * 32 * sceneScale;
 
@@ -2662,7 +2662,7 @@ function updateContrail(metrics, deltaSec, isHypersonic) {
     const lifeRatio = Math.min(1, puff.age / 4.5);
     const fadeOut = Math.pow(1 - lifeRatio, 4);
     const breathe = 0.92 + 0.08 * Math.sin(puff.age * 0.4 + puff.seed);
-    const alpha = 0.55 * fadeIn * fadeOut * breathe;
+    const alpha = 0.72 * fadeIn * fadeOut * breathe;
 
     const radius = (5 + Math.abs(Math.sin(puff.seed * 1.17)) * 2.5 + puff.age * 1.8) * sceneScale;
     const drawX = puff.x - 10 * sceneScale;
@@ -3383,6 +3383,36 @@ activateCardWithKeyboard(hypersonicCardEl, buyHypersonic);
 
 increaseBtn.addEventListener('click', () => updateBetAmount(gameState.betAmount * 2));
 decreaseBtn.addEventListener('click', () => updateBetAmount(gameState.betAmount / 2));
+
+const amountInput = document.getElementById('amountInput');
+
+function openAmountInput() {
+  if (gameState.betPlaced) return;
+  amountBox.classList.add('hidden');
+  amountInput.classList.remove('hidden');
+  amountInput.value = gameState.betAmount;
+  amountInput.focus();
+  amountInput.select();
+}
+
+function closeAmountInput() {
+  const val = parseFloat(amountInput.value);
+  if (!isNaN(val) && val > 0) {
+    updateBetAmount(val);
+  }
+  amountInput.classList.add('hidden');
+  amountBox.classList.remove('hidden');
+}
+
+amountBox.addEventListener('click', openAmountInput);
+amountBox.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openAmountInput(); }
+});
+amountInput.addEventListener('blur', closeAmountInput);
+amountInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') { e.preventDefault(); closeAmountInput(); }
+  if (e.key === 'Escape') { amountInput.classList.add('hidden'); amountBox.classList.remove('hidden'); }
+});
 
 betBtn.addEventListener('click', handleBetButtonAction);
 if (podActionBtn) {

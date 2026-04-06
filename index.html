@@ -57,10 +57,15 @@
             <button class="history-chip green" data-history-point="3.11x">3.11x</button>
             <button class="history-chip lime" data-history-point="13.85x">13.85x</button>
             <button class="history-chip icon-chip" id="historyXBtn" aria-label="History">
-              <svg viewBox="0 0 16 16" role="img" aria-hidden="true">
-                <path d="M8 1.6a6.4 6.4 0 1 0 4.92 10.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
-                <path d="M8 4.2v3.9l2.5 1.4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
-                <path d="M11.3 1.9h3v3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+                <g clip-path="url(#hClip)">
+                  <path d="M7.00002 13.5C3.92644 13.5 1.35111 11.3667 0.67395 8.5M13.5 7C13.5 3.41015 10.5899 0.500001 7.00002 0.5C4.29607 0.5 1.97774 2.15105 0.998182 4.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M0.5 2V4.5H3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M7 3V7H10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M13.5 9.25L9.25 13.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M9.25 9.25391L13.5 13.4939" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+                <defs><clipPath id="hClip"><rect width="14" height="14" fill="white"/></clipPath></defs>
               </svg>
             </button>
           </div>
@@ -283,9 +288,14 @@
               </div>
 
               <div class="adjustment" id="adjustmentRow">
-                <div class="amount-box" id="amountBox">$10.00</div>
-                <button class="adjust-btn" id="decreaseBtn" aria-label="Half">÷</button>
-                <button class="adjust-btn" id="increaseBtn" aria-label="Double">×</button>
+                <div class="amount-box" id="amountBox" role="button" tabindex="0">$10.00</div>
+                <input class="amount-input hidden" id="amountInput" type="number" min="1" max="500" step="0.01" inputmode="decimal" />
+                <button class="adjust-btn" id="decreaseBtn" aria-label="Half">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.625 8H12.375" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.75 4.25C6.75 4.58152 6.8817 4.89946 7.11612 5.13388C7.35054 5.3683 7.66848 5.5 8 5.5C8.33152 5.5 8.64946 5.3683 8.88388 5.13388C9.1183 4.89946 9.25 4.58152 9.25 4.25C9.25 3.91848 9.1183 3.60054 8.88388 3.36612C8.64946 3.1317 8.33152 3 8 3C7.66848 3 7.35054 3.1317 7.11612 3.36612C6.8817 3.60054 6.75 3.91848 6.75 4.25Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.75 11.75C6.75 12.0815 6.8817 12.3995 7.11612 12.6339C7.35054 12.8683 7.66848 13 8 13C8.33152 13 8.64946 12.8683 8.88388 12.6339C9.1183 12.3995 9.25 12.0815 9.25 11.75C9.25 11.4185 9.1183 11.1005 8.88388 10.8661C8.64946 10.6317 8.33152 10.5 8 10.5C7.66848 10.5 7.35054 10.6317 7.11612 10.8661C6.8817 11.1005 6.75 11.4185 6.75 11.75Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <button class="adjust-btn" id="increaseBtn" aria-label="Double">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#mClip)"><path d="M1.3536 3.14638L3.1465 1.35348C3.34176 1.15822 3.65834 1.15822 3.8536 1.35348L7.00005 4.49993L10.1464 1.35348C10.3417 1.15822 10.6583 1.15822 10.8536 1.35348L12.6464 3.14638C12.8417 3.34164 12.8417 3.65822 12.6464 3.85348L9.50005 6.99993L12.6464 10.1463C12.8417 10.3416 12.8417 10.6582 12.6464 10.8535L10.8536 12.6463C10.6583 12.8416 10.3417 12.8416 10.1464 12.6463L7.00005 9.49993L3.8536 12.6463C3.65834 12.8416 3.34176 12.8416 3.1465 12.6463L1.3536 10.8535C1.15834 10.6582 1.15834 10.3416 1.3536 10.1463L4.50005 6.99993L1.3536 3.85348C1.15834 3.65822 1.15834 3.34164 1.3536 3.14638Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></g><defs><clipPath id="mClip"><rect width="14" height="14" fill="white"/></clipPath></defs></svg>
+                </button>
               </div>
               <button class="cancel-bet-btn hidden" id="cancelBetBtn">Cancel Bet</button>
             </div>
