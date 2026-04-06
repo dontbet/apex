@@ -913,7 +913,7 @@ body.booting .scene {
 
 .hypersonic-boost-mult {
   margin-top: -8px;
-  font-size: clamp(64px, 12vw, 140px);
+  font-size: 140px;
   font-weight: 800;
   letter-spacing: -0.03em;
   color: #ffcc00;
@@ -1481,6 +1481,7 @@ body.booting .scene {
 .amount-box {
   border-radius: 8px 0 0 8px;
   cursor: pointer;
+  font-size: 18px;
 }
 
 .amount-input {
