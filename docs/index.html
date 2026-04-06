@@ -227,7 +227,7 @@
 
     /* Adjustment row */
     .g-adjustment { display: grid; grid-template-columns: 1fr 56px 56px; height: 37px; width: 200px; }
-    .g-amount-box { border: 1px solid #525252; background: #383838; color: #d9d9d9; font-family: 'Jersey 25', sans-serif; font-size: 16px; display: grid; place-items: center; border-radius: 8px 0 0 8px; }
+    .g-amount-box { border: 1px solid #525252; background: #383838; color: #d9d9d9; font-family: 'Jersey 25', sans-serif; font-size: 18px; display: grid; place-items: center; border-radius: 8px 0 0 8px; cursor: pointer; }
     .g-adjust-btn { border: 1px solid #525252; border-left: none; background: #383838; color: #c3c3c3; font-family: 'Jersey 25', sans-serif; font-size: 16px; display: grid; place-items: center; cursor: pointer; transition: background .15s, color .15s; }
     .g-adjust-btn:last-child { border-radius: 0 8px 8px 0; }
     .g-adjust-btn:hover { background: #454545; color: #f3f3f3; }
@@ -298,6 +298,12 @@
     /* Balance */
     .g-balance { color: #9fa7a8; font-family: 'Jersey 25', sans-serif; font-size: 16px; }
     .g-balance strong { color: #00f27e; }
+
+    /* History View Tabs */
+    .g-history-view-tabs { display: grid; grid-template-columns: 1fr 1fr; border: 2px solid #151616; border-radius: 12px; overflow: hidden; }
+    .g-history-view-tab { border: 0; background: #151515; color: #9fa7a8; font-family: 'Jersey 25', sans-serif; font-size: 14px; padding: 8px 0; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: background .15s, color .15s; }
+    .g-history-view-tab svg { width: 14px; height: 14px; }
+    .g-history-view-tab.active { background: #343434; color: #ffffff; border-radius: 10px; }
   </style>
 </head>
 <body>
@@ -324,8 +330,11 @@
   <a href="#menu">Menu</a>
   <a href="#modal">Modal</a>
   <a href="#copy-field">Copy Field</a>
+  <a href="#history-view-tabs">History View Tabs</a>
   <a href="#history">History</a>
   <a href="#banners">Banners</a>
+  <a href="#flight-amounts">Flight Amounts</a>
+  <a href="#mobile-sub-tabs">Mobile Sub-Tabs</a>
 </nav>
 
 <!-- ── Content ── -->
@@ -476,6 +485,38 @@
         <div class="icon-preview"><img src="https://www.figma.com/api/mcp/asset/dccee50a-641a-4fe3-a7f5-0f7b3a4b5533" alt="Hypersonic" /></div>
         <div class="icon-name">Hypersonic</div>
         <div class="icon-tag">Asset</div>
+      </div>
+    </div>
+
+    <h3>Control Icons</h3>
+    <div class="icon-grid">
+      <div class="icon-card" onclick="copyIconCode(this,'divide')">
+        <div class="icon-preview">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="color:#e8e8e8"><path d="M9.80927 1.97013C9.80927 0.577389 8.30157 -0.293079 7.09542 0.403292C6.53564 0.726481 6.1908 1.32376 6.1908 1.97013C6.1908 3.36288 7.6985 4.23335 8.90465 3.53697C9.46443 3.21378 9.80927 2.61651 9.80927 1.97013ZM9.80927 14.0317C9.80927 12.6389 8.30157 11.7685 7.09542 12.4648C6.53564 12.788 6.1908 13.3853 6.1908 14.0317C6.1908 15.4244 7.6985 16.2949 8.90465 15.5985C9.46443 15.2753 9.80927 14.678 9.80927 14.0317ZM14.6339 9.20706C15.301 9.20706 15.84 8.66806 15.84 8.0009C15.84 7.33375 15.301 6.79475 14.6339 6.79475H1.36619C0.699034 6.79475 0.160034 7.33375 0.160034 8.0009C0.160034 8.66806 0.699034 9.20706 1.36619 9.20706H14.6339Z" fill="currentColor"/></svg>
+        </div>
+        <div class="icon-name">Divide</div>
+        <div class="icon-tag">SVG</div>
+      </div>
+      <div class="icon-card" onclick="copyIconCode(this,'multiply')">
+        <div class="icon-preview">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="color:#e8e8e8"><g clip-path="url(#mClipDoc)"><path d="M9.38083 7.99842L15.5504 1.83876C15.7348 1.65436 15.8384 1.40422 15.8384 1.14342C15.8384 0.882623 15.7348 0.632556 15.5504 0.448156C15.366 0.263756 15.1158 0.160156 14.855 0.160156C14.5942 0.160156 14.3442 0.263756 14.1598 0.448156L8.00003 6.61762L1.8403 0.448156C1.6559 0.263756 1.40577 0.160156 1.14503 0.160156C0.884301 0.160156 0.634101 0.263756 0.449701 0.448156C0.265301 0.632556 0.161701 0.88269 0.161701 1.14342C0.161701 1.40416 0.265301 1.65436 0.449701 1.83876L6.61923 7.99842L0.449701 14.1582C0.357901 14.2492 0.285101 14.3576 0.235368 14.4769C0.185634 14.5962 0.160034 14.7242 0.160034 14.8535C0.160034 14.9828 0.185634 15.1108 0.235368 15.2301C0.285101 15.3495 0.357901 15.4578 0.449701 15.5488C0.540768 15.6406 0.649034 15.7135 0.768368 15.7631C0.887701 15.8129 1.0157 15.8384 1.14503 15.8384C1.2743 15.8384 1.4023 15.8129 1.52163 15.7631C1.64097 15.7135 1.74923 15.6406 1.8403 15.5488L8.00003 9.37922L14.1598 15.5488C14.2508 15.6406 14.3592 15.7135 14.4784 15.7631C14.5978 15.8129 14.7258 15.8384 14.855 15.8384C14.9843 15.8384 15.1123 15.8129 15.2317 15.7631C15.351 15.7135 15.4593 15.6406 15.5504 15.5488C15.6421 15.4578 15.715 15.3495 15.7647 15.2301C15.8144 15.1108 15.84 14.9828 15.84 14.8535C15.84 14.7242 15.8144 14.5962 15.7647 14.4769C15.715 14.3576 15.6421 14.2492 15.5504 14.1582L9.38083 7.99842Z" fill="currentColor"/></g><defs><clipPath id="mClipDoc"><rect width="16" height="16" fill="white"/></clipPath></defs></svg>
+        </div>
+        <div class="icon-name">Multiply</div>
+        <div class="icon-tag">SVG</div>
+      </div>
+      <div class="icon-card" onclick="copyIconCode(this,'chips-view')">
+        <div class="icon-preview">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="color:#e8e8e8"><path d="M5.16667 10.8333V14H2V10.8333H5.16667ZM9.5 10.8333V14H6.5V10.8333H9.5ZM14 14H10.8333V10.8333H14V14ZM14 9.5H10.8333V6.5H14V9.5ZM5.16667 6.5V9.5H2V6.5H5.16667ZM9.5 6.5V9.5H6.5V6.5H9.5ZM14 5.16667H10.8333V2H14V5.16667ZM5.16667 5.16667H2V2H5.16667V5.16667ZM9.5 5.16667H6.5V2H9.5V5.16667Z" fill="currentColor"/></svg>
+        </div>
+        <div class="icon-name">Chips View</div>
+        <div class="icon-tag">SVG</div>
+      </div>
+      <div class="icon-card" onclick="copyIconCode(this,'list-view')">
+        <div class="icon-preview">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="color:#e8e8e8"><rect x="1" y="2" width="13" height="2" fill="currentColor"/><rect x="1" y="5.33398" width="13" height="2" fill="currentColor"/><rect x="1" y="8.66797" width="13" height="2" fill="currentColor"/><rect x="1" y="12.002" width="13" height="2" fill="currentColor"/></svg>
+        </div>
+        <div class="icon-name">List View</div>
+        <div class="icon-tag">SVG</div>
       </div>
     </div>
   </section>
@@ -675,7 +716,7 @@
           <div class="g-player-row"><span class="g-user">JetStream</span><span class="g-multi teal">3.22x</span><span class="g-amount money">$611.80</span></div>
           <div class="g-player-row"><span class="g-user">NovaPilot</span><span class="g-multi gold">7.50x</span><span class="g-amount money">$187.50</span></div>
           <div class="g-player-row"><span class="g-user">RushGrid</span><span class="g-multi hot">24.10x</span><span class="g-amount money">$2,410.00</span></div>
-          <div class="g-player-row"><span class="g-user">LuckyLime</span><span class="g-multi muted">—</span><span class="g-amount">$10.00</span></div>
+          <div class="g-player-row"><span class="g-user">LuckyLime</span><span class="g-multi muted">—</span><span class="g-amount">$0.10</span></div>
         </div>
       </div>
       <div class="code-tabs">
@@ -799,7 +840,7 @@
       <div class="comp-title">All States — .bet-btn</div>
       <div class="comp-preview g-root" style="flex-wrap:wrap;gap:10px;">
         <div style="display:flex;flex-direction:column;gap:4px;align-items:center;">
-          <button class="g-bet-btn"><span>BET</span><span class="sub">$10.00</span></button>
+          <button class="g-bet-btn"><span>BET</span><span class="sub">$0.10</span></button>
           <span style="font-size:11px;color:#555;font-family:Inter">state-bet</span>
         </div>
         <div style="display:flex;flex-direction:column;gap:4px;align-items:center;">
@@ -807,11 +848,11 @@
           <span style="font-size:11px;color:#555;font-family:Inter">state-cashout</span>
         </div>
         <div style="display:flex;flex-direction:column;gap:4px;align-items:center;">
-          <button class="g-bet-btn state-accepted"><span>Bet Accepted</span><span class="sub">$10.00</span></button>
+          <button class="g-bet-btn state-accepted"><span>Bet Accepted</span><span class="sub">$0.10</span></button>
           <span style="font-size:11px;color:#555;font-family:Inter">state-accepted</span>
         </div>
         <div style="display:flex;flex-direction:column;gap:4px;align-items:center;">
-          <button class="g-bet-btn state-drop"><span>DROP POD</span><span class="sub">$10.00</span></button>
+          <button class="g-bet-btn state-drop"><span>DROP POD</span><span class="sub">$0.10</span></button>
           <span style="font-size:11px;color:#555;font-family:Inter">state-drop</span>
         </div>
         <div style="display:flex;flex-direction:column;gap:4px;align-items:center;">
@@ -832,7 +873,7 @@
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
         <pre><span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"bet-btn state-bet"</span><span class="t-tag">&gt;</span>
   <span class="t-tag">&lt;span</span> <span class="t-attr">class</span>=<span class="t-val">"btn-line-one"</span><span class="t-tag">&gt;</span>BET<span class="t-tag">&lt;/span&gt;</span>
-  <span class="t-tag">&lt;span</span> <span class="t-attr">class</span>=<span class="t-val">"btn-line-two"</span><span class="t-tag">&gt;</span>$10.00<span class="t-tag">&lt;/span&gt;</span>
+  <span class="t-tag">&lt;span</span> <span class="t-attr">class</span>=<span class="t-val">"btn-line-two"</span><span class="t-tag">&gt;</span>$0.10<span class="t-tag">&lt;/span&gt;</span>
 <span class="t-tag">&lt;/button&gt;</span></pre>
       </div>
       <div class="code-panel" id="bb-css">
@@ -870,9 +911,9 @@
       <div class="comp-title">Adjustment Row — .adjustment</div>
       <div class="comp-preview g-root">
         <div class="g-adjustment">
-          <div class="g-amount-box">$10.00</div>
-          <button class="g-adjust-btn">÷</button>
-          <button class="g-adjust-btn">×</button>
+          <div class="g-amount-box">$0.10</div>
+          <button class="g-adjust-btn"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.80927 1.97013C9.80927 0.577389 8.30157 -0.293079 7.09542 0.403292C6.53564 0.726481 6.1908 1.32376 6.1908 1.97013C6.1908 3.36288 7.6985 4.23335 8.90465 3.53697C9.46443 3.21378 9.80927 2.61651 9.80927 1.97013ZM9.80927 14.0317C9.80927 12.6389 8.30157 11.7685 7.09542 12.4648C6.53564 12.788 6.1908 13.3853 6.1908 14.0317C6.1908 15.4244 7.6985 16.2949 8.90465 15.5985C9.46443 15.2753 9.80927 14.678 9.80927 14.0317ZM14.6339 9.20706C15.301 9.20706 15.84 8.66806 15.84 8.0009C15.84 7.33375 15.301 6.79475 14.6339 6.79475H1.36619C0.699034 6.79475 0.160034 7.33375 0.160034 8.0009C0.160034 8.66806 0.699034 9.20706 1.36619 9.20706H14.6339Z" fill="currentColor"/></svg></button>
+          <button class="g-adjust-btn"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#mClipAdj)"><path d="M9.38083 7.99842L15.5504 1.83876C15.7348 1.65436 15.8384 1.40422 15.8384 1.14342C15.8384 0.882623 15.7348 0.632556 15.5504 0.448156C15.366 0.263756 15.1158 0.160156 14.855 0.160156C14.5942 0.160156 14.3442 0.263756 14.1598 0.448156L8.00003 6.61762L1.8403 0.448156C1.6559 0.263756 1.40577 0.160156 1.14503 0.160156C0.884301 0.160156 0.634101 0.263756 0.449701 0.448156C0.265301 0.632556 0.161701 0.88269 0.161701 1.14342C0.161701 1.40416 0.265301 1.65436 0.449701 1.83876L6.61923 7.99842L0.449701 14.1582C0.357901 14.2492 0.285101 14.3576 0.235368 14.4769C0.185634 14.5962 0.160034 14.7242 0.160034 14.8535C0.160034 14.9828 0.185634 15.1108 0.235368 15.2301C0.285101 15.3495 0.357901 15.4578 0.449701 15.5488C0.540768 15.6406 0.649034 15.7135 0.768368 15.7631C0.887701 15.8129 1.0157 15.8384 1.14503 15.8384C1.2743 15.8384 1.4023 15.8129 1.52163 15.7631C1.64097 15.7135 1.74923 15.6406 1.8403 15.5488L8.00003 9.37922L14.1598 15.5488C14.2508 15.6406 14.3592 15.7135 14.4784 15.7631C14.5978 15.8129 14.7258 15.8384 14.855 15.8384C14.9843 15.8384 15.1123 15.8129 15.2317 15.7631C15.351 15.7135 15.4593 15.6406 15.5504 15.5488C15.6421 15.4578 15.715 15.3495 15.7647 15.2301C15.8144 15.1108 15.84 14.9828 15.84 14.8535C15.84 14.7242 15.8144 14.5962 15.7647 14.4769C15.715 14.3576 15.6421 14.2492 15.5504 14.1582L9.38083 7.99842Z" fill="currentColor"/></g><defs><clipPath id="mClipAdj"><rect width="16" height="16" fill="white"/></clipPath></defs></svg></button>
         </div>
       </div>
       <div class="code-tabs">
@@ -883,18 +924,21 @@
       <div class="code-panel active" id="adj-html">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
         <pre><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"adjustment"</span><span class="t-tag">&gt;</span>
-  <span class="t-tag">&lt;div</span>    <span class="t-attr">class</span>=<span class="t-val">"amount-box"</span><span class="t-tag">&gt;</span>$10.00<span class="t-tag">&lt;/div&gt;</span>
-  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"adjust-btn"</span><span class="t-tag">&gt;</span>÷<span class="t-tag">&lt;/button&gt;</span>
-  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"adjust-btn"</span><span class="t-tag">&gt;</span>×<span class="t-tag">&lt;/button&gt;</span>
+  <span class="t-tag">&lt;div</span>    <span class="t-attr">class</span>=<span class="t-val">"amount-box"</span><span class="t-tag">&gt;</span>$0.10<span class="t-tag">&lt;/div&gt;</span>
+  <span class="t-tag">&lt;input</span>  <span class="t-attr">class</span>=<span class="t-val">"amount-input hidden"</span> <span class="t-attr">type</span>=<span class="t-val">"number"</span> <span class="t-attr">min</span>=<span class="t-val">"0.01"</span> <span class="t-attr">max</span>=<span class="t-val">"500"</span> <span class="t-attr">step</span>=<span class="t-val">"0.01"</span> <span class="t-tag">/&gt;</span>
+  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"adjust-btn"</span><span class="t-tag">&gt;</span><span class="t-cmt">&lt;!-- Divide SVG 12×12 --&gt;</span><span class="t-tag">&lt;/button&gt;</span>
+  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"adjust-btn"</span><span class="t-tag">&gt;</span><span class="t-cmt">&lt;!-- Multiply SVG 12×12 --&gt;</span><span class="t-tag">&lt;/button&gt;</span>
 <span class="t-tag">&lt;/div&gt;</span></pre>
       </div>
       <div class="code-panel" id="adj-css">
         <div class="copy-btn" onclick="copyCode(this)">Copy</div>
         <pre><span class="t-sel">.adjustment</span> { display: grid; grid-template-columns: <span class="t-num">1fr 62px 62px</span>; height: <span class="t-num">37px</span>; }
-<span class="t-sel">.amount-box,
-.adjust-btn</span> { border: <span class="t-num">1px</span> solid <span class="t-str">#525252</span>; background: <span class="t-str">#383838</span>; color: <span class="t-str">#d9d9d9</span>; font: inherit; font-size: <span class="t-num">16px</span>; }
-<span class="t-sel">.amount-box</span>  { border-radius: <span class="t-num">8px 0 0 8px</span>; }
-<span class="t-sel">.adjust-btn:last-child</span> { border-radius: <span class="t-num">0 8px 8px 0</span>; }</pre>
+<span class="t-sel">.amount-box</span> { border: <span class="t-num">1px</span> solid <span class="t-str">#525252</span>; background: <span class="t-str">#383838</span>; color: <span class="t-str">#d9d9d9</span>; font: inherit; font-size: <span class="t-num">18px</span>; border-radius: <span class="t-num">8px 0 0 8px</span>; cursor: pointer; }
+<span class="t-sel">.amount-input</span> { border: <span class="t-num">1px</span> solid <span class="t-str">#00f27e</span>; background: <span class="t-str">#383838</span>; color: <span class="t-str">#f3f3f3</span>; font: inherit; font-size: <span class="t-num">18px</span>; border-radius: <span class="t-num">8px 0 0 8px</span>; padding: <span class="t-num">0 10px</span>; outline: none; }
+<span class="t-sel">.adjust-btn</span> { border: <span class="t-num">1px</span> solid <span class="t-str">#525252</span>; background: <span class="t-str">#383838</span>; color: <span class="t-str">#c3c3c3</span>; font: inherit; display: grid; place-items: center; }
+<span class="t-sel">.adjust-btn svg</span> { width: <span class="t-num">12px</span>; height: <span class="t-num">12px</span>; }
+<span class="t-sel">.adjust-btn:last-child</span> { border-radius: <span class="t-num">0 8px 8px 0</span>; }
+<span class="t-cmt">/* Click amount-box → show amount-input, hide amount-box */</span></pre>
       </div>
       <div class="code-panel" id="adj-hover">
         <table class="hover-table">
@@ -902,6 +946,7 @@
           <tbody>
             <tr><td>.adjust-btn background</td><td><div class="hover-pair"><div class="hover-swatch" style="background:#383838"></div><span class="hover-hex">#383838</span></div></td><td><div class="hover-pair"><div class="hover-swatch" style="background:#454545"></div><span class="hover-hex">#454545</span></div></td></tr>
             <tr><td>.adjust-btn color</td><td><div class="hover-pair"><div class="hover-swatch" style="background:#c3c3c3"></div><span class="hover-hex">#c3c3c3</span></div></td><td><div class="hover-pair"><div class="hover-swatch" style="background:#f3f3f3"></div><span class="hover-hex">#f3f3f3</span></div></td></tr>
+            <tr><td>.amount-box</td><td colspan="2"><span style="font-size:11px;color:#666">Click to transform into .amount-input (editable). Blur/Enter closes input.</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -1158,6 +1203,94 @@
     </div>
   </section>
 
+  <!-- ═══ HISTORY VIEW TABS ═══ -->
+  <section id="history-view-tabs">
+    <div class="section-label">Components</div>
+    <h2>History View Tabs</h2>
+    <p class="section-desc">Tab toggle inside the History X modal. Switches between Chips grid view (default) and List table view.</p>
+
+    <div class="comp">
+      <div class="comp-title">View Toggle — .history-view-tabs</div>
+      <div class="comp-preview g-root">
+        <div class="g-history-view-tabs" style="width:280px;">
+          <button class="g-history-view-tab active"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.16667 10.8333V14H2V10.8333H5.16667ZM9.5 10.8333V14H6.5V10.8333H9.5ZM14 14H10.8333V10.8333H14V14ZM14 9.5H10.8333V6.5H14V9.5ZM5.16667 6.5V9.5H2V6.5H5.16667ZM9.5 6.5V9.5H6.5V6.5H9.5ZM14 5.16667H10.8333V2H14V5.16667ZM5.16667 5.16667H2V2H5.16667V5.16667ZM9.5 5.16667H6.5V2H9.5V5.16667Z" fill="currentColor"/></svg> Chips</button>
+          <button class="g-history-view-tab"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="2" width="13" height="2" fill="currentColor"/><rect x="1" y="5.33398" width="13" height="2" fill="currentColor"/><rect x="1" y="8.66797" width="13" height="2" fill="currentColor"/><rect x="1" y="12.002" width="13" height="2" fill="currentColor"/></svg> List</button>
+        </div>
+      </div>
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="switchTab(this,'hvt-html')">HTML</button>
+        <button class="code-tab" onclick="switchTab(this,'hvt-css')">CSS</button>
+      </div>
+      <div class="code-panel active" id="hvt-html">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"history-view-tabs"</span><span class="t-tag">&gt;</span>
+  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"history-view-tab active"</span> <span class="t-attr">data-history-view</span>=<span class="t-val">"chips"</span><span class="t-tag">&gt;</span>
+    <span class="t-cmt">&lt;!-- Chips SVG --&gt;</span> Chips
+  <span class="t-tag">&lt;/button&gt;</span>
+  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"history-view-tab"</span> <span class="t-attr">data-history-view</span>=<span class="t-val">"list"</span><span class="t-tag">&gt;</span>
+    <span class="t-cmt">&lt;!-- List SVG --&gt;</span> List
+  <span class="t-tag">&lt;/button&gt;</span>
+<span class="t-tag">&lt;/div&gt;</span></pre>
+      </div>
+      <div class="code-panel" id="hvt-css">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-sel">.history-view-tabs</span> {
+  display: grid;
+  grid-template-columns: <span class="t-num">1fr 1fr</span>;
+  border: <span class="t-num">2px</span> solid <span class="t-str">#151616</span>;
+  border-radius: <span class="t-num">12px</span>;
+  overflow: hidden;
+  margin: <span class="t-num">10px 14px 0</span>;
+}
+<span class="t-sel">.history-view-tab</span> {
+  border: 0;
+  background: <span class="t-str">#151515</span>;
+  color: <span class="t-str">#9fa7a8</span>;
+  font-size: <span class="t-num">14px</span>;
+  padding: <span class="t-num">8px 0</span>;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: <span class="t-num">6px</span>;
+}
+<span class="t-sel">.history-view-tab svg</span> { width: <span class="t-num">14px</span>; height: <span class="t-num">14px</span>; }
+<span class="t-sel">.history-view-tab.active</span> { background: <span class="t-str">#343434</span>; color: <span class="t-str">#ffffff</span>; border-radius: <span class="t-num">10px</span>; }</pre>
+      </div>
+    </div>
+
+    <div class="comp">
+      <div class="comp-title">Chips Grid — .history-chips-grid</div>
+      <div class="comp-preview g-root" style="flex-wrap:wrap;gap:8px;">
+        <button class="g-history-chip warm">1.16x</button>
+        <button class="g-history-chip green">4.57x</button>
+        <button class="g-history-chip green">5.74x</button>
+        <button class="g-history-chip lime">13.85x</button>
+        <button class="g-history-chip green">3.11x</button>
+        <button class="g-history-chip warm">1.42x</button>
+        <button class="g-history-chip green">2.08x</button>
+        <button class="g-history-chip lime">22.50x</button>
+      </div>
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="switchTab(this,'hcg-css')">CSS</button>
+      </div>
+      <div class="code-panel active" id="hcg-css">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-sel">.history-chips-grid</span> {
+  display: flex;
+  flex-wrap: wrap;
+  gap: <span class="t-num">8px</span>;
+  max-height: min(<span class="t-num">60vh</span>, <span class="t-num">420px</span>);
+  overflow: auto;
+}
+<span class="t-sel">.history-chips-grid .history-chip</span> {
+  font-size: <span class="t-num">13px</span>;
+  padding: <span class="t-num">6px 10px</span>;
+}
+<span class="t-cmt">/* Each chip is clickable → opens round info */</span></pre>
+      </div>
+    </div>
+  </section>
+
   <!-- ═══ HISTORY ═══ -->
   <section id="history">
     <div class="section-label">Components</div>
@@ -1253,6 +1386,72 @@
     </div>
   </section>
 
+  <!-- ═══ FLIGHT AMOUNTS ═══ -->
+  <section id="flight-amounts">
+    <div class="section-label">Components</div>
+    <h2>Flight Amounts</h2>
+    <p class="section-desc">Win amount labels that follow the jet and pod during flight. Shows live bet value or cashed-out winnings.</p>
+
+    <div class="comp">
+      <div class="comp-title">Flight Amount — .flight-amount</div>
+      <div class="comp-preview g-root" style="background:#73a0cb;gap:24px;justify-content:center;padding:24px;">
+        <span style="font-family:'Jersey 25',sans-serif;font-size:24px;font-weight:800;color:#ffffff;text-shadow:0 1px 3px rgba(0,0,0,0.45);">$4.20</span>
+        <span style="font-family:'Jersey 25',sans-serif;font-size:24px;font-weight:800;color:#00e676;text-shadow:0 1px 3px rgba(0,0,0,0.45);">$42.50</span>
+      </div>
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="switchTab(this,'fa-css')">CSS</button>
+      </div>
+      <div class="code-panel active" id="fa-css">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-sel">.flight-amount</span> {
+  font-weight: <span class="t-num">800</span>;
+  color: <span class="t-str">#ffffff</span>;
+  text-shadow: <span class="t-str">0 1px 3px rgba(0, 0, 0, 0.45)</span>;
+}
+<span class="t-sel">.jet-amount</span> { font-size: calc(<span class="t-num">24px</span> * <span class="t-kw">var</span>(--jet-scale)); }
+<span class="t-sel">.pod-amount</span> { font-size: calc(<span class="t-num">24px</span> * <span class="t-kw">var</span>(--jet-scale)); }
+<span class="t-sel">.flight-amount.live</span>   { color: <span class="t-str">#ffffff</span>; }
+<span class="t-sel">.flight-amount.cashed</span> { color: <span class="t-str">#00e676</span>; }</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ MOBILE SUB-TABS ═══ -->
+  <section id="mobile-sub-tabs">
+    <div class="section-label">Components</div>
+    <h2>Mobile Sub-Tabs</h2>
+    <p class="section-desc">Bets/Players toggle shown below the Live tab on screens &lt; 1024px. Uses the same .tabbar/.tab pattern.</p>
+
+    <div class="comp">
+      <div class="comp-title">Sub-tabs — .mobile-sub-tabs</div>
+      <div class="comp-preview g-root">
+        <div class="g-tabbar" style="grid-template-columns:repeat(2,1fr);width:200px;">
+          <button class="g-tab active">Bets</button>
+          <button class="g-tab">Players</button>
+        </div>
+      </div>
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="switchTab(this,'mst-html')">HTML</button>
+        <button class="code-tab" onclick="switchTab(this,'mst-css')">CSS</button>
+      </div>
+      <div class="code-panel active" id="mst-html">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"tabbar mobile-sub-tabs"</span><span class="t-tag">&gt;</span>
+  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"tab active"</span><span class="t-tag">&gt;</span>Bets<span class="t-tag">&lt;/button&gt;</span>
+  <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"tab"</span><span class="t-tag">&gt;</span>Players<span class="t-tag">&lt;/button&gt;</span>
+<span class="t-tag">&lt;/div&gt;</span></pre>
+      </div>
+      <div class="code-panel" id="mst-css">
+        <div class="copy-btn" onclick="copyCode(this)">Copy</div>
+        <pre><span class="t-sel">.tabbar.mobile-sub-tabs</span> {
+  display: grid;
+  grid-template-columns: repeat(<span class="t-num">2</span>, <span class="t-num">1fr</span>);
+}
+<span class="t-cmt">/* Hidden on desktop, visible only below 1024px when Live tab is active */</span></pre>
+      </div>
+    </div>
+  </section>
+
 </div><!-- /content -->
 </div><!-- /main -->
 
@@ -1301,6 +1500,10 @@
     'icon-shield': `<img src="https://www.figma.com/api/mcp/asset/feca08ab-18f9-4907-9052-81150fcba283" alt="Shield" />`,
     'icon-pod': `<img src="https://www.figma.com/api/mcp/asset/6048e193-947b-4a70-a662-77fd5a083e29" alt="Pod" />`,
     'icon-hypersonic': `<img src="https://www.figma.com/api/mcp/asset/dccee50a-641a-4fe3-a7f5-0f7b3a4b5533" alt="Hypersonic" />`,
+    divide: `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">\n  <path d="M9.80927 1.97013C9.80927 0.577389 8.30157 -0.293079 7.09542 0.403292C6.53564 0.726481 6.1908 1.32376 6.1908 1.97013C6.1908 3.36288 7.6985 4.23335 8.90465 3.53697C9.46443 3.21378 9.80927 2.61651 9.80927 1.97013ZM9.80927 14.0317C9.80927 12.6389 8.30157 11.7685 7.09542 12.4648C6.53564 12.788 6.1908 13.3853 6.1908 14.0317C6.1908 15.4244 7.6985 16.2949 8.90465 15.5985C9.46443 15.2753 9.80927 14.678 9.80927 14.0317ZM14.6339 9.20706C15.301 9.20706 15.84 8.66806 15.84 8.0009C15.84 7.33375 15.301 6.79475 14.6339 6.79475H1.36619C0.699034 6.79475 0.160034 7.33375 0.160034 8.0009C0.160034 8.66806 0.699034 9.20706 1.36619 9.20706H14.6339Z" fill="currentColor"/>\n</svg>`,
+    multiply: `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">\n  <g clip-path="url(#clip0_718_234)">\n    <path d="M9.38083 7.99842L15.5504 1.83876C15.7348 1.65436 15.8384 1.40422 15.8384 1.14342C15.8384 0.882623 15.7348 0.632556 15.5504 0.448156C15.366 0.263756 15.1158 0.160156 14.855 0.160156C14.5942 0.160156 14.3442 0.263756 14.1598 0.448156L8.00003 6.61762L1.8403 0.448156C1.6559 0.263756 1.40577 0.160156 1.14503 0.160156C0.884301 0.160156 0.634101 0.263756 0.449701 0.448156C0.265301 0.632556 0.161701 0.88269 0.161701 1.14342C0.161701 1.40416 0.265301 1.65436 0.449701 1.83876L6.61923 7.99842L0.449701 14.1582C0.357901 14.2492 0.285101 14.3576 0.235368 14.4769C0.185634 14.5962 0.160034 14.7242 0.160034 14.8535C0.160034 14.9828 0.185634 15.1108 0.235368 15.2301C0.285101 15.3495 0.357901 15.4578 0.449701 15.5488C0.540768 15.6406 0.649034 15.7135 0.768368 15.7631C0.887701 15.8129 1.0157 15.8384 1.14503 15.8384C1.2743 15.8384 1.4023 15.8129 1.52163 15.7631C1.64097 15.7135 1.74923 15.6406 1.8403 15.5488L8.00003 9.37922L14.1598 15.5488C14.2508 15.6406 14.3592 15.7135 14.4784 15.7631C14.5978 15.8129 14.7258 15.8384 14.855 15.8384C14.9843 15.8384 15.1123 15.8129 15.2317 15.7631C15.351 15.7135 15.4593 15.6406 15.5504 15.5488C15.6421 15.4578 15.715 15.3495 15.7647 15.2301C15.8144 15.1108 15.84 14.9828 15.84 14.8535C15.84 14.7242 15.8144 14.5962 15.7647 14.4769C15.715 14.3576 15.6421 14.2492 15.5504 14.1582L9.38083 7.99842Z" fill="currentColor"/>\n  </g>\n  <defs><clipPath id="clip0_718_234"><rect width="16" height="16" fill="white"/></clipPath></defs>\n</svg>`,
+    'chips-view': `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">\n  <path d="M5.16667 10.8333V14H2V10.8333H5.16667ZM9.5 10.8333V14H6.5V10.8333H9.5ZM14 14H10.8333V10.8333H14V14ZM14 9.5H10.8333V6.5H14V9.5ZM5.16667 6.5V9.5H2V6.5H5.16667ZM9.5 6.5V9.5H6.5V6.5H9.5ZM14 5.16667H10.8333V2H14V5.16667ZM5.16667 5.16667H2V2H5.16667V5.16667ZM9.5 5.16667H6.5V2H9.5V5.16667Z" fill="currentColor"/>\n</svg>`,
+    'list-view': `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">\n  <rect x="1" y="2" width="13" height="2" fill="currentColor"/>\n  <rect x="1" y="5.33398" width="13" height="2" fill="currentColor"/>\n  <rect x="1" y="8.66797" width="13" height="2" fill="currentColor"/>\n  <rect x="1" y="12.002" width="13" height="2" fill="currentColor"/>\n</svg>`,
   };
 
   function copyIconCode(card, key) {
