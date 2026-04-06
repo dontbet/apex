@@ -465,8 +465,8 @@ body.booting .scene {
 }
 
 .multi-addon-icon.pod-icon img {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
 }
 
 .multi.hot {
@@ -972,6 +972,7 @@ body.booting .scene {
   font-weight: 800;
   color: #ffffff;
   opacity: 0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
 }
 
 .jet-amount {
